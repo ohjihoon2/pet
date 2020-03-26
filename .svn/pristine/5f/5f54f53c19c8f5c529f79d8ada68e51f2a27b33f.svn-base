@@ -1,0 +1,322 @@
+/**
+	item¸ÞÀÎ
+**/
+
+div#con_item {
+	/* border:1px solid red; */
+	margin: 0 auto;
+	width: 1200px;
+	overflow: hidden;
+}
+
+/** 
+	aside start
+ **/
+div#con_item aside{
+	width: 200px;
+	height: 500px;
+	/* border:1px solid black; */ 
+	float:left;
+	margin-top: 50px;
+}
+
+div#con_item aside div#asidemenu:nth-child(1){
+	width: 160px;
+	border: 1px solid #ededed;
+	padding: 0 20px 0 20px;
+}
+
+
+div#con_item aside div#asidemenu:nth-child(1) ul:nth-child(2){
+	list-style: none;
+	padding: 0;
+	margin: 0 0 20px 0;
+}
+
+div#con_item aside div#asidemenu:nth-child(1) ul:nth-child(5){
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	/* border:1px solid blue; */
+}
+
+div#con_item aside div#asidemenu:nth-child(1) ul li:nth-child(1){
+	margin-top:25px;
+}
+
+div#con_item aside div#asidemenu:nth-child(1) ul li{
+	list-style: none;
+	display: block;
+	/* border: 1px solid red; */
+	padding: 0;
+	margin: 15px 0px;
+}
+
+div#con_item aside div#asidemenu:nth-child(1) ul li a{
+	display:inline-block;
+	width:100%;
+	font-size:14px;
+	color:#333333;
+	text-decoration: none;
+	/* border: 1px solid black; */ 
+}
+
+div#con_item aside div#asidemenu:nth-child(1) ul li:hover{
+	/* background-color: green; */
+	color: #e19404;
+	cursor: pointer;
+}
+
+div#con_item aside div#asidemenu:nth-child(1) h3{
+	font-size:20px;
+	color:#333333;
+	padding: 0;
+	margin: 20px 0 10px 0;
+	cursor: pointer;
+}
+
+div#con_item aside div>hr{
+	border: 1px solid #ededed;
+}
+
+div#con_item aside div#asidemenu #asidedog1 img{
+	float: right;
+}
+
+div#con_item aside div#asidemenu #asidecat1 img{
+	float: right;
+}
+/** 
+	aside end
+ **/
+ 
+ 
+ 
+/** 
+	section2 start
+ **/
+div#con_item section:nth-child(2){
+	width: 970px;
+	float:right;
+	/* border:1px solid red; */
+	margin-top: 50px;
+}
+
+div#con_item section:nth-child(2) article{
+	height: 60px;
+	border: 1px solid black; 
+}
+
+div#con_item section:nth-child(2) article:nth-child(1) dt{
+	display:table-cell;	
+	/* border: 1px solid red; */
+	vertical-align:middle;
+	text-align:center;
+	width:200px;
+	height: 60px;
+	background-color: #333333;
+	color: white;
+}
+
+div#con_item section:nth-child(2) article:nth-child(1) dd{
+	display:table-cell;	
+	/* border: 1px solid red; */
+	vertical-align:middle;
+	width:800px;
+	height: 60px;
+}
+
+
+div#con_item section:nth-child(2) article:nth-child(2) dt{
+	display:table-cell;	
+	/* border: 1px solid red; */
+	vertical-align:middle;
+	text-align:center;
+	width:200px;
+	height: 60px;
+	background-color: #333333;
+	color: white;
+}
+
+div#con_item section:nth-child(2) article:nth-child(2) dd{
+	display:table-cell;	
+	/* border: 1px solid red; */
+	vertical-align:middle;
+	width:800px;
+	height: 60px;
+}
+
+div#con_item section:nth-child(2) article:nth-child(3) dt{
+	display:table-cell;	
+	/* border: 1px solid red; */
+	vertical-align:middle;
+	text-align:center;
+	width:200px;
+	height: 60px;
+	background-color: #333333;
+	color: white;
+}
+
+div#con_item section:nth-child(2) article:nth-child(3) dd{
+	display:table-cell;	
+	/* border: 1px solid red; */
+	vertical-align:middle;
+	width:800px;
+	height: 60px;
+}
+
+div#con_item section:nth-child(2) article:nth-child(4) dt{
+	display:table-cell;	
+	/* border: 1px solid blue; */
+	vertical-align:middle;
+	text-align:center;
+	width:200px;
+	height: 60px;
+	background-color: #333333;
+	color: white;
+}
+
+div#con_item section:nth-child(2) article:nth-child(4) dd{
+	display:table-cell;	
+	/* border: 1px solid blue; */
+	vertical-align:middle;
+	width:800px;
+	height: 60px;
+}
+
+
+/** 
+	section2 end
+ **/
+ 
+ 
+
+/** 
+	section3 start
+ **/
+div#con_item section:nth-child(3){
+	width: 970px;
+	float:right;
+	/* border:1px solid red; */
+}
+
+
+div#con_item section:nth-child(3) article#sp33 div.div_sp3{
+	height:80px;
+	width:100%;
+	line-height:80px;
+	/* border:1px solid blue; */
+	font-size: 20px;
+	text-align: center;
+}
+
+div#con_item section:nth-child(3) article#sp33 #sp3{
+	color: #ffc71d;
+	/* border:1px solid red; */
+}
+
+
+
+div#con_item section:nth-child(3) article#sp33{
+	height:2000px;
+	/* border:1px solid green;	 */
+	
+}
+
+div#con_item section:nth-child(3) article#sp33 div.box_sequence{
+	width:100%;
+	height:32px;
+	/* border:1px solid yellow; */
+
+}
+
+div#con_item section:nth-child(3) article#sp33 div.box_sequence ul{
+	/* border:1px solid black; */
+	padding: 0px;
+	margin: 0px;
+	background-color: #f6f6f6;
+}
+
+div#con_item section:nth-child(3) article#sp33 div.box_sequence ul li{
+	/* border: 1px solid red; */
+	display: inline-block;
+	color: #666666;
+	cursor:pointer;
+	padding: 7px;
+}
+
+div#con_item section:nth-child(3) article#sp33 div.box_sequence ul li a{
+	text-decoration:none;
+	color: #666666;
+}
+
+div#con_item section:nth-child(3) article#sp33 div.box_sequence2{
+	/* border:1px solid black; */
+	width:100%;
+	height:1200px;
+	margin:0 auto;
+	padding:0px;
+}
+
+div#con_item section:nth-child(3) article#sp33 div.box_sequence2 ul{
+	/*border:1px solid red;*/
+	width:100%;
+	padding:0px;
+	margin:0x;
+}
+
+div#con_item section:nth-child(3) article#sp33 div.box_sequence2 ul li.sequence2_li{
+	border:1px solid #e2e2e2;
+	display:inline-block;
+	height:350px;
+	list-style:none;
+	box-sizing: border-box;
+	margin-right:-2.5px;
+	width:25%;
+	text-align:center;
+	padding: 10px;
+	cursor: pointer;
+}
+
+div#con_item section:nth-child(3) article#sp33 div.box_sequence2 ul li a{
+	text-decoration: none;
+}
+
+div#con_item section:nth-child(3) article#sp33 div.box_sequence2 ul li:hover {
+	border:1px solid #ffc71d;
+	
+}
+
+div#con_item section:nth-child(3) article#sp33 div.box_sequence2 ul li div img.middle{
+	width: 200px;
+	height: 200px;
+	
+}
+
+div#con_item section:nth-child(3) article#sp33 div.box_sequence2 ul li div:nth-child(2){
+	margin-top: 20px;	
+}
+
+
+div#con_item section:nth-child(3) article#sp33 div.box_sequence2 ul li div:nth-child(2) span{
+	/*border:1px solid blue;*/
+	margin: 0 auto;
+	display:block;
+	height:50px;
+	width: 90%;
+	font-size: 17px;
+	
+}
+
+div#con_item section:nth-child(3) article#sp33 div.box_sequence2 ul li div:nth-child(2) span:nth-child(2){
+	display: inline;
+	color:#373536;
+	font-weight:bold;
+	font-size: 24px;
+	
+}
+
+
+/** 
+	section3 end
+ **/

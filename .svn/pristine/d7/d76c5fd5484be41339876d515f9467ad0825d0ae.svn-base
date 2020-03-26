@@ -1,0 +1,121 @@
+package com.pettoday.vo;
+
+public class Item_cateVO {
+	String ITEM_CATE_NO, ITEM_CATE_GORY, ITEM_CATE_CATE1, ITEM_CATE_CATE2, 
+	ITEM_CATE_CATE3, ITEM_CATE_BRAND1, ITEM_CATE_BRAND2,ITEM_CATE_BRAND3,
+	ITEM_CATE_FEATURE1,ITEM_CATE_FEATURE2,ITEM_CATE_FEATURE3,
+	ITEM_CATE_MATERIAL1,ITEM_CATE_MATERIAL2,ITEM_CATE_MATERIAL3;
+
+	public String getITEM_CATE_NO() {
+		return ITEM_CATE_NO;
+	}
+
+	public void setITEM_CATE_NO(String iTEM_CATE_NO) {
+		ITEM_CATE_NO = iTEM_CATE_NO;
+	}
+
+	public String getITEM_CATE_GORY() {
+		return ITEM_CATE_GORY;
+	}
+
+	public void setITEM_CATE_GORY(String iTEM_CATE_GORY) {
+		ITEM_CATE_GORY = iTEM_CATE_GORY;
+	}
+
+	public String getITEM_CATE_CATE1() {
+		return ITEM_CATE_CATE1;
+	}
+
+	public void setITEM_CATE_CATE1(String iTEM_CATE_CATE1) {
+		ITEM_CATE_CATE1 = iTEM_CATE_CATE1;
+	}
+
+	public String getITEM_CATE_CATE2() {
+		return ITEM_CATE_CATE2;
+	}
+
+	public void setITEM_CATE_CATE2(String iTEM_CATE_CATE2) {
+		ITEM_CATE_CATE2 = iTEM_CATE_CATE2;
+	}
+
+	public String getITEM_CATE_CATE3() {
+		return ITEM_CATE_CATE3;
+	}
+
+	public void setITEM_CATE_CATE3(String iTEM_CATE_CATE3) {
+		ITEM_CATE_CATE3 = iTEM_CATE_CATE3;
+	}
+
+	public String getITEM_CATE_BRAND1() {
+		return ITEM_CATE_BRAND1;
+	}
+
+	public void setITEM_CATE_BRAND1(String iTEM_CATE_BRAND1) {
+		ITEM_CATE_BRAND1 = iTEM_CATE_BRAND1;
+	}
+
+	public String getITEM_CATE_BRAND2() {
+		return ITEM_CATE_BRAND2;
+	}
+
+	public void setITEM_CATE_BRAND2(String iTEM_CATE_BRAND2) {
+		ITEM_CATE_BRAND2 = iTEM_CATE_BRAND2;
+	}
+
+	public String getITEM_CATE_BRAND3() {
+		return ITEM_CATE_BRAND3;
+	}
+
+	public void setITEM_CATE_BRAND3(String iTEM_CATE_BRAND3) {
+		ITEM_CATE_BRAND3 = iTEM_CATE_BRAND3;
+	}
+
+	public String getITEM_CATE_FEATURE1() {
+		return ITEM_CATE_FEATURE1;
+	}
+
+	public void setITEM_CATE_FEATURE1(String iTEM_CATE_FEATURE1) {
+		ITEM_CATE_FEATURE1 = iTEM_CATE_FEATURE1;
+	}
+
+	public String getITEM_CATE_FEATURE2() {
+		return ITEM_CATE_FEATURE2;
+	}
+
+	public void setITEM_CATE_FEATURE2(String iTEM_CATE_FEATURE2) {
+		ITEM_CATE_FEATURE2 = iTEM_CATE_FEATURE2;
+	}
+
+	public String getITEM_CATE_FEATURE3() {
+		return ITEM_CATE_FEATURE3;
+	}
+
+	public void setITEM_CATE_FEATURE3(String iTEM_CATE_FEATURE3) {
+		ITEM_CATE_FEATURE3 = iTEM_CATE_FEATURE3;
+	}
+
+	public String getITEM_CATE_MATERIAL1() {
+		return ITEM_CATE_MATERIAL1;
+	}
+
+	public void setITEM_CATE_MATERIAL1(String iTEM_CATE_MATERIAL1) {
+		ITEM_CATE_MATERIAL1 = iTEM_CATE_MATERIAL1;
+	}
+
+	public String getITEM_CATE_MATERIAL2() {
+		return ITEM_CATE_MATERIAL2;
+	}
+
+	public void setITEM_CATE_MATERIAL2(String iTEM_CATE_MATERIAL2) {
+		ITEM_CATE_MATERIAL2 = iTEM_CATE_MATERIAL2;
+	}
+
+	public String getITEM_CATE_MATERIAL3() {
+		return ITEM_CATE_MATERIAL3;
+	}
+
+	public void setITEM_CATE_MATERIAL3(String iTEM_CATE_MATERIAL3) {
+		ITEM_CATE_MATERIAL3 = iTEM_CATE_MATERIAL3;
+	}
+	
+}

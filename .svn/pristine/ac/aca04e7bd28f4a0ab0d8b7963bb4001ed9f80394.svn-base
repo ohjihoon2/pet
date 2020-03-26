@@ -1,0 +1,232 @@
+package com.myspring.controller;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.pettoday.dao.ItemDAO;
+import com.pettoday.dao.VetDAO;
+import com.pettoday.vo.ItemVO;
+import com.pettoday.vo.VetVO;
+
+@Controller
+public class VetController {
+	
+	@Autowired
+	private VetDAO VetDao;
+	
+
+	@Autowired
+	private ItemDAO ItemDao;
+	
+	/*******************
+	 ******* 강아지  ******
+	 *******************/	
+
+	@RequestMapping(value = "/vet1.do", method = RequestMethod.GET) 
+	public String vet1() {
+		return "/vet/vet1.user";
+	}
+	@RequestMapping(value = "/vet1_detail.do", method = RequestMethod.GET)
+	public String vet1_detail() {
+		return "/vet/vet1_detail.user";
+	}
+	@RequestMapping(value = "/vet1New.do", method = RequestMethod.GET)
+	public String vet1New() {
+		return "/vet/vet1New.user";
+	}
+	@RequestMapping(value = "/vet1_update.do", method = RequestMethod.GET)
+	public String vet1_update() {
+		return "/vet/vet1_update.user";
+	}
+	@RequestMapping(value = "/vet1_delete.do", method = RequestMethod.GET)
+	public String vet1_delete() {
+		return "/vet/vet1_delete.user";
+	}
+	@RequestMapping(value = "/vet2.do", method = RequestMethod.GET)
+	public String vet2() {
+		return "/vet/vet2.user";
+	}
+	@RequestMapping(value = "/vet2_result.do", method = RequestMethod.GET)
+	public String vet2_result() {
+		return "/vet/vet2_result.user";
+	}
+	@RequestMapping(value = "/vet3.do", method = RequestMethod.GET)
+	public ModelAndView vet3(String rpage) {
+		ModelAndView mv = new ModelAndView();
+
+		// 페이징 처리 - startCount, endCount 구하기
+		int startCount = 0;
+		int endCount = 0;
+		int pageSize = 6; // 한페이지당 게시물 수
+		int reqPage = 0; // 요청페이지
+		int pageCount = 1; // 전체 페이지 수
+		int dbCount = VetDao.execTotalCount(); // DB에서 가져온 전체 행수
+		
+		// 총 페이지 수 계산
+		if (dbCount % pageSize == 0) {
+			pageCount = dbCount / pageSize;
+		} else {
+			pageCount = dbCount / pageSize + 1;
+		}
+
+		// 요청 페이지 계산
+		if (rpage != null) {
+			reqPage = Integer.parseInt(rpage);
+			startCount = (reqPage - 1) * pageSize + 1;
+			endCount = reqPage * pageSize;
+		} else { // 가장 처음 페이지 즉, 1번페이지가 나온다.
+			reqPage = 1; 
+			startCount = 1;
+			endCount = 6;
+		}
+
+		ArrayList<VetVO> list = VetDao.getResultList(startCount, endCount);
+		
+	
+
+		mv.addObject("list", list);
+		mv.addObject("dbCount", dbCount);
+		mv.addObject("rpage", reqPage);
+		mv.addObject("pageSize", pageSize);
+	
+		mv.setViewName("/vet/vet3.user");
+
+		return mv;
+	}
+	
+	
+	@RequestMapping(value = "/vet3_detail.do", method = RequestMethod.GET)
+	public ModelAndView vet3_detail(String tip_id,String page) {
+		ModelAndView mv = new ModelAndView();
+		
+		VetVO vo =VetDao.getResultContent(tip_id);
+		
+		if(vo.getTip_title() != null && vo.getTip_title() != ""){
+		
+			
+			if(vo.getTip_content() != null && vo.getTip_content() != ""){
+				vo.setTip_content(vo.getTip_content().replace("\r\n", "<br>"));
+				ArrayList<ItemVO> list = ItemDao.getDogGoodList(); 
+				
+				mv.addObject("list",list);
+				mv.addObject("vo",vo);
+				mv.addObject("rpage",page);
+				mv.setViewName("/vet/vet3_detail.user");
+			}else{
+				vo.setTip_content("");
+			}
+			
+		}else{
+			mv.setViewName("errorPage");
+		}
+		return mv;
+	}
+	 
+	/*******************
+	 ******* 고양이  ******
+	 *******************/
+	
+	@RequestMapping(value = "/vet4.do", method = RequestMethod.GET) 
+	public String vet4() {
+		return "/vet/vet4.user";
+	}
+	@RequestMapping(value = "/vet4_detail.do", method = RequestMethod.GET)
+	public String vet4_detail() {
+		return "/vet/vet4_detail.user";
+	}
+	@RequestMapping(value = "/vet4New.do", method = RequestMethod.GET)
+	public String vet4New() {
+		return "/vet/vet4New.user";
+	}
+	@RequestMapping(value = "/vet4_update.do", method = RequestMethod.GET)
+	public String vet4_update() {
+		return "/vet/vet41_update.user";
+	}
+	@RequestMapping(value = "/vet4_delete.do", method = RequestMethod.GET)
+	public String vet4_delete() {
+		return "/vet/vet4_delete.user";
+	}
+	@RequestMapping(value = "/vet5.do", method = RequestMethod.GET)
+	public String vet5() {
+		return "/vet/vet5.user";
+	}
+	@RequestMapping(value = "/vet5_result.do", method = RequestMethod.GET)
+	public String vet5_result() {
+		return "/vet/vet5_result.user";
+	}
+	@RequestMapping(value = "/vet6.do", method = RequestMethod.GET)
+	public ModelAndView vet6(String rpage) {
+		ModelAndView mv = new ModelAndView();
+
+		// 페이징 처리 - startCount, endCount 구하기
+		int startCount = 0;
+		int endCount = 0;
+		int pageSize = 6; // 한페이지당 게시물 수
+		int reqPage = 0; // 요청페이지
+		int pageCount = 1; // 전체 페이지 수
+		int dbCount = VetDao.execTotalCount2(); // DB에서 가져온 전체 행수
+		
+		// 총 페이지 수 계산
+		if (dbCount % pageSize == 0) {
+			pageCount = dbCount / pageSize;
+		} else {
+			pageCount = dbCount / pageSize + 1;
+		}
+
+		// 요청 페이지 계산
+		if (rpage != null) {
+			reqPage = Integer.parseInt(rpage);
+			startCount = (reqPage - 1) * pageSize + 1;
+			endCount = reqPage * pageSize;
+		} else { // 가장 처음 페이지 즉, 1번페이지가 나온다.
+			reqPage = 1; 
+			startCount = 1;
+			endCount = 6;
+		}
+
+		ArrayList<VetVO> list = VetDao.getResultList2(startCount, endCount);
+		
+	
+
+		mv.addObject("list", list);
+		mv.addObject("dbCount", dbCount);
+		mv.addObject("rpage", reqPage);
+		mv.addObject("pageSize", pageSize);
+	
+		mv.setViewName("/vet/vet6.user");
+
+		return mv;
+	}
+	@RequestMapping(value = "/vet6_detail.do", method = RequestMethod.GET)
+	public ModelAndView vet6_detail(String tip_id,String page) {
+		ModelAndView mv = new ModelAndView();
+		
+		VetVO vo =VetDao.getResultContent(tip_id);
+		
+		if(vo.getTip_title() != null && vo.getTip_title() != ""){
+		
+			
+			if(vo.getTip_content() != null && vo.getTip_content() != ""){
+				vo.setTip_content(vo.getTip_content().replace("\r\n", "<br>"));
+				ArrayList<ItemVO> list = ItemDao.getCatGoodList(); 
+				
+				mv.addObject("list",list);
+				
+				mv.addObject("vo",vo);
+				mv.addObject("rpage",page);
+				mv.setViewName("/vet/vet6_detail.user");
+			}else{
+				vo.setTip_content("");
+			}
+			
+		}else{
+			mv.setViewName("errorPage");
+		}
+		return mv;
+	}
+}

@@ -1,0 +1,26 @@
+package com.pettoday.dao;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.pettoday.vo.JoinVO;
+
+@Repository
+public class memberDAO {
+
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+
+	private String namespace = "mapper.member";
+	
+	public int getResultIdCheck(String mem_id) {
+		System.out.println("mem_id(dao)="+mem_id);
+		return sqlSession.selectOne(namespace+".idcheck", mem_id);
+	}
+	
+	/** 회원 가입 **/
+	public int getResultJoin(JoinVO vo) {
+		return sqlSession.insert(namespace + ".join", vo);
+	}
+}

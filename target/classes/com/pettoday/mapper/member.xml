@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.member">
+	<select id="idcheck" parameterType="java.lang.String"  resultType="int">
+		select count(*) from member where mem_id = #{mem_id}
+	</select>
+	
+	<insert id="join" parameterType="com.pettoday.vo.JoinVO">
+		INSERT INTO member values(#{mem_id}, #{mem_pass}, #{mem_name}, #{mem_petname}, #{mem_dogcat},
+		#{mem_species},#{mem_email1}||'@'||#{mem_email2}, #{mem_phone},#{mem_address1}||'/'||#{mem_address2}||'/'||#{mem_address3}, sysdate)
+	</insert>
+	
+	<select id="login" parameterType="com.pettoday.vo.LoginVO"
+		resultType="com.pettoday.vo.SessionVO">
+		select count(*) result, mem_name
+		from member
+		where mem_id=#{id} and mem_pass=#{pass} group by mem_name
+	</select>
+	
+	<select id="login_Pw" parameterType="com.pettoday.vo.JoinVO" resultType="java.lang.String">
+		select mem_pass from member where mem_id = #{mem_id} and mem_email = #{mem_email1}||'@'||#{mem_email2}
+	</select>
+	
+	<select id="login_Id" parameterType="com.pettoday.vo.JoinVO" resultType="java.lang.String">
+		select mem_id from member where mem_name = #{mem_name} and mem_email = #{mem_email1}||'@'||#{mem_email2}
+	</select>
+	
+	<delete id="del_mem" parameterType="java.lang.String">
+		delete from member where mem_id = #{mem_id}
+	</delete>
+	
+	<select id="mem_list" parameterType="map" resultType="com.pettoday.vo.JoinVO">
+		select rownum rno, mem_id, mem_name, mem_petname, mem_dogcat, mem_species, mem_email, mem_phone, mem_address 
+		from (select mem_id, mem_name, mem_petname, mem_dogcat, mem_species, mem_email, mem_phone, mem_address 
+					from member order by mem_date desc)
+	</select>
+</mapper>

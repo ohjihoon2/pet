@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper는 xml파일에 하나만 만들수 있다. -->
+<mapper namespace="mapper.community">
+	<select id="wonderList" 
+			parameterType="map" 
+			resultType="com.pettoday.vo.WonderVO">
+		select * from (select rownum rno ,WONDER_NO, WONDER_TITLE, WONDER_CONTENT, WONDER_DATE, WONDER_WRITER,WONDER_VIEW  
+                       from (
+					        select WONDER_NO, WONDER_TITLE, WONDER_CONTENT, WONDER_DATE, WONDER_WRITER,WONDER_VIEW  
+                            from wonder order by wonder_no desc))
+ 		WHERE RNO BETWEEN #{start} AND #{end} 
+	</select>
+<!-- 	<select id="wonderSearchList" 
+			parameterType="map" 
+			resultType="com.pettoday.vo.WonderVO">
+		select * from (select rownum rno ,WONDER_NO, WONDER_TITLE, WONDER_CONTENT, WONDER_DATE, WONDER_WRITER,WONDER_VIEW  
+                       from (
+					        select WONDER_NO, WONDER_TITLE, WONDER_CONTENT, WONDER_DATE, WONDER_WRITER,WONDER_VIEW  
+                            from wonder where wonder_title like '%#{search}%' order by wonder_no desc))
+ 		WHERE RNO BETWEEN #{start} AND #{end} 
+	</select> -->
+<select id="wonderSearchList" 
+			parameterType="map" 
+			resultType="com.pettoday.vo.WonderVO">
+		select * from (select rownum rno ,WONDER_NO, WONDER_TITLE, WONDER_CONTENT, WONDER_DATE, WONDER_WRITER,WONDER_VIEW  
+                       from (
+							<choose>
+						    	<when test="sort == 'title'">
+						        select WONDER_NO, WONDER_TITLE, WONDER_CONTENT, WONDER_DATE, WONDER_WRITER,WONDER_VIEW 
+	                            from wonder where wonder_title like '%'||#{search}||'%' order by wonder_no desc))
+						        </when>
+						        <when test="sort == 'writer'">
+						        select WONDER_NO, WONDER_TITLE, WONDER_CONTENT, WONDER_DATE, WONDER_WRITER,WONDER_VIEW 
+	                            from wonder where wonder_writer like  '%'||#{search}||'%' order by wonder_no desc))
+						        </when>
+					        </choose>
+ 		WHERE RNO BETWEEN #{start} AND #{end} 
+</select>
+	
+	<select id="wcount"  resultType="int">
+		select count(*) from wonder
+	</select>
+	
+	<select id="wSearchcount"  
+			parameterType="map"
+			resultType="int">
+			<choose>
+		    	<when test="sort == 'title'">
+					select count(*) from wonder where wonder_title like '%'||#{search}||'%'
+		        </when>
+		        <when test="sort == 'writer'">
+					select count(*) from wonder where wonder_writer like '%'||#{search}||'%'
+		        </when>
+	        </choose>
+	</select>
+	
+	<insert id="wonderWrite" 
+			parameterType="com.pettoday.vo.WonderVO">
+		insert into wonder values(seq_wonder_no.nextval, #{wonder_title} ,#{wonder_content},sysdate,#{wonder_writer},0)
+	</insert>
+	
+	<select id="wonderContent" parameterType="java.lang.String" 
+			resultType="com.pettoday.vo.WonderVO">
+		select * from wonder where wonder_no = #{wonder_no}
+	</select>
+	
+	<update id="wonderViewUpdate"
+			parameterType="java.lang.String">
+		update wonder set wonder_view =wonder_view+1 where wonder_no = #{wonder_no}
+	</update>
+	
+	<select id="selectAnswerCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM ANSWER_REPLY WHERE WONDER_ANSWER_NO = #{answer_count} 
+	</select>
+	
+	<select id="answerList"
+			parameterType="java.lang.String"
+			resultType="com.pettoday.vo.AnswerVO">
+		select * from wonder_answer where wonder_no = #{wonder_no} order by wonder_answer_no
+	</select>
+	
+	<insert id="answerInsert"
+			parameterType="com.pettoday.vo.AnswerVO">
+		insert into wonder_answer values(seq_answer_no.nextval, #{wonder_answer_title}, #{wonder_answer_content} , sysdate , #{wonder_answer_writer} , #{wonder_no})
+	</insert>
+	
+	<select id="answerReplyCount"
+			parameterType="java.lang.String"
+			resultType="int">
+		select count(*) from answer_reply where wonder_answer_no= #{wonder_answer_no}
+	</select>
+	
+	<select id="answerReplyList"
+			parameterType="java.lang.String"
+			resultType="com.pettoday.vo.WonderAnswerReplyVO">
+		select * from answer_reply where wonder_answer_no = #{wonder_answer_no} order by wonder_answer_no
+	</select>
+	
+	<insert id="answerReplyInsert"
+			parameterType="com.pettoday.vo.WonderAnswerReplyVO">
+		insert into answer_reply values(seq_wonder_answer_reply_no.nextval, #{wonder_answer_reply_writer},#{wonder_answer_reply_content},sysdate, #{wonder_answer_no})
+	</insert>
+	<select id="wonderReplyCount"
+			parameterType="java.lang.String"
+			resultType="int">
+		select count(*) from wonder_reply where wonder_no= #{wonder_no}	
+	</select>
+	<select id="wonderReplyList"
+			parameterType="java.lang.String"
+			resultType="com.pettoday.vo.WonderReplyVO">
+		select * from wonder_reply where wonder_no = #{wonder_no} order by wonder_no
+	</select>
+	<insert id="wonderReplyInsert"
+			parameterType="com.pettoday.vo.WonderReplyVO">
+		insert into wonder_reply values(seq_wonder_reply_no.nextval, #{wonder_reply_writer},#{wonder_reply_content},sysdate, #{wonder_no})
+	</insert>
+	<delete id="wonderReplyDelete" parameterType="java.lang.String">
+		delete from wonder_reply where wonder_reply_no = #{wonder_reply_no}
+	</delete>
+	<delete id="answerReplyDelete" parameterType="java.lang.String">
+		delete from answer_reply where wonder_answer_reply_no = #{wonder_answer_reply_no}
+	</delete>
+	
+	<delete id="wonderDelete" parameterType="java.lang.String">
+		delete from wonder where wonder_no = #{wonder_no}
+	</delete>
+	<delete id="wonderAnswerDelete" parameterType="java.lang.String">
+		delete from wonder_answer where wonder_answer_no = #{wonder_answer_no}
+	</delete>
+	<select id="answerContent"
+			parameterType="map"
+			resultType="com.pettoday.vo.AnswerVO">
+		select * from (select * from wonder_answer where wonder_no = #{wonder_no}) where wonder_answer_no=#{wonder_answer_no}
+	</select>
+	
+	<update id="answerUpdate"
+			parameterType="map">
+		update wonder_answer set wonder_answer_title = #{wonder_answer_title}, WONDER_ANSWER_CONTENT =#{wonder_answer_content}, wonder_answer_date = sysdate WHERE wonder_answer_no = #{wonder_answer_no}
+	</update>
+	
+	<update id="wonderUpdate"
+			parameterType="map">
+		update wonder set wonder_title = #{wonder_title}, WONDER_CONTENT =#{wonder_content}, wonder_date = sysdate WHERE wonder_no = #{wonder_no}
+	</update>
+	<select id="nearHospital"
+			parameterType="java.lang.String"
+			resultType="java.lang.String">
+		<![CDATA[select regexp_substr(mem_address, '[^/]+', 1, 2) from member where mem_id=#{mem_id}]]>
+	</select>
+</mapper>

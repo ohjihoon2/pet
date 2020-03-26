@@ -1,0 +1,271 @@
+a {
+	text-decoration: none;
+	color: black;
+}
+
+/** 로그인 화면 **/
+div#login {
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+}
+
+div#login form {
+	border: 1px solid #ccc;
+	display: inline-block;
+	height: 350px;
+	width: 450px;
+	margin-top: 100px;
+	margin-bottom: 150px;
+	padding: 45px 60px 80px 60px;
+	width: 450px;
+}
+
+div#login form>span:nth-child(1) {
+	/* border: 1px solid red; */
+	display: block;
+	font-size: 26px;
+	color: #353535;
+}
+
+div#login form>input#id {
+	margin: 0 auto;
+	border: 1px solid #ccc;
+	width: 385px;
+	height: 45px;
+	margin-top: 50px;
+	display: block;
+	padding-left: 15px;
+}
+
+div#login form>input#pass {
+	margin: 0 auto;
+	border: 1px solid #ccc;
+	width: 385px;
+	height: 45px;
+	margin-top: 15px;
+	display: block;
+	margin-bottom: 5px;
+	padding-left: 15px;
+}
+
+div#login form>div:nth-child(4) {
+	width: 400px;
+	text-align: left;
+	margin: auto;
+}
+
+div#login form>div:nth-child(4) a {
+	color: #9a9a9a;
+	font-size: 13px;
+}
+
+div#login form>div:nth-child(4) a span {
+	color: #9a9a9a;
+	font-family: "나눔고딕";
+	font-size: 12px;
+}
+
+div#login form>div:nth-child(4) a:nth-child(2) {
+	margin-left: 120px;
+	margin-bottom: 10px;
+}
+
+div#login form>button {
+	border: 1px solid #ffc71d;
+	width: 400px;
+	height: 60px;
+	background-color: #ffc71d;
+	margin-top: 40px;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+div#login form>button:hover {
+	cursor: pointer;
+}
+
+/** 회원가입 화면 **/
+div#join {
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+}
+
+div#join form {
+	border: 1px solid #ccc;
+	display: inline-block;
+	height: 1240px;
+	width: 450px;
+	margin-top: 100px;
+	margin-bottom: 150px;
+	padding: 45px 60px 80px 60px;
+	width: 450px;
+}
+
+div#join form>span:nth-child(1) {
+	/* border: 1px solid red; */
+	display: block;
+	font-size: 26px;
+	color: #353535;
+	margin-bottom: 35px;
+}
+
+div#join form>input#id {
+	margin: 0 auto;
+	border: 1px solid #ccc;
+	width: 385px;
+	height: 45px;
+	margin-top: 5px;
+	margin-bottom: 15px;
+	display: block;
+	padding-left: 15px;
+}
+
+div#join form>input {
+	margin: 0 auto;
+	border: 1px solid #ccc;
+	width: 385px;
+	height: 45px;
+	margin-top: 5px;
+	display: block;
+	margin-bottom: 15px;
+	padding-left: 15px;
+}
+
+div#join form>input.email {
+	width: 173px;
+	height: 45px;
+	display: inline;
+}
+
+div#join form>select.email {
+	width: 130px;
+	height: 49px;
+	display: inline;
+	margin-left: 10px;
+	padding-left: 10px;
+}
+
+div#join form>label {
+	float: left;
+	margin-left: 28px;
+	margin-bottom: 5px;
+}
+
+div#join form>div.e {
+	width: 400px;
+	margin: auto;
+	text-align: left;
+	padding-left: 4px;
+}
+
+div#join form>div.ee {
+	width: 400px;
+	margin-top: 145px;
+	margin-left: 20px;
+	text-align: left;
+	padding-left: 4px;
+}
+
+div#join form>input#sample4_postcode {
+    width: 210px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/* div#join form>input.dogcat{
+	width: 200px;
+	display: inline-block;
+	margin-top: 15px;
+	background: url("http://localhost:9090/pet/images/logo2.png");
+} */
+div#join form>label.radio1 {
+	margin-left: 73px;
+	margin-top: 10px;
+	overflow: hidden;
+	display: inline-block;
+	position: relative;
+	height: 100px;
+	width: 100px;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+.radio1 input {
+	overflow: hidden;
+	display: none;
+	width: 0px;
+	height: 0px;
+	border: 0 none;
+	font-size: 0;
+	line-height: 0;
+	clip: rect(0, 0, 0, 0);
+	opacity: 0;
+}
+
+.radio1 .ico1 {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100px;
+	height: 100px;
+	background: url("http://localhost:9090/pet/images/dogico1.png")
+		no-repeat 0 0;
+}
+
+.radio1 input:checked+.ico1 {
+	background: url("http://localhost:9090/pet/images/dogico2.png")
+		no-repeat 0 0;
+}
+
+div#join form>label.radio2 {
+	margin-left: 104px;
+	margin-top: 10px;
+	overflow: hidden;
+	display: inline-block;
+	position: relative;
+	height: 100px;
+	width: 100px;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+.radio2 input {
+	overflow: hidden;
+	display: none;
+	width: 0px;
+	height: 0px;
+	border: 0 none;
+	font-size: 0;
+	line-height: 0;
+	clip: rect(0, 0, 0, 0);
+	opacity: 0;
+}
+
+.radio2 .ico2 {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 103px;
+	height: 103px;
+	background: url("http://localhost:9090/pet/images/catico1.png")
+		no-repeat 0 0;
+}
+
+.radio2 input:checked+.ico2 {
+	background: url("http://localhost:9090/pet/images/catico2.png")
+		no-repeat 0 0;
+}
+
+div#join form>button {
+	border: 1px solid #ffc71d;
+	width: 400px;
+	height: 60px;
+	background-color: #ffc71d;
+	margin-top: 40px;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+}

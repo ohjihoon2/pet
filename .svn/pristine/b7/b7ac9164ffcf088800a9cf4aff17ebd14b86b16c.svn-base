@@ -1,0 +1,258 @@
+package com.myspring.controller;
+
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.pettoday.dao.MypageDAO;
+import com.pettoday.vo.JoinVO;
+import com.pettoday.vo.PurchasesVO;
+import com.pettoday.vo.WonderAnswerReplyVO;
+
+/**
+ * @author sist.jihoon
+ * 
+ */
+@Controller
+public class MypageController {
+	
+	@Autowired
+	private MypageDAO mypageDao;
+
+	/**
+	 * ���������� ����
+	 * @return
+	 */
+	@RequestMapping(value = "/mypageMain.do", method = RequestMethod.GET)
+	public String mypageMain() {
+		return "/mypage/mypageMain.user";
+	} 
+	/**
+	 * ȸ������ ����
+	 * @return
+	 */
+	@RequestMapping(value = "/updateInfo.do", method = RequestMethod.GET)
+	public ModelAndView updateInfo(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String phones[] =new String[3];
+		
+		String sid = (String) session.getAttribute("sid");
+		JoinVO vo = mypageDao.getMemberInfo(sid);
+		String pass = vo.getMem_pass();
+		String email =vo.getMem_email();
+		System.out.println("vo.getMem_phone() = "+vo.getMem_phone());
+		System.out.println("vo.getMem_email() = "+vo.getMem_email());
+		String mem_phone =vo.getMem_phone();
+		System.out.println("mem_phone= "+mem_phone);
+		
+		String address =vo.getMem_address();
+		String mem_email[] = email.split("@");
+		phones[0] =mem_phone.substring(0, 3);
+		System.out.println("mem_phone[0] ="+phones[0]);
+		phones[1] =mem_phone.substring(3, 7);
+		System.out.println("mem_phone[1] ="+phones[1]);
+		phones[2] =mem_phone.substring(7, 11);
+		System.out.println("mem_phone[2] ="+phones[2]);
+	
+		String mem_address[] = address.split("/");
+		
+		
+		String email1 = null, email2 =null;
+		String phone1 = null, phone2 =null , phone3 = null;
+		String address1 = null, address2 =null , address3 = null;
+		for(int i=0;i<mem_email.length;i++) {
+			
+			if(i == 0) {
+				email1 =mem_email[i];
+			}else if(i ==1){
+				email2 = mem_email[i];
+			}
+		}
+		
+		for(int i=0;i<phones.length;i++) {
+			
+			if(i == 0) {
+				phone1 =phones[i];
+			}else if(i ==1){
+				phone2 = phones[i];
+			}else if(i ==2) {
+				phone3 = phones[i];
+			}
+		}
+		
+		for(int i=0;i<mem_address.length;i++) {
+			
+			if(i == 0) {
+				address1 =mem_address[i];
+			}else if(i ==1){
+				address2 = mem_address[i];
+			}else if(i ==2) {
+				address3 = mem_address[i];
+			}
+		}
+
+		mv.addObject("pass",pass);
+		mv.addObject("email1",email1);
+		mv.addObject("email2",email2);
+		mv.addObject("phone1",phone1);
+		mv.addObject("phone2",phone2);
+		mv.addObject("phone3",phone3);
+		mv.addObject("address1",address1);
+		mv.addObject("address2",address2);
+		mv.addObject("address3",address3);
+		mv.addObject("sid",sid);
+		mv.addObject("vo",vo);
+		
+		mv.setViewName("/mypage/updateInfo.user");
+		return mv;
+	} 
+	/**
+	 * 비밀번호 수정
+	 * @param pass
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/passUpdate.do", method = RequestMethod.GET)
+	public ModelAndView passUpdate(String pass, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String sid = (String) session.getAttribute("sid");
+		
+		
+		int result = mypageDao.updatePassUpdate(pass, sid);
+		if(result != 0) {
+			mv.setViewName("/mypage/updateInfo.user");
+		}else {
+			mv.setViewName("errorPage.user");
+		}
+		
+		return mv;
+	} 
+	
+	/**
+	 * 회원 정보 수정
+	 * @param vo
+	 * @return
+	 */
+	@RequestMapping(value = "/infoUpdate_proc.do", method = RequestMethod.POST)
+	public ModelAndView infoUpdate(JoinVO vo) {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = mypageDao.infoUpdate(vo);
+		
+		if(result != 0) {
+			
+			mv.setViewName("redirect:/updateInfo.do");
+		}else {
+			mv.setViewName("errorPage.user");
+		}
+		
+		return mv;
+	} 
+	/**
+	 * 계정 탈퇴
+	 * @param sid
+	 * @return
+	 */
+	@RequestMapping(value = "/delMember_proc.do", method = RequestMethod.GET)
+	public ModelAndView delMember(HttpSession session) {
+		String sid = (String)session.getAttribute("sid");
+		ModelAndView mv = new ModelAndView();
+		int result = mypageDao.delMember(sid);
+		if(result != 0) {
+			session.invalidate();
+			mv.setViewName("index.user");
+		}
+		return mv;
+	}
+	
+	/**
+	 * 구매내역 보기
+	 * @return
+	 */
+	@RequestMapping(value = "/purchaseInfo.do", method = RequestMethod.GET)
+	public ModelAndView purchaseInfo(HttpSession session) {
+		String sid = (String)session.getAttribute("sid");
+		ModelAndView mv = new ModelAndView();
+		System.out.println("zz");
+		ArrayList<PurchasesVO> list =  mypageDao.selectPurchaseInfo(sid);
+		
+		mv.addObject("list", list);
+		mv.addObject("sid", sid);
+		mv.setViewName("/mypage/purchaseInfo.user");
+		return mv;
+	} 
+	
+	@ResponseBody
+	@RequestMapping(value = "/purchaseInfoAjax.do", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public String purchaseInfoAjax(HttpSession session, String start, String end) {
+		String sid = (String)session.getAttribute("sid");
+		System.out.println("start = " +start);
+		System.out.println("end = " +end);
+		ArrayList<PurchasesVO> list = null;
+		
+		if(start.equals("전체") && end.equals("전체")) {
+			return "reload";
+		}else {
+			list =  mypageDao.selectPurchaseInfoAjax(sid,start,end);
+		}
+		
+		Gson gson = new Gson();
+		JsonArray jlist = new JsonArray();
+		JsonObject jdata = new JsonObject();
+		
+		
+		for(PurchasesVO vo :list) {
+			JsonObject obj = new JsonObject();
+			obj.addProperty("mem_id",vo.getMem_id());
+			obj.addProperty("pc_name",vo.getPc_name() );
+			obj.addProperty("pc_date",vo.getPc_date() );
+			obj.addProperty("pc_count",vo.getPc_count());
+			obj.addProperty("pc_price",vo.getPc_price());
+			obj.addProperty("pc_state",vo.getPc_state());
+			obj.addProperty("pc_no",vo.getPc_no());
+			
+			jlist.add(obj);
+		}
+		jdata.add("list", jlist);
+		
+		return String.valueOf(gson.toJson(jdata));
+	} 
+	
+	
+	/**
+	 * ��ٱ���
+	 * @return
+	 */
+	@RequestMapping(value = "/shoppingCart.do", method = RequestMethod.GET)
+	public String shoppingCart() {
+		return "/mypage/shoppingCart.user";
+	} 
+	
+	/**
+	 * ���� ����
+	 * @return
+	 */
+	@RequestMapping(value = "/myPosts.do", method = RequestMethod.GET)
+	public ModelAndView myPosts() {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("/mypage/myPosts.user");
+		return mv;
+	} 
+	
+	@RequestMapping(value = "/myReviewModal.do", method = RequestMethod.GET)
+	public String myReviewModal() {
+		return "/mypage/myReviewModal.user";
+	} 	
+	
+}

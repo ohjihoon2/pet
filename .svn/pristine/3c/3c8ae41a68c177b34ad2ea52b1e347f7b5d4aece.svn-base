@@ -1,0 +1,131 @@
+package com.pettoday.dao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.pettoday.vo.AnswerVO;
+import com.pettoday.vo.WonderAnswerReplyVO;
+import com.pettoday.vo.WonderReplyVO;
+import com.pettoday.vo.WonderVO;
+
+@Repository
+public class CommunityDAO {
+
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	
+	private String namespace="mapper.community";
+	
+	/**
+	 * wonder list - paging
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public ArrayList<WonderVO> wonderList(int start, int end) {
+		List list = null;
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("start", String.valueOf(start));
+		param.put("end", String.valueOf(end));
+		
+		list = sqlSession.selectList(namespace+".wonderList", param);
+		return (ArrayList<WonderVO>) list;
+//		return sqlSession.selectList(namespace+".wonderList", id);
+	}
+	
+	/**
+	 * wonder-list count 
+	 * @return
+	 */
+	public int execTotalCount(){
+		return sqlSession.selectOne(namespace+".wcount");
+	}
+	
+	/**
+	 * wonder-write
+	 * @param vo
+	 * @return
+	 */
+	public int wonderWrite(WonderVO vo) {
+		return sqlSession.insert(namespace+".wonderWrite", vo);
+	}
+	
+	/**
+	 * wonderContent view
+	 * @param wonder_no
+	 * @return
+	 */
+	public WonderVO wonderContent(String wonder_no) {
+		return sqlSession.selectOne(namespace+".wonderContent", wonder_no);
+	}
+	
+	/**
+	 * 답변 내용 리스트
+	 * @param wonder_no
+	 * @return
+	 */
+	public ArrayList<AnswerVO> AnswerContentList(String wonder_no) {
+		
+		List list = sqlSession.selectList(namespace+".answerList", wonder_no);
+		return (ArrayList<AnswerVO>) list;
+	}
+	
+	/**
+	 * 답변 추가
+	 * @param vo
+	 * @return
+	 */
+	public int AnswerInsert(AnswerVO vo) {
+
+		return sqlSession.insert(namespace+".answerInsert", vo);
+	}
+	
+	/**
+	 * 답변 댓글 리스트
+	 * @param wonder_answer_no
+	 * @return
+	 */
+	public ArrayList<WonderAnswerReplyVO> AnswerReplyList(int wonder_answer_no) {
+		List<WonderAnswerReplyVO> list = null;
+		list = sqlSession.selectList(namespace+".answerReplyList", wonder_answer_no);
+		return (ArrayList<WonderAnswerReplyVO>) list;
+	}
+	/**
+	 * 답변 댓글 추가
+	 * @param vo
+	 * @return
+	 */
+	public int AnswerReplyInsert(WonderAnswerReplyVO vo) {
+		return sqlSession.insert(namespace+".answerReplyInsert", vo);
+	}
+
+	/**
+	 * 질문 댓글 리스트 
+	 * @param wonder_no
+	 * @return
+	 */
+	public ArrayList<WonderReplyVO> WonderReplyList(int wonder_no) {
+		List<WonderReplyVO> list = null;
+		list = sqlSession.selectList(namespace+".wonderReplyList", wonder_no);
+		return (ArrayList<WonderReplyVO>) list;
+	}
+	/**
+	 * 질문 댓글 추가
+	 * @param vo
+	 * @return
+	 */
+	public int WonderReplyInsert(WonderReplyVO vo) {
+		return sqlSession.insert(namespace+".wonderReplyInsert", vo);
+	}
+	
+	public int WonderReplyDelete(String wonder_reply_no) {
+		return sqlSession.delete(namespace+".wonderReplyDelete", wonder_reply_no);
+	}
+}
+

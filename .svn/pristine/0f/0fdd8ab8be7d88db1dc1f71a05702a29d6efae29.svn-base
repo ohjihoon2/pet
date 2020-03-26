@@ -1,0 +1,55 @@
+package com.pettoday.vo;
+
+public class PurchasesVO {
+
+		
+		String mem_id,pc_name,pc_date,pc_price,pc_state,pc_no;
+		
+		public String getPc_no() {
+			return pc_no;
+		}
+		public void setPc_no(String pc_no) {
+			this.pc_no = pc_no;
+		}
+		int pc_count;
+		public String getMem_id() {
+			return mem_id;
+		}
+		public void setMem_id(String mem_id) {
+			this.mem_id = mem_id;
+		}
+		public String getPc_name() {
+			return pc_name;
+		}
+		public void setPc_name(String pc_name) {
+			this.pc_name = pc_name;
+		}
+		public String getPc_date() {
+			return pc_date;
+		}
+		public void setPc_date(String pc_date) {
+			this.pc_date = pc_date;
+		}
+		public String getPc_price() {
+			return pc_price;
+		}
+		public void setPc_price(String pc_price) {
+			this.pc_price = pc_price;
+		}
+		public String getPc_state() {
+			return pc_state;
+		}
+		public void setPc_state(String pc_state) {
+			this.pc_state = pc_state;
+		}
+	
+		public int getPc_count() {
+			return pc_count;
+		}
+		public void setPc_count(int pc_count) {
+			this.pc_count = pc_count;
+		}
+
+
+
+}

@@ -1,0 +1,389 @@
+package com.myspring.controller;
+
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.pettoday.dao.MypageDAO;
+import com.pettoday.vo.ItemLikeVO;
+import com.pettoday.vo.JoinVO;
+import com.pettoday.vo.MyPageVO;
+import com.pettoday.vo.PurchasesVO;
+
+/**
+ * @author sist.jihoon
+ * 
+ */
+@Controller
+public class MypageController {
+	
+	@Autowired
+	private MypageDAO mypageDao;
+
+
+	@RequestMapping(value = "/mypageMain.do", method = RequestMethod.GET)
+	public String mypageMain() {
+		return "/mypage/mypageMain.user";
+	} 
+	
+	@RequestMapping(value = "/updateInfo.do", method = RequestMethod.GET)
+	public ModelAndView updateInfo(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String phones[] =new String[3];
+		
+		String sid = (String) session.getAttribute("sid");
+		JoinVO vo = mypageDao.getMemberInfo(sid);
+		String pass = vo.getMem_pass();
+		String email =vo.getMem_email();
+		System.out.println("vo.getMem_phone() = "+vo.getMem_phone());
+		System.out.println("vo.getMem_email() = "+vo.getMem_email());
+		String mem_phone =vo.getMem_phone();
+		System.out.println("mem_phone= "+mem_phone);
+		
+		String address =vo.getMem_address();
+		String mem_email[] = email.split("@");
+		phones[0] =mem_phone.substring(0, 3);
+		System.out.println("mem_phone[0] ="+phones[0]);
+		phones[1] =mem_phone.substring(3, 7);
+		System.out.println("mem_phone[1] ="+phones[1]);
+		phones[2] =mem_phone.substring(7, 11);
+		System.out.println("mem_phone[2] ="+phones[2]);
+	
+		String mem_address[] = address.split("/");
+		
+		
+		String email1 = null, email2 =null;
+		String phone1 = null, phone2 =null , phone3 = null;
+		String address1 = null, address2 =null , address3 = null;
+		for(int i=0;i<mem_email.length;i++) {
+			
+			if(i == 0) {
+				email1 =mem_email[i];
+			}else if(i ==1){
+				email2 = mem_email[i];
+			}
+		}
+		
+		for(int i=0;i<phones.length;i++) {
+			
+			if(i == 0) {
+				phone1 =phones[i];
+			}else if(i ==1){
+				phone2 = phones[i];
+			}else if(i ==2) {
+				phone3 = phones[i];
+			}
+		}
+		
+		for(int i=0;i<mem_address.length;i++) {
+			
+			if(i == 0) {
+				address1 =mem_address[i];
+			}else if(i ==1){
+				address2 = mem_address[i];
+			}else if(i ==2) {
+				address3 = mem_address[i];
+			}
+		}
+
+		mv.addObject("pass",pass);
+		mv.addObject("email1",email1);
+		mv.addObject("email2",email2);
+		mv.addObject("phone1",phone1);
+		mv.addObject("phone2",phone2);
+		mv.addObject("phone3",phone3);
+		mv.addObject("address1",address1);
+		mv.addObject("address2",address2);
+		mv.addObject("address3",address3);
+		mv.addObject("sid",sid);
+		mv.addObject("vo",vo);
+		
+		mv.setViewName("/mypage/updateInfo.user");
+		return mv;
+	} 
+	/**
+	 * 비밀번호 수정
+	 * @param pass
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/passUpdate.do", method = RequestMethod.GET)
+	public ModelAndView passUpdate(String pass, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String sid = (String) session.getAttribute("sid");
+		
+		
+		int result = mypageDao.updatePassUpdate(pass, sid);
+		if(result != 0) {
+			mv.setViewName("/mypage/updateInfo.user");
+		}else {
+			mv.setViewName("errorPage.user");
+		}
+		
+		return mv;
+	} 
+	
+	/**
+	 * 회원 정보 수정
+	 * @param vo
+	 * @return
+	 */
+	@RequestMapping(value = "/infoUpdate_proc.do", method = RequestMethod.POST)
+	public ModelAndView infoUpdate(JoinVO vo) {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = mypageDao.infoUpdate(vo);
+		
+		if(result != 0) {
+			
+			mv.setViewName("redirect:/updateInfo.do");
+		}else {
+			mv.setViewName("errorPage.user");
+		}
+		
+		return mv;
+	} 
+	/**
+	 * 계정 탈퇴
+	 * @param sid
+	 * @return
+	 */
+	@RequestMapping(value = "/delMember_proc.do", method = RequestMethod.GET)
+	public ModelAndView delMember(HttpSession session) {
+		String sid = (String)session.getAttribute("sid");
+		ModelAndView mv = new ModelAndView();
+		int result = mypageDao.delMember(sid);
+		if(result != 0) {
+			session.invalidate();
+			mv.setViewName("index.user");
+		}
+		return mv;
+	}
+	
+	/**
+	 * 구매내역 보기
+	 * @return
+	 */
+	@RequestMapping(value = "/purchaseInfo.do", method = RequestMethod.GET)
+	public ModelAndView purchaseInfo(HttpSession session) {
+		String sid = (String)session.getAttribute("sid");
+		ModelAndView mv = new ModelAndView();
+		System.out.println("zz");
+		ArrayList<PurchasesVO> list =  mypageDao.selectPurchaseInfo(sid);
+		
+		mv.addObject("list", list);
+		mv.addObject("sid", sid);
+		mv.setViewName("/mypage/purchaseInfo.user");
+		return mv;
+	} 
+	
+	@ResponseBody
+	@RequestMapping(value = "/purchaseInfoAjax.do", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public String purchaseInfoAjax(HttpSession session, String start, String end) {
+		String sid = (String)session.getAttribute("sid");
+		System.out.println("start = " +start);
+		System.out.println("end = " +end);
+		ArrayList<PurchasesVO> list = null;
+		
+		if(start.equals("전체") && end.equals("전체")) {
+			return "reload";
+		}else {
+			list =  mypageDao.selectPurchaseInfoAjax(sid,start,end);
+		}
+		
+		Gson gson = new Gson();
+		JsonArray jlist = new JsonArray();
+		JsonObject jdata = new JsonObject();
+		
+		
+		for(PurchasesVO vo :list) {
+			JsonObject obj = new JsonObject();
+			obj.addProperty("mem_id",vo.getMem_id());
+			obj.addProperty("pc_name",vo.getPc_name() );
+			obj.addProperty("pc_date",vo.getPc_date() );
+			obj.addProperty("pc_count",vo.getPc_count());
+			obj.addProperty("pc_price",vo.getPc_price());
+			obj.addProperty("pc_state",vo.getPc_state());
+			obj.addProperty("pc_no",vo.getPc_no());
+			
+			jlist.add(obj);
+		}
+		jdata.add("list", jlist);
+		
+		return String.valueOf(gson.toJson(jdata));
+	} 
+	
+	
+	@RequestMapping(value = "/shoppingCart.do", method = RequestMethod.GET)
+	public ModelAndView shoppingCart(String rpage, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String sid = (String)session.getAttribute("sid");
+		//페이징 처리 - startCount, endCount 구하기
+		int startCount = 0;
+		int endCount = 0;
+		int pageSize = 5;	//한페이지당 게시물 수
+		int reqPage = 0;	//요청페이지	, rpage를 대체
+		int pageCount = 1;	//전체 페이지 수
+		int dbCount = mypageDao.execTotalCount(sid);	//DB에서 가져온 전체 행수
+		
+		//총 페이지 수 계산
+		if(dbCount % pageSize == 0){
+			pageCount = dbCount/pageSize;
+		}else{
+			pageCount = dbCount/pageSize+1;
+		}
+
+		//요청 페이지 계산
+		if(rpage != null){
+			reqPage = Integer.parseInt(rpage);
+			startCount = (reqPage-1) * pageSize+1;
+	 		endCount = reqPage *pageSize;
+		}else{
+			reqPage = 1;
+			startCount = 1;
+			endCount = 5;
+		}
+
+		ArrayList<ItemLikeVO> list = mypageDao.getResultList(startCount, endCount,sid);
+		
+		mv.addObject("list",list);
+		mv.addObject("dbcount",dbCount);
+		mv.addObject("rpage",reqPage);
+		mv.addObject("pagesize",pageSize);
+		mv.setViewName("/mypage/shoppingCart.user");
+		
+		
+		return mv;
+	} 
+	
+	/**
+	 * 내가 쓴 글
+	 * @return
+	 */
+	@RequestMapping(value = "/myPosts.do", method = RequestMethod.GET)
+	public ModelAndView myPosts(String rpage, HttpSession session) {
+		
+		String sid = (String)session.getAttribute("sid");
+		ModelAndView mv = new ModelAndView();
+		
+		int startCount = 0;
+		int endCount = 0;
+		int pageSize = 5;	
+		int reqPage = 1;	
+		int pageCount = 1;	
+		int dbCount = mypageDao.getMyPostcount(sid);	
+		
+		if(dbCount % pageSize == 0){
+			pageCount = dbCount/pageSize;
+		}else{
+			pageCount = dbCount/pageSize+1;
+		}
+
+		if(rpage != null){
+			reqPage = Integer.parseInt(rpage);
+			startCount = (reqPage-1) * pageSize+1;
+	 		endCount = reqPage *pageSize;
+		}else{
+			startCount = 1;
+			endCount = 5;
+		}
+		
+		ArrayList<MyPageVO> list = mypageDao.getMyPost(sid, startCount, endCount);
+		
+		mv.addObject("list",list);
+		mv.addObject("sid",sid);
+		mv.addObject("dbCount",dbCount);
+		mv.addObject("rpage",rpage);
+		mv.addObject("pageSize",pageSize);
+		mv.setViewName("/mypage/myPosts.user");
+		
+		return mv;
+	} 
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/myPostsSearchAjax.do", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public String myPostsSearchAjax(HttpSession session, String rpage, String startdate, String enddate) {
+		System.out.println("rpage ="+ rpage);
+		System.out.println("startdate ="+startdate);
+		System.out.println("enddate = "+enddate);
+		String sid = (String)session.getAttribute("sid");
+		ArrayList<MyPageVO> list = null;
+		
+		int startCount = 0;
+		int endCount = 0;
+		int pageSize = 5;	
+		int reqPage = 1;	
+		int pageCount = 1;	
+		int dbCount = 0;
+		if(startdate.equals("전체") && enddate.equals("전체")) {
+			dbCount = 0;	
+		}else {
+			dbCount = mypageDao.getMyPostcount(sid, startdate, enddate);	
+			
+			if(dbCount % pageSize == 0){
+				pageCount = dbCount/pageSize;
+			}else{
+				pageCount = dbCount/pageSize+1;
+			}
+
+			if(rpage != null){
+				reqPage = Integer.parseInt(rpage);
+				startCount = (reqPage-1) * pageSize+1;
+		 		endCount = reqPage *pageSize;
+			}else{
+				startCount = 1;
+				endCount = 5;
+			}
+		}
+		System.out.println("dbCount = "+dbCount);
+		
+		
+		
+		
+		if(startdate.equals("전체") && enddate.equals("전체")) {
+			return "reload";
+		}else {
+			list =  mypageDao.selectMypostAjax(sid, startCount, endCount,startdate, enddate);
+		}
+		
+		Gson gson = new Gson();
+		JsonArray jlist = new JsonArray();
+		JsonObject jdata = new JsonObject();
+		
+		for(MyPageVO vo :list) {
+			JsonObject obj = new JsonObject();
+			obj.addProperty("title",vo.getTitle());
+			obj.addProperty("wsort",vo.getWsort());
+			obj.addProperty("wdate",vo.getWdate());
+			obj.addProperty("rno",vo.getRno());
+			
+			jlist.add(obj);
+		}
+		jdata.add("list", jlist);
+		jdata.addProperty("sid", sid);
+		jdata.addProperty("dbCount", dbCount);
+		jdata.addProperty("rpage", rpage);
+		jdata.addProperty("pageSize", pageSize);
+		
+		
+		return String.valueOf(gson.toJson(jdata));
+	} 	
+		
+	@RequestMapping(value = "/myReviewModal.do", method = RequestMethod.GET)
+	public String myReviewModal() {
+		return "/mypage/myReviewModal.user";
+	} 	
+	
+}

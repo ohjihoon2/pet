@@ -1,0 +1,159 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.pettoday.vo.*,com.pettoday.dao.*,java.util.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index.css">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/vet3_detail.css">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index_carousel.css">
+<link rel="stylesheet" href="http://localhost:9090/pet/css/navbar_techandall.css"><!-- Navigation CSS -->
+<link href="http://localhost:9090/pet/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script src="http://localhost:9090/pet/js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet"href="http://localhost:9090/pet/css/lightslider.css">  <!-- 추천상품 캐러셀 CSS -->
+<script src="http://localhost:9090/pet/js/lightslider.js"></script>  <!-- 추천상품 캐러셀 js -->
+<script src="http://localhost:9090/pet/js/header_toggle.js"></script>  <!-- header_toggle js -->
+<title>전문가 추천</title>
+
+<script>
+	$(document).ready(function(){
+	    $("#content-slider").lightSlider({
+            loop:true,
+            keyPress:true
+        });
+	    
+	    $(window).scroll( function(){
+            $('.fadeinleft').each( function(i){
+                
+                var bottom_of_element = $(this).offset().top + $(this).outerHeight();
+                var bottom_of_window = $(window).scrollTop() + $(window).height();
+                
+                if( bottom_of_window > bottom_of_element ){
+                    $(this).animate({'opacity':'1','margin-left':'370px'},1300);
+                }
+                
+            }); 
+            $('.fadeinright').each( function(i){
+                
+                var bottom_of_element = $(this).offset().top + $(this).outerHeight();
+                var bottom_of_window = $(window).scrollTop() + $(window).height();
+                
+                if( bottom_of_window > bottom_of_element ){
+                    $(this).animate({'opacity':'1','margin-right':'370px'},1300);
+                }
+                
+            }); 
+       
+        });
+ 
+		
+		$('div.pick_img').click(function() {
+			location.href = 'vet3_detail.do';
+		});
+	});
+</script>
+</head>
+<body>
+
+      <!-- header 추가  -->
+ 
+ 		
+ 		
+      <!-- 컨텐츠 부분 -->
+       <div id="container">
+      
+       <img src="http://localhost:9090/pet/images/exbanner.png">
+        <div id="contents">
+
+        <div class="sub_content">
+           
+		<div class="content_box">
+			<div class="pick_Page">
+				<!-- 강아지 기획전 -->
+				<div class="main_goods_cont">
+					<div class="plan_tab">
+						<!-- <a class="dog_btn on" href="./pet_doc_list.php?petCategory=d">강아지</a> -->
+						 <li><a class="dog_btn on" href="http://localhost:9090/pet/vet3.do" id="dog" class="ani">강아지</a></li> 
+						 <li><a class="cat_btn" href="http://localhost:9090/pet/vet6.do" id="cat" class="ani">고양이</a></li>
+						<!-- <a class="cat_btn " href="http://www.petsbe.com/pet/pet_doc_list.php?petCategory=c">고양이</a> -->
+					</div>
+					
+					<div class="tab_cont">
+						<div class="main_goods_tab">
+							<ul>
+								<li class="icon1 "><a href="http://localhost:9090/pet/vet1.do" id="step3" class="step"><span>전문가 상담</span></a></li>
+								<li class="icon2"><a href="http://localhost:9090/pet/vet2.do" id="step4" class="step"><span>반려동물 사료 추천</span></a></li>
+								<li class="icon3 on"><a href="http://localhost:9090/pet/vet3.do" id="step5" class="step"><span>전문가 생활 팁</span></a></li>
+							</ul>
+						</div>
+					</div>
+<!------------------------------------------------------------------------------------------------------------------->		
+<!-- 강아지 - 전문가생활 팁 상세페이지 -->
+				<div class="goods_tab_cont">
+					<div class="pick_list">
+						<div class="contents">
+							<div class="a" > 
+							    <div class="b">
+							        <li class="number">NO.${vo.tip_id }</li>
+							         <h2 >${vo.tip_title }</h2>
+							             <p>[${vo.tip_title } Tip!!]</p>
+							    </div>
+							             <p class="sub">${vo.tip_content }</p> 	
+							              	<img src="http://localhost:9090/pet/images/vet/${vo.tip_img}" >	 
+							    		 <h2 >${vo.tip_title2 }</h2>
+							             <p class="sub">${vo.tip_content2 }</p> 	
+							              	<img src="http://localhost:9090/pet/images/vet/${vo.tip_img2}" >	
+							              <h2 >${vo.tip_title3 }</h2>
+							             <p class="sub">${vo.tip_content3 }</p> 	
+							              	<img src="http://localhost:9090/pet/images/vet/${vo.tip_img3}" >	 
+							              	<h2 >${vo.tip_title4 }</h2>
+							             <p class="sub">${vo.tip_content4 }</p> 	
+							              	<img src="http://localhost:9090/pet/images/vet/${vo.tip_img4}" >	 	          	
+							              	
+							</div>
+							
+							
+							<li class="recom_tit">강아지 추천 꿀템</li>
+								<p id="dhgsl"></p>
+							     <div class="demo">
+						            <div class="item" >
+						               <ul id="content-slider" class="content-slider">
+						               	  <c:forEach var="vo" items="${list}">
+						                  <li>
+						                  	 <a href="http://localhost:9090/pet/itemDetail.do?iid=${vo.item_no }" style="text-decoration: none;">
+						                     <div>
+						                        <img src="http://localhost:9090/pet/images/${vo.item_img}" />
+						                     </div>
+						                     <div>
+						                        <span class="goods1"> ${vo.item_name} </span>
+						                        <span class="price1"><fmt:formatNumber value="${vo.item_price}" pattern="#,##0 원" /></span>
+						                     </div>
+						                     </a>
+						                  </li>
+						                  </c:forEach>
+						               </ul>
+						            </div>
+         						</div>							
+							
+								
+							
+							
+							</div>
+						</div>
+					</div>
+							
+				</div>
+			</div>
+			</div>
+			</div>
+     		</div>
+     		</div>
+     	 </div>
+
+   <!-- footer 추가 -->
+   
+
+</body>
+</html>

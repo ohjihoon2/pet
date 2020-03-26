@@ -1,0 +1,79 @@
+package com.pettoday.dao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+
+import com.pettoday.vo.VetVO;
+
+@Repository
+public class VetDAO {
+
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	private String namespace = "mapper.vet";
+	
+	public int execTotalCount() {
+		return sqlSession.selectOne(namespace + ".tip_count");
+	}
+	
+	public int execTotalCount2() {
+		return sqlSession.selectOne(namespace + ".ctip_count");
+	}
+	
+	
+	/**
+	 * 전체 리스트 출력
+	 */
+	public ArrayList<VetVO> getResultList(int start, int end) {
+		List<VetVO> list = null;
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("start", String.valueOf(start));
+		param.put("end", String.valueOf(end));
+
+		list = sqlSession.selectList(namespace + ".tip_list", param);
+
+		return (ArrayList<VetVO>) list;
+	}
+	/**
+	 * 전체 리스트2 출력
+	 */
+	public ArrayList<VetVO> getResultList2(int start, int end) {
+		List<VetVO> list = null;
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("start", String.valueOf(start));
+		param.put("end", String.valueOf(end));
+
+		list = sqlSession.selectList(namespace + ".ctip_list", param);
+
+		return (ArrayList<VetVO>) list;
+	}
+	
+	public VetVO getResultContent(String tip_id) {
+		return sqlSession.selectOne(namespace + ".content",tip_id);
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

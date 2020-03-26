@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper는 xml파일에 하나만 만들수 있다. -->
+<mapper namespace="mapper.community">
+
+	<select id="wonderList" 
+			parameterType="map" 
+			resultType="com.pettoday.vo.WonderVO">
+		select * from (select rownum rno ,WONDER_NO, WONDER_TITLE, WONDER_CONTENT, WONDER_DATE, WONDER_WRITER,WONDER_VIEW 
+                       from (select WONDER_NO, WONDER_TITLE, WONDER_CONTENT, WONDER_DATE, WONDER_WRITER,WONDER_VIEW 
+                             from wonder order by wonder_no desc))
+ 		WHERE RNO BETWEEN #{start} AND #{end} 
+	</select>
+	
+	<select id="wcount"  resultType="int">
+		select count(*) from wonder
+	</select>
+	
+	<insert id="wonderWrite" 
+			parameterType="com.pettoday.vo.WonderVO">
+		insert into wonder values(seq_wonder_no.nextval, #{wonder_title} ,#{wonder_content},sysdate,'test',1)
+	</insert>
+	
+	<select id="wonderContent" parameterType="java.lang.String" 
+	resultType="com.pettoday.vo.WonderVO">
+		select * from wonder where wonder_no = #{wonder_no}
+	</select>
+	
+	<select id="answerList"
+			parameterType="java.lang.String"
+			resultType="com.pettoday.vo.AnswerVO">
+		select * from wonder_answer where wonder_no = #{wonder_no}
+	</select>
+	
+	<insert id="answerInsert"
+			parameterType="com.pettoday.vo.AnswerVO">
+		insert into wonder_answer values(seq_answer_no.nextval, #{wonder_answer_title}, #{wonder_answer_content} , sysdate , #{wonder_answer_writer} , #{wonder_no})
+	</insert>
+</mapper>

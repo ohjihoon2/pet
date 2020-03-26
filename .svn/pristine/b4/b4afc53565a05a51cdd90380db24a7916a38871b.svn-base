@@ -1,0 +1,40 @@
+package com.pettoday.vo;
+
+public class MyPageVO {
+
+	String title, wcontent, wdate, wsort;
+	int rno;
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getWcontent() {
+		return wcontent;
+	}
+	public void setWcontent(String wcontent) {
+		this.wcontent = wcontent;
+	}
+	public String getWdate() {
+		return wdate;
+	}
+	public void setWdate(String wdate) {
+		this.wdate = wdate;
+	}
+	public String getWsort() {
+		return wsort;
+	}
+	public void setWsort(String wsort) {
+		this.wsort = wsort;
+	}
+	public int getRno() {
+		return rno;
+	}
+	public void setRno(int rno) {
+		this.rno = rno;
+	}
+	
+	
+	
+}

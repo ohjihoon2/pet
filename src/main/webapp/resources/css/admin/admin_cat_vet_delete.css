@@ -1,0 +1,85 @@
+a{
+	 cursor: pointer;
+	 text-decoration: none;
+}
+div#content{
+	width:1611.8px;
+	height:1230px;
+	float: right;
+	border-left: 1px solid #cccccc;
+	background-color: #eeeeee;
+	margin: 0px;
+}
+div#vet{
+	width: 1510px;
+	height: 1130px;
+	border: 1px solid #cccccc;
+	border-radius:10px;
+	display: inline-block;
+	background-color: white;
+	margin-top: 50px;
+	margin-left:50px;
+	text-align: center;
+	
+	
+}
+
+div.vet_btn a:first-child button{
+	 width:100px;
+	background-color: #eeeeee;
+	padding: 12px;
+	border: 1px solid #cccccc;
+	color: #333333;
+	margin: 15px 20px 0px 0px;
+	padding-left:14px;
+	font-weight: bold;
+	
+}
+div.vet_btn a:nth-child(2) button{
+	 width:100px;
+	background-color: #eeeeee;
+	padding: 12px;
+	border: 1px solid #cccccc;
+	color: #333333;
+	margin: 15px 20px 0px 0px;
+	padding-left:14px;
+	font-weight: bold;
+	
+}
+div.vet_btn a:nth-child(3) button{
+	  width:100px;
+	background-color: #eeeeee;
+	padding: 12px;
+	border: 1px solid #cccccc;
+	color: #333333;
+	margin: 15px 0px 0px 0px;
+	padding-left:14px;
+	font-weight: bold;
+	
+}
+
+.title{
+	float: left;
+	margin: 40px 0px 120px 40px;
+	width: 100%;
+	text-align: left;
+	
+}
+
+
+div.vet_btn{
+	margin-top: 30px;
+}
+.conform{
+	
+	font-size: 25px;
+	font-weight: bold;
+}
+
+
+
+
+
+
+
+

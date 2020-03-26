@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper는 xml파일에 하나만 만들수 있다. -->
+<mapper namespace="mapper.cus">
+
+	<select id="cusprice" parameterType="java.lang.String" resultType="java.lang.String">	
+		select cs_price from cus_price where cs_produce= #{produce}
+	</select>
+	
+ 	
+
+	<insert id="write" parameterType="com.pettoday.vo.PurchasesVO">
+		insert into purchases values(#{mem_id},#{pc_name},sysdate,concat(to_char(sysdate,'"S"yyyymm-'),to_char(PURCHASES_SEQU.nextval,'fm0999')),#{pc_count},#{pc_price},'배송중')
+	</insert>
+	
+</mapper>
+
+
+
+
+
+

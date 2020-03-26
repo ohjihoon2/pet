@@ -1,0 +1,280 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+<script src="http://localhost:9090/pet/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="http://localhost:9090/pet/js/ddmenu.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="http://localhost:9090/pet/js/header_toggle.js"></script>  <!-- header_toggle js -->
+
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index.css">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index_carousel.css">
+<link rel="stylesheet" href="http://localhost:9090/pet/css/navbar_techandall.css"><!-- Navigation CSS -->
+<link href="http://localhost:9090/pet/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+
+	<!-- 가격 , 생기게 하는 js -->
+	<script>
+	function numberFormat(inputNumber) {
+	   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+	  
+	</script>
+	
+<script>
+	$(document).ready(function(){
+		//달력
+		$("#start_datepicker").datepicker({
+			dateFormat: 'yy-mm-dd' //Input Display Format 변경
+            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+            ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+            ,changeYear: true //콤보박스에서 년 선택 가능
+            ,changeMonth: true //콤보박스에서 월 선택 가능                
+            ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+            ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+            ,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
+            ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
+            ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+            ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+            ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+            ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+            ,minDate: "-1M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+            ,maxDate: "+1M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후) 
+		});
+		
+		$("#end_datepicker").datepicker({
+			dateFormat: 'yy-mm-dd' //Input Display Format 변경
+            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+            ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+            ,changeYear: true //콤보박스에서 년 선택 가능
+            ,changeMonth: true //콤보박스에서 월 선택 가능                
+            ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+            ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+            ,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
+            ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
+            ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+            ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+            ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+            ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+            ,minDate: "-1Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+            ,maxDate: "D" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후) 
+		});
+		
+
+		
+		$("#end_datepicker").datepicker( "setDate" , "today" );
+		
+		$(".dateBtn").click(function(){
+			var d = new Date();
+			var id = $(this).attr("id");
+			if(id == '7dayBtn'){
+				$("#start_datepicker").datepicker( "setDate" , "-7D" );
+				$("#end_datepicker").datepicker( "setDate" , "D" );
+			}else if( id == '1monthBtn'){
+				$("#start_datepicker").datepicker( "setDate" , "-1M" );
+				$("#end_datepicker").datepicker( "setDate" , "D" );
+			}else if( id == '3monthdateBtn'){
+				$("#start_datepicker").datepicker( "setDate" , "-2M" );
+				$("#end_datepicker").datepicker( "setDate" , "D" );
+			}else if( id == 'alldateBtn'){
+				$("#start_datepicker").val("전체");
+				$("#end_datepicker").val("전체");
+			}
+			
+		});
+		
+		$(".purchaseInfoSearch").click(function(){			
+			var start = $("#start_datepicker").val();
+			var end = $("#end_datepicker").val();
+			var sid = '${sid}';
+			$.ajax({
+				url:"purchaseInfoAjax.do",
+				data: {"start": start , "end" : end , "sid" : sid},
+				success:function(result){
+					if(result == 'reload'){
+						location.reload();
+					}else{
+						var jsonObj = JSON.parse(result);
+						var str = "";
+						$("table.purchaseInfo_table ").empty();
+						
+						
+						var th = "<tr><th>번호</th><th>주문번호</th><th>수령인</th><th>주문일자</th><th>가격</th></tr> ";
+						$("table.purchaseInfo_table ").append(th);
+						
+						for(i=0;i<jsonObj.list.length;i++){
+							if(jsonObj.list[i].mem_id == sid){
+								str += "<tr class='tr'>" 
+									+"<td>"+jsonObj.list[i].rno+"</td>"
+									+"<td><a href='orderView.do?pc_no="+jsonObj.list[i].pc_no+"'>"+jsonObj.list[i].pc_no+"</a></td>"
+									+"<td>"+jsonObj.list[i].payname+"</td>"
+									+"<td>"+jsonObj.list[i].pc_date+"</td>"
+									+"<td>"+numberFormat(jsonObj.list[i].total)+"원</td>"
+									+"</tr>" 
+							}
+						}
+						var place = $("table.purchaseInfo_table  ");
+	
+	 					$(place).append(str);
+					
+					}
+				}
+			});
+		})
+			
+	});
+</script>
+<style>
+	#purchaseInfo_hole{
+		color: #404040;
+	}
+	.mypage_table{
+		margin:auto;
+		width: 900px;
+	}
+	.purchaseInfo_form{
+	    width: 850px;
+	    margin-top: 100px;
+	    margin-bottom: 100px;
+	    padding: 45px 25px 80px 25px;
+	}
+	.purchaseInfo_form  span.page_name{
+		display: block;
+	    font-size: 26px;
+	    color: #353535;
+	    margin-bottom: 35px;
+	    text-align: center;
+	}
+	.purchaseInfo_form input {
+	    margin: 0 auto;
+	    border: 1px solid #ccc; 
+	    width: 100px;
+	    height: 20px;
+	    margin-top: 5px;
+	    margin-bottom: 15px;
+	    padding-left: 15px;	
+	}
+	.dateBtn{
+		margin-top:20px;
+	    height: 30px;
+	    line-height: 30px;
+	    width: 100px;
+	    text-align: center;
+	    font-weight: 600;
+	    border: 1px solid #E0E0E0;
+	    border-radius:6px;
+	    margin-right: 7px;
+	    font-size: 13px;
+	    background: #FFF;
+	}
+	.purchaseInfoSearch{
+		margin-top:20px;
+	    height: 30px;
+	    line-height: 30px;
+	    width: 100px;
+	    text-align: center;
+	    font-weight: 600;
+	    border: 1px solid #E0E0E0;
+	    border-radius:6px;
+	    margin-right: 7px;
+	    font-size: 13px;
+	    background: #E0E0E0;
+	}
+	
+	.purchaseInfo_table{
+		width: 850px;
+		text-align: center;
+	}
+	
+	.purchaseInfo_table th{
+		background-color:#ccc;
+		width:150px;
+		height:40px;
+	}
+	
+	table.purchaseInfo_table > tr:nth-child(1) > th:nth-child(1),
+	table.purchaseInfo_table > tbody > tr:nth-child(1) > th:nth-child(1){
+		width: 50px;
+	}
+	
+	table.purchaseInfo_table > tr:nth-child(1) > th:nth-child(2),
+	table.purchaseInfo_table > tr:nth-child(1) > th:nth-child(5),
+	table.purchaseInfo_table > tr:nth-child(1) > th:nth-child(6),
+	table.purchaseInfo_table > tbody > tr:nth-child(1) > th:nth-child(2),
+	table.purchaseInfo_table > tbody > tr:nth-child(1) > th:nth-child(5),
+	table.purchaseInfo_table > tbody > tr:nth-child(1) > th:nth-child(6){
+	
+		width:100px;
+	}
+	
+	table.purchaseInfo_table > tr:nth-child(1) > th:nth-child(4),
+	table.purchaseInfo_table > tbody > tr:nth-child(1) > th:nth-child(4){
+		width:80px;
+	}
+	table.purchaseInfo_table > tr > td{
+		text-align: center;
+		padding-top:20px;
+		padding-bottom:20px;
+	}
+	
+	table.purchaseInfo_table >tbody > tr > td{
+		text-align: center;
+		padding-top:20px;
+		padding-bottom:20px;
+	}
+	
+	
+	
+</style>
+</head>
+<body>
+	<div>
+		<div id="purchaseInfo_hole">
+			<div>
+				<div class="mypage_table">	
+					<div class="purchaseInfo_form">
+						<span class="page_name">구매내역</span>
+						<div>
+							<button type="button" class="dateBtn" id="7dayBtn">1주일</button>
+							<button type="button" class="dateBtn" id="1monthBtn">1개월</button>
+							<button type="button" class="dateBtn" id="3monthdateBtn">3개월</button>
+							<button type="button" class="dateBtn" id="alldateBtn">전체</button>
+							<input type="text" value="" id="start_datepicker">
+							<input type="text" value="" id="end_datepicker">
+							<button type="button" class="purchaseInfoSearch">검색</button>
+						</div>
+						<table class="purchaseInfo_table">
+							<tr>
+								<th>번호</th>
+								<th>주문번호</th>
+								<th>수령인</th>
+								<th>주문일자</th>
+								<th>가격</th>
+							</tr>
+							<c:forEach var="vo" items="${list}">
+								<tr>
+									<td>${vo.rno }</td>
+									<td><a href="orderView.do?pc_no=${vo.pc_no }">${vo.pc_no }</a></td>
+									<td>${vo.payname }</td>
+									<td>${vo.pc_date }</td>
+									<td><fmt:formatNumber  value="${vo.total}" pattern="#,##0" />원</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

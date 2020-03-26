@@ -1,0 +1,42 @@
+package com.myspring.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller
+public class CustomerCenter {
+	
+	
+	@RequestMapping(value = "/cc.do", method = RequestMethod.GET)
+	public String cc() {
+		return "/CustomerCenter/cc.user";
+	}
+	
+	
+	/**
+	 * 공지사항 컨트롤러
+	 */
+	@RequestMapping(value = "/notice.do", method = RequestMethod.GET)
+	public String notice() {
+		return "/CustomerCenter/notice.user";
+	}
+	
+	/**
+	 * 공지사항 내용
+	 */
+	@RequestMapping(value = "/notice_content.do", method = RequestMethod.GET)
+	public String notice_content() {
+		return "/CustomerCenter/notice_content.user";
+	}
+	
+	/**
+	 * 공지사항 작성
+	 */
+	@RequestMapping(value = "/notice_write.do", method = RequestMethod.GET)
+	public String notice_write() {
+		return "/CustomerCenter/notice_write.user";
+	}
+	
+
+}

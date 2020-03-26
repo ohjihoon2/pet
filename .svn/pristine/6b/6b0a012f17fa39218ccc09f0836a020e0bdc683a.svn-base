@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.walktogether">
+	<select id="wal_count" resultType="int">
+		select count(*) from walktogether
+	</select>
+	
+	<select id="wal_list" parameterType="map" resultType="com.pettoday.vo.WalktogetherVO">
+		SELECT*FROM (SELECT rownum rno, wal_no, wal_sfile, wal_name, wal_dog, wal_address, wal_favorite,TO_CHAR(wal_date,'YYYY/MM/DD') wal_date, wal_hits
+                    				 FROM (SELECT wal_no,wal_sfile, wal_name, wal_dog, wal_address, wal_favorite, wal_date, wal_hits FROM walktogether ORDER BY wal_date DESC))
+		WHERE RNO BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="wal_list_category" parameterType="map" resultType="com.pettoday.vo.WalktogetherVO">
+		SELECT*FROM (SELECT rownum rno, wal_no, wal_sfile, wal_name, wal_dog, wal_address, wal_favorite,TO_CHAR(wal_date,'YYYY/MM/DD') wal_date, wal_hits
+                    				 FROM (SELECT wal_no,wal_sfile, wal_name, wal_dog, wal_address, wal_favorite, wal_date, wal_hits FROM walktogether
+	 <choose>
+			<when test="category == 1">
+		ORDER BY wal_date DESC))
+			</when>
+			<when test="category == 2">
+		where wal_address = '경기' ORDER BY wal_date DESC))
+			</when>
+			<when test="category == 3">
+		where wal_address = '강원' ORDER BY wal_date DESC))
+			</when>
+			<when test="category == 4">
+		where wal_address = '충북' ORDER BY wal_date DESC))
+			</when>
+			<when test="category == 5">
+		where wal_address = '충남' ORDER BY wal_date DESC))
+			</when>
+			<when test="category == 6">
+		where wal_address = '경북' ORDER BY wal_date DESC))
+			</when>
+			<when test="category == 7">
+		where wal_address = '경남' ORDER BY wal_date DESC))
+			</when>
+			<when test="category == 8">
+		where wal_address = '전북' ORDER BY wal_date DESC))
+			</when>
+			<when test="category == 9">
+		where wal_address = '전남' ORDER BY wal_date DESC))
+			</when>
+			<when test="category == 10">
+		where wal_address = '서울' ORDER BY wal_date DESC))
+			</when>
+			<when test="category == 11">
+		where wal_address = '인천' ORDER BY wal_date DESC))
+			</when>
+			<when test="category == 12">
+		where wal_address = '대전' ORDER BY wal_date DESC))
+			</when>
+			<when test="category == 13">
+		where wal_address = '대구' ORDER BY wal_date DESC))
+			</when>
+			<when test="category == 14">
+		where wal_address = '울산' ORDER BY wal_date DESC))
+			</when>
+			<when test="category == 15">
+		where wal_address = '부산' ORDER BY wal_date DESC))
+			</when>
+			<when test="category == 16">
+		where wal_address = '광주' ORDER BY wal_date DESC))
+			</when>
+			<when test="category == 17">
+		where wal_address = '세종' ORDER BY wal_date DESC))
+			</when>
+	</choose>
+		WHERE RNO BETWEEN #{start} AND #{end}
+	</select>
+	
+	<insert id="wal_write" parameterType="com.pettoday.vo.WalktogetherVO">
+		insert into walktogether VALUES(WALKTOGETHER_SEQ.nextval,#{wal_file}, #{wal_sfile}, #{wal_name}, #{wal_dog},#{wal_age}, #{wal_address}, #{wal_favorite}, #{wal_content}, sysdate, 0, 'test')
+	</insert>
+	
+	<select id="wal_content"  parameterType="java.lang.String" resultType="com.pettoday.vo.WalktogetherVO">
+		select * from walktogether where wal_no = #{wal_no}
+	</select>
+	
+	<update id="hits_update" parameterType="java.lang.String" >
+		UPDATE walktogether SET wal_hits = wal_hits+1 WHERE wal_no=#{wal_no}
+	</update>
+	
+	<delete id="wal_delete" parameterType="java.lang.String">
+		delete from walktogether where wal_no = #{wal_no}
+	</delete>
+	
+	<select id="del_wal_sfile" parameterType="java.lang.String" resultType="java.lang.String">
+		select wal_sfile from walktogether where wal_no=#{wal_no}
+	</select>
+	
+	<update id="wal_update" parameterType="com.pettoday.vo.WalktogetherVO" >
+		update walktogether set wal_file =#{wal_file}, wal_sfile = #{wal_sfile}, wal_name =#{wal_name}, wal_dog=#{wal_dog}, 
+		wal_age=#{wal_age}, wal_address=#{wal_address}, wal_favorite=#{wal_favorite}, wal_content=#{wal_content}, wal_date=sysdate 
+		where wal_no=#{wal_no}
+	</update>
+</mapper>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper는 xml파일에 하나만 만들수 있다. -->
+<mapper namespace="mapper.mypage">
+	<select id="info"
+			parameterType="java.lang.String"
+			resultType="com.pettoday.vo.JoinVO">
+			select * from member where mem_id = #{sid}
+	</select>
+	<update id="passUpdate"
+			parameterType="map">
+			update member set mem_pass= #{pass} where mem_id =#{sid} 
+	</update>
+	
+	<update id="infoUpdate"
+			parameterType="com.pettoday.vo.JoinVO">
+			update member set mem_name=#{mem_name}, mem_petname=#{mem_petname}, mem_dogcat =#{mem_dogcat}, mem_species=#{mem_species}, mem_email=#{mem_email3},mem_phone=#{mem_phone},mem_address=#{mem_address4} where mem_id=#{mem_id}
+	</update>
+	<delete id="delMember"
+			parameterType="java.lang.String">
+			delete from member where mem_id=#{sid}
+	</delete>
+	
+	<select id="selectPurchaseInfo"
+			parameterType="java.lang.String"
+			resultType="com.pettoday.vo.PurchasesVO">
+			select * from purchases where mem_id = #{sid}
+	</select>
+	
+	<select id="selectPurchaseInfoAjax"
+			parameterType="map"
+			resultType="com.pettoday.vo.PurchasesVO">
+			select * from purchases where mem_id = #{sid} and PC_DATE <![CDATA[>]]>= #{start} and PC_DATE <![CDATA[<]]> (TO_DATE(#{end})+1)
+	</select>
+	<select id="getMyPost"
+			parameterType="map"
+			resultType="com.pettoday.vo.MyPageVO">
+			select * from
+				(select rownum rno, x.* from
+					(select  title, wdate, wsort from (
+						select * from 
+							(
+							select wal_name as title , wal_date as wdate ,'wt' as wsort from walktogether where mem_id =#{sid}
+							union all
+							select pho_title as title, pho_date as wdate, 'pc' as wsort from PHOTOCONTEST where mem_id =#{sid}
+							union all 
+							select wonder_title as title, wonder_date as wdate,'w' as wsort from wonder where WONDER_WRITER = #{sid}
+							union all
+							select wonder_answer_title as title, wonder_answer_date as wdate,'a' as wsort from wonder_answer where wonder_answer_writer = #{sid}
+							) 
+						order by wdate desc
+					)
+				) x)
+			WHERE RNO BETWEEN #{start} AND #{end}
+	</select>
+	<select id="getMyPostcount" 
+			parameterType="java.lang.String" 
+			resultType="int">
+			select count(*) from
+					(select  title, wdate, wsort from (
+						select * from 
+							(
+							select wal_name as title , wal_date as wdate ,'wt' as wsort from walktogether where mem_id =#{sid}
+							union all
+							select pho_title as title, pho_date as wdate, 'pc' as wsort from PHOTOCONTEST where mem_id =#{sid}
+							union all 
+							select wonder_title as title, wonder_date as wdate,'w' as wsort from wonder where WONDER_WRITER = #{sid}
+							union all
+							select wonder_answer_title as title, wonder_answer_date as wdate,'a' as wsort from wonder_answer where wonder_answer_writer = #{sid}
+							) 
+						order by wdate desc
+					)
+				)
+	</select>
+	<select id="getMyPostcount2" 
+			parameterType="map" 
+			resultType="int">
+			select count(*) from
+					(select  title, wdate, wsort from (
+						select * from 
+							(
+							select wal_name as title , wal_date as wdate ,'wt' as wsort from walktogether where mem_id =#{sid}
+							union all
+							select pho_title as title, pho_date as wdate, 'pc' as wsort from PHOTOCONTEST where mem_id =#{sid}
+							union all 
+							select wonder_title as title, wonder_date as wdate,'w' as wsort from wonder where WONDER_WRITER = #{sid}
+							union all
+							select wonder_answer_title as title, wonder_answer_date as wdate,'a' as wsort from wonder_answer where wonder_answer_writer = #{sid}
+							) where wdate <![CDATA[>]]>= #{startdate} and wdate <![CDATA[<]]> (TO_DATE(#{enddate})+1)
+						order by wdate desc
+					)
+				)
+	</select>
+	<select id="selectMypostAjax"
+			parameterType="map"
+			resultType="com.pettoday.vo.MyPageVO">
+			select * from
+				(select rownum rno, x.* from
+					(select  title, wdate, wsort from (
+						select * from 
+							(
+							select wal_name as title , wal_date as wdate ,'wt' as wsort from walktogether where mem_id =#{sid}
+							union all
+							select pho_title as title, pho_date as wdate, 'pc' as wsort from PHOTOCONTEST where mem_id =#{sid}
+							union all 
+							select wonder_title as title, wonder_date as wdate,'w' as wsort from wonder where WONDER_WRITER = #{sid}
+							union all
+							select wonder_answer_title as title, wonder_answer_date as wdate,'a' as wsort from wonder_answer where wonder_answer_writer = #{sid}
+							) where wdate <![CDATA[>]]>= #{startdate} and wdate <![CDATA[<]]> (TO_DATE(#{enddate})+1)
+						order by wdate desc
+					)
+				) x)
+			WHERE RNO BETWEEN #{startCount} AND #{endCount}
+	</select>
+</mapper>
+	

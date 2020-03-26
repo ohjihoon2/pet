@@ -1,0 +1,263 @@
+/* 1 */
+input[id="item_detailcate1"] + label {
+	display: inline-block;
+	border: 2px solid #bcbcbc;
+	padding:5px 10px 5px 10px;
+	border-radius:36px;
+	border:none;
+	font-size:16px;
+	cursor: pointer;
+	text-align: center;
+	margin-left: 10px;
+}
+
+
+input[id="item_detailcate1"]:checked + label {
+	background-color: #ffc71d;
+}
+
+input[id="item_detailcate1"] {
+	display: none;
+}
+
+/* 2 */
+input[id="item_detailcate2"] + label {
+	display: inline-block;
+	border: 2px solid #bcbcbc;
+	padding:5px 10px 5px 10px;
+	border-radius:36px;
+	border:none;
+	font-size:16px;
+	cursor: pointer;
+	text-align: center;
+	margin-left: 10px;
+}
+
+
+input[id="item_detailcate2"]:checked + label {
+	background-color: #ffc71d;
+}
+
+input[id="item_detailcate2"] {
+	display: none;
+}
+
+/* 3 */
+input[id="item_detailcate3"] + label {
+	display: inline-block;
+	border: 2px solid #bcbcbc;
+	padding:5px 10px 5px 10px;
+	border-radius:36px;
+	border:none;
+	font-size:16px;
+	cursor: pointer;
+	text-align: center;
+	margin-left: 10px;
+}
+
+
+input[id="item_detailcate3"]:checked + label {
+	background-color: #ffc71d;
+}
+
+input[id="item_detailcate3"] {
+	display: none;
+}
+
+/* 4 */
+input[id="item_detailcate4"] + label {
+	display: inline-block;
+	border: 2px solid #bcbcbc;
+	padding:5px 10px 5px 10px;
+	border-radius:36px;
+	border:none;
+	font-size:16px;
+	cursor: pointer;
+	text-align: center;
+	margin-left: 10px;
+}
+
+
+input[id="item_detailcate4"]:checked + label {
+	background-color: #ffc71d;
+}
+
+input[id="item_detailcate4"] {
+	display: none;
+}
+
+/* 5 */
+input[id="item_detailcate5"] + label {
+	display: inline-block;
+	border: 2px solid #bcbcbc;
+	padding:5px 10px 5px 10px;
+	border-radius:36px;
+	border:none;
+	font-size:16px;
+	cursor: pointer;
+	text-align: center;
+	margin-left: 10px;
+}
+
+
+input[id="item_detailcate5"]:checked + label {
+	background-color: #ffc71d;
+}
+
+input[id="item_detailcate5"] {
+	display: none;
+}
+
+/* 6 */
+input[id="item_detailcate6"] + label {
+	display: inline-block;
+	border: 2px solid #bcbcbc;
+	padding:5px 10px 5px 10px;
+	border-radius:36px;
+	border:none;
+	font-size:16px;
+	cursor: pointer;
+	text-align: center;
+	margin-left: 10px;
+}
+
+
+input[id="item_detailcate6"]:checked + label {
+	background-color: #ffc71d;
+}
+
+input[id="item_detailcate6"] {
+	display: none;
+}
+
+/* 7 */
+input[id="item_detailcate7"] + label {
+	display: inline-block;
+	border: 2px solid #bcbcbc;
+	padding:5px 10px 5px 10px;
+	border-radius:36px;
+	border:none;
+	font-size:16px;
+	cursor: pointer;
+	text-align: center;
+	margin-left: 10px;
+}
+
+
+input[id="item_detailcate7"]:checked + label {
+	background-color: #ffc71d;
+}
+
+input[id="item_detailcate7"] {
+	display: none;
+}
+
+/* 8 */
+input[id="item_detailcate8"] + label {
+	display: inline-block;
+	border: 2px solid #bcbcbc;
+	padding:5px 10px 5px 10px;
+	border-radius:36px;
+	border:none;
+	font-size:16px;
+	cursor: pointer;
+	text-align: center;
+	margin-left: 10px;
+}
+
+
+input[id="item_detailcate8"]:checked + label {
+	background-color: #ffc71d;
+}
+
+input[id="item_detailcate8"] {
+	display: none;
+}
+
+/* 9 */
+input[id="item_detailcate9"] + label {
+	display: inline-block;
+	border: 2px solid #bcbcbc;
+	padding:5px 10px 5px 10px;
+	border-radius:36px;
+	border:none;
+	font-size:16px;
+	cursor: pointer;
+	text-align: center;
+	margin-left: 10px;
+}
+
+
+input[id="item_detailcate9"]:checked + label {
+	background-color: #ffc71d;
+}
+
+input[id="item_detailcate9"] {
+	display: none;
+}
+
+/* 10 */
+input[id="item_detailcate10"] + label {
+	display: inline-block;
+	border: 2px solid #bcbcbc;
+	padding:5px 10px 5px 10px;
+	border-radius:36px;
+	border:none;
+	font-size:16px;
+	cursor: pointer;
+	text-align: center;
+	margin-left: 10px;
+}
+
+
+input[id="item_detailcate10"]:checked + label {
+	background-color: #ffc71d;
+}
+
+input[id="item_detailcate10"] {
+	display: none;
+}
+
+/* 11 */
+input[id="item_detailcate11"] + label {
+	display: inline-block;
+	border: 2px solid #bcbcbc;
+	padding:5px 10px 5px 10px;
+	border-radius:36px;
+	border:none;
+	font-size:16px;
+	cursor: pointer;
+	text-align: center;
+	margin-left: 10px;
+}
+
+
+input[id="item_detailcate11"]:checked + label {
+	background-color: #ffc71d;
+}
+
+input[id="item_detailcate11"] {
+	display: none;
+}
+
+/* 12 */
+input[id="item_detailcate12"] + label {
+	display: inline-block;
+	border: 2px solid #bcbcbc;
+	padding:5px 10px 5px 10px;
+	border-radius:36px;
+	border:none;
+	font-size:16px;
+	cursor: pointer;
+	text-align: center;
+	margin-left: 10px;
+}
+
+
+input[id="item_detailcate12"]:checked + label {
+	background-color: #ffc71d;
+}
+
+input[id="item_detailcate12"] {
+	display: none;
+}

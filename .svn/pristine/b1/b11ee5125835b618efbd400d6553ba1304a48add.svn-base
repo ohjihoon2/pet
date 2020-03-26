@@ -1,0 +1,45 @@
+package com.pettoday.dao;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.pettoday.vo.JoinVO;
+
+@Repository
+public class MypageDAO {
+
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	
+	private String namespace="mapper.mypage";
+
+	/**
+	 * 회원정보 보기
+	 * @param sid
+	 * @return
+	 */
+	public JoinVO getMemberInfo(String sid) {
+		return sqlSession.selectOne(namespace+".info", sid);
+		
+	}
+
+	public int updatePassUpdate(String pass, String sid) {
+		Map<String, String> map = new HashMap<String,String>();
+		map.put("sid", sid);
+		map.put("pass", pass);
+		
+		return sqlSession.update(namespace+".passUpdate", map);
+	}
+
+	public int infoUpdate(JoinVO vo) {
+		
+		return sqlSession.update(namespace+".infoUpdate", vo);
+	}
+	
+	
+	
+}

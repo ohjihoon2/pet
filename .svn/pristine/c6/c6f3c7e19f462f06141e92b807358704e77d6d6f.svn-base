@@ -1,0 +1,64 @@
+package com.myspring.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+/**
+ * @author sist.jihoon
+ * 
+ */
+@Controller
+public class MypageController {
+
+
+	/**
+	 * ���������� ����
+	 * @return
+	 */
+	@RequestMapping(value = "/mypageMain.do", method = RequestMethod.GET)
+	public String mypageMain() {
+		return "/mypage/mypageMain.user";
+	} 
+	/**
+	 * ȸ������ ����
+	 * @return
+	 */
+	@RequestMapping(value = "/updateInfo.do", method = RequestMethod.GET)
+	public String updateInfo() {
+		return "/mypage/updateInfo.user";
+	} 
+	
+	/**
+	 * ��������
+	 * @return
+	 */
+	@RequestMapping(value = "/purchaseInfo.do", method = RequestMethod.GET)
+	public String purchaseInfo() {
+		return "/mypage/purchaseInfo.user";
+	} 
+	
+	/**
+	 * ��ٱ���
+	 * @return
+	 */
+	@RequestMapping(value = "/shoppingCart.do", method = RequestMethod.GET)
+	public String shoppingCart() {
+		return "/mypage/shoppingCart.user";
+	} 
+	
+	/**
+	 * ���� ����
+	 * @return
+	 */
+	@RequestMapping(value = "/myPosts.do", method = RequestMethod.GET)
+	public String myPosts() {
+		return "/mypage/myPosts.user";
+	} 
+	
+	@RequestMapping(value = "/myReviewModal.do", method = RequestMethod.GET)
+	public String myReviewModal() {
+		return "/mypage/myReviewModal.user";
+	} 	
+	
+}

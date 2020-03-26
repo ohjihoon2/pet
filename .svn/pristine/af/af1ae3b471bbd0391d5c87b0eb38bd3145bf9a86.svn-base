@@ -1,0 +1,67 @@
+
+a {
+	cursor: pointer;
+	text-decoration: none;
+	color : black;
+}
+
+div#content {
+	width: 1611.8px;
+	height: 980px;
+	float: right;
+	border-left: 1px solid #cccccc;
+	background-color: #eeeeee;
+	margin: 0px;
+	padding-top: 50px;
+}
+
+div#member_mgm {
+border: 1px solid #cccccc;
+    border-radius: 10px;
+    background-color: white;
+    width: 1288px;
+    margin: auto;
+    height: 750px;
+}
+
+div#member_mgm h3 {
+    margin: 20px 0 0 20px;
+    display: inline-block;
+}
+
+div#member_mgm a h4 {
+    margin: 24px 10px 0 0;
+    float: right;
+    display: inline-block;
+    font-size: 11pt;
+    color: #8e8e8e;
+}
+
+div#member_mgm table {
+    width: 1230px;
+    border-spacing: 0;
+    border-style: none;
+    padding: 0px;
+    font-family: "³ª´®°íµñ";
+    font-size: 15px;
+    margin: 25px 0 0 30px;
+    text-align: center;
+}
+
+div#member_mgm table tr th {
+    height: 40px;
+    border-top: solid 1px #888888;
+    border-bottom: solid 1px #c7c7c7;
+    background: #f1f1f1;
+}
+
+div#member_mgm table tr td {
+	height: 50px;
+	border-bottom: solid 1px #c7c7c7;
+	
+	
+}
+
+div#member_mgm table tr td.table_title {
+	text-align: center;
+}

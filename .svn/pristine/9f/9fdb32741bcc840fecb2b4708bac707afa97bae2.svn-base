@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper는 xml파일에 하나만 만들수 있다. -->
+<mapper namespace="mapper.mypage">
+	<select id="info"
+			parameterType="java.lang.String"
+			resultType="com.pettoday.vo.JoinVO">
+			select * from member where mem_id = #{sid}
+	</select>
+	<update id="passUpdate"
+			parameterType="map">
+			update member set mem_pass= #{pass} where mem_id =#{sid} 
+	</update>
+	
+	<update id="infoUpdate"
+			parameterType="com.pettoday.vo.JoinVO">
+			update member set mem_name=#{mem_name}, mem_petname=#{mem_petname}, mem_dogcat =#{mem_dogcat}, mem_species=#{mem_species}, mem_email=#{mem_email3},mem_phone=#{mem_phone},mem_address=#{mem_address4} where mem_id=#{mem_id}
+	</update>
+</mapper>
+	

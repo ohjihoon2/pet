@@ -1,0 +1,270 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index.css">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index_carousel.css">
+<link rel="stylesheet" href="http://localhost:9090/pet/css/navbar_techandall.css"><!-- Navigation CSS -->
+<script src="http://localhost:9090/pet/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="http://localhost:9090/pet/js/ddmenu.js"></script>
+
+<!-- modal  -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="http://localhost:9090/pet/js/header_toggle.js"></script>  <!-- header_toggle js -->
+
+
+
+<style>
+	#myPosts_hole{
+		color: #404040;
+	}
+	.mypage_table{
+		margin:auto;
+		width: 900px;
+	}
+	.myPosts_form{
+	    width: 850px;
+	    margin-top: 100px;
+	    margin-bottom: 100px;
+	    padding: 45px 25px 80px 25px;
+	}
+	.myPosts_form  span.page_name, span.myReview{
+		display: block;
+	    font-size: 26px;
+	    color: #353535;
+	    margin-bottom: 35px;
+	    text-align: center;
+	}
+	.myPosts_form input {
+	    margin: 0 auto;
+	    border: 1px solid #ccc; 
+	    width: 120px;
+	    height: 20px;
+	    margin-top: 5px;
+	    margin-bottom: 15px;
+	    padding-left: 15px;	
+	}
+	.dateBtn{
+		margin-top:20px;
+	    height: 30px;
+	    line-height: 30px;
+	    width: 100px;
+	    text-align: center;
+	    font-weight: 600;
+	    border: 1px solid #E0E0E0;
+	    border-radius:6px;
+	    margin-right: 7px;
+	    font-size: 13px;
+	    background: #FFF;
+	}
+	.myPostsSearch{
+		margin-top:20px;
+	    height: 30px;
+	    line-height: 30px;
+	    width: 100px;
+	    text-align: center;
+	    font-weight: 600;
+	    border: 1px solid #E0E0E0;
+	    border-radius:6px;
+	    margin-right: 7px;
+	    font-size: 13px;
+	    background: #E0E0E0;
+	}
+	
+	.myPosts_table{
+		width: 850px;
+		text-align: center;
+	}
+	
+	.myPosts_table th{
+		background-color:#ccc;
+		width:150px;
+		height:40px;
+		text-align:center;
+	}
+	
+	table.myPosts_table > tbody > tr:nth-child(1) > th:nth-child(4),
+	table.myPosts_table > tbody > tr:nth-child(1) > th:nth-child(5){
+	
+		width:100px;
+	}
+	table.myPosts_table > tbody > tr:nth-child(1) > th:nth-child(1),
+	table.myPosts_table > tbody > tr:nth-child(1) > th:nth-child(2),
+	table.myPosts_table > tbody > tr:nth-child(1) > th:nth-child(6){
+		width:50px;
+	}
+	
+	table.myPosts_table > tbody > tr > td{
+		text-align: center;
+		padding-top:20px;
+		padding-bottom:20px;
+	}
+	
+	.myReviewImg{
+		display:inline-block;
+		padding:5px;
+	}
+	.myReview_table{
+		display: inline-block;
+		width: 800px;
+		text-align: center;
+	}
+	
+	.myReview_table th{
+		text-align:center;
+		background-color:#ccc;
+		width:150px;
+		height:40px;
+	}
+	
+	table.myReview_table > tbody > tr:nth-child(1) > th:nth-child(1){
+		width:200px;
+	}
+	
+	table.myReview_table > tbody > tr:nth-child(1) > th:nth-child(2),
+	table.myReview_table > tbody > tr:nth-child(1) > th:nth-child(3){
+	
+		width:100px;
+	}
+	
+	table.myReview_table > tbody > tr:nth-child(1) > th:nth-child(4){
+		width:500px;
+	}
+	#myPosts_hole > div > div > div:nth-child(2) > div > table > tbody > tr:nth-child(2) > td.myReviewTitle > a {
+		border:none;
+		font-size:11pt;
+		color:black;
+		background  : none;
+	}
+	
+</style>
+<script>
+	$(document).ready(function(){
+		$(".myReviewTitle").click(function(){
+			
+		});
+		
+		
+	});
+
+</script>
+</head>
+<body>
+	<div>
+		<div id="myPosts_hole">
+			<div>
+				<div class="mypage_table">	
+					<div class="myPosts_form">
+						<span class="page_name">내가 쓴 글</span>
+						<div>
+							<button type="button" class="dateBtn">1주일</button>
+							<button type="button" class="dateBtn">1개월</button>
+							<button type="button" class="dateBtn">3개월</button>
+							<button type="button" class="dateBtn">전체</button>
+							<input type="text" value="2019-11-01" id="start_date">
+							<input type="text" value="2019-12-01" id="end_date">
+							<button type="button" class="myPostsSearch">검색</button>
+						</div>
+						<table class="myPosts_table">
+							<tr>
+								<th>번호</th>
+								<th>분류</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>작성일</th>
+								<th>조회</th>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>Q & A</td>
+								<td>문의합니다</td>
+								<td>오지훈</td>
+								<td>2019-11-13</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Q & A</td>
+								<td>┖ 문의해주셔서 감사합니다.</td>
+								<td>펫투데이</td>
+								<td>2019-11-16</td>
+								<td>1</td>
+							</tr>
+						</table>
+					</div>
+					<div>
+						<span class="myReview">REVIEW 내가 작성한 리뷰</span>
+						<div class="myReviewRow">
+							<span class="myReviewImg">
+								<img alt="" src="http://localhost:9090/pet/images/강쥐후드.PNG">
+							</span>
+							<table class="myReview_table">
+								<tr>
+									<th>상품정보</th>
+									<th>구매일</th>
+									<th>사이즈</th>
+									<th>후기</th>
+								</tr>
+								<tr>
+									<td>강아지후드</td>
+									<td>2019.11.23</td>
+									<td>L</td>
+									<!-- <td class="myReviewTitle"><a href="myReviewModal.do" >타이트 하게 맞아요 ㅎㅎ</a></td> -->
+									<td class="myReviewTitle">
+										<a class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">타이트해요..ㅠㅆ</a>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<span class="myReviewImg">
+							<img alt="" src="http://localhost:9090/pet/images/강쥐후드.PNG">
+						</span>
+						<table class="myReview_table">
+							<tr>
+								<th>상품정보</th>
+								<th>구매일</th>
+								<th>사이즈</th>
+								<th>일반 후기</th>
+							</tr>
+							<tr>
+								<td>강아지 사료</td>
+								<td>2019.12.02</td>
+								<td>1kg</td>
+								<td class="myReviewTitle">잘먹어요!!!</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  	<!-- Modal -->
+	 <div class="modal fade" id="myModal" role="dialog">
+	   <div class="modal-dialog">
+	   
+	     <!-- Modal content-->
+	     <div class="modal-content">
+	       <div class="modal-header">
+	         <button type="button" class="close" data-dismiss="modal">&times;</button>
+	         <h4 class="modal-title">Modal Header</h4>
+	       </div>
+	       <div class="modal-body">
+	         <p>Some text in the modal.</p>
+	       </div>
+	       <div class="modal-footer">
+	         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	       </div>
+	     </div>
+	     
+	   </div>
+	 </div>
+</body>
+</html>

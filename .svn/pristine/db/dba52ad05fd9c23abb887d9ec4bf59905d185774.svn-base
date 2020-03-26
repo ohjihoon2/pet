@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.vet">
+	<select id="tip_count" resultType="int">
+		select count(*) from tip where tip_kind='dog'
+	</select>
+	<select id="ctip_count" resultType="int">
+		select count(*) from tip where tip_kind='cat'
+	</select>
+	
+	<select id="tip_list" parameterType="map" resultType="com.pettoday.vo.VetVO">
+		SELECT*FROM (SELECT rownum rno, tip_id, tip_date, tip_title, tip_mainimg 
+		FROM (SELECT tip_id, tip_date, tip_title, tip_mainimg FROM tip where tip_kind='dog' ORDER BY tip_date DESC)) WHERE RNO BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="ctip_list" parameterType="map" resultType="com.pettoday.vo.VetVO">
+		SELECT*FROM (SELECT rownum rno, tip_id, tip_date, tip_title, tip_mainimg 
+		FROM (SELECT tip_id, tip_date, tip_title, tip_mainimg FROM tip where tip_kind='cat' ORDER BY tip_date DESC)) WHERE RNO BETWEEN #{start} AND #{end}
+	</select>
+	
+	
+	
+	<select id="content" parameterType="java.lang.String" resultType="com.pettoday.vo.VetVO">
+		select * from tip where tip_id=#{tip_id} 
+	</select>
+	
+
+</mapper>

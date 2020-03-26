@@ -1,0 +1,195 @@
+a{
+	 cursor: pointer;
+	 text-decoration: none;
+}
+aside#amdmin_left{
+	height: 2510px;
+
+}
+
+div#content{
+	width:1611.8px;
+	height:2440px;
+	float: right;
+	border-left: 1px solid #cccccc;
+	background-color: #eeeeee;
+	margin: 0px;
+	
+}
+
+div#vet table {
+	width: 1100px;
+	border-spacing: 0;
+	border-style: none;
+	padding: 0px;
+	font-family: "³ª´®°íµñ";
+	font-size: 15px;
+	margin: 200px 0 0 190px;
+
+}
+
+div#vet table tr th {
+	height: 60px;
+	border-top: solid 1px #888888;
+	border-bottom: solid 1px #c7c7c7;
+	background: #f1f1f1;
+	text-align: left;
+	padding-left: 15px;
+}
+
+td#A {
+	width: 60px;
+	height: 40px;
+	text-align: left;
+	padding-left: 15px;
+	font-size: 14px;
+	color: #616161;
+}
+
+td#B {
+	width: 80px;
+	height: 40px;
+	text-align: left;
+	font-size: 14px;
+	color: #a5a5a5;
+}
+
+td#C {
+	height: 40px;
+	text-align: right;
+	font-size: 14px;
+	color: #616161;
+	padding-right: 15px;
+}
+
+td#D {
+	border-top: solid 1px #c7c7c7;
+	padding: 50px 15px 50px 15px;
+	text-align: left;
+	border-bottom: solid 1px #c7c7c7;
+	font-family: "³ª´®°íµñ";
+}
+
+
+div#vet{
+	width: 1510px;
+	height: 2340px;
+	border: 1px solid #cccccc;
+	border-radius:10px;
+	display: inline-block;
+	background-color: white;
+	margin-top: 50px;
+	margin-left:50px;
+	
+	
+	
+}
+div.vet_btn a:first-child button{
+	 float: right; 
+	background-color: white;
+	padding: 12px;
+	border: 1px solid #cccccc;
+	color: #333333;
+	margin: 15px 230px 0px 0px;
+	padding-left:14px;
+	font-weight: bold;
+	
+}
+div.vet_btn a:nth-child(2) button{
+	 float: right; 
+	background-color: white;
+	padding: 12px;
+	border: 1px solid #cccccc;
+	color: #333333;
+	margin: 15px 20px 0px 0px;
+	padding-left:14px;
+	font-weight: bold;
+	
+}
+div.vet_btn a:nth-child(3) button{
+	 float: right; 
+	background-color: white;
+	padding: 12px;
+	border: 1px solid #cccccc;
+	color: #333333;
+	margin: 15px 20px 0px 0px;
+	padding-left:14px;
+	font-weight: bold;
+	
+}
+.title{
+	float: left;
+	margin: 40px 0px 0 40px;
+}
+.maintt{
+	width: 500px;
+	height: 25px;
+	font-size: 15px;
+}
+.mainct{
+	width: 500px;
+	height: 200px;
+	font-size: 15px;
+	white-space: pre-line;
+	
+}
+.tt2{
+	width: 500px;
+	height: 25px;
+	font-size: 15px;
+}
+.ct2{
+	width: 500px;
+	height: 200px;
+	font-size: 15px;
+	white-space: pre-line;
+	
+}
+
+.tt3{
+	width: 500px;
+	height: 25px;
+	font-size: 15px;
+}
+.ct3{
+	width: 500px;
+	height: 200px;
+	font-size: 15px;
+	white-space: pre-line;
+	
+}
+
+.tt4{
+	width: 500px;
+	height: 25px;
+	font-size: 15px;
+}
+.ct4{
+	width: 500px;
+	height: 200px;
+	font-size: 15px;
+	white-space: pre-line;
+	
+}
+
+.mainimg{
+	width: 300px;
+	height: 200px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

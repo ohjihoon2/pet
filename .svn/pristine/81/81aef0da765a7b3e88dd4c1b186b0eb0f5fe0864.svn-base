@@ -1,0 +1,33 @@
+package com.pettoday.dao;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.pettoday.vo.ItemVO;
+
+@Repository
+public class ItemDAO {
+
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	
+	private String namespace="mapper.item";
+	
+	/** 전체 리스트 **/
+	public ArrayList<ItemVO> getResultList(String item_cate){
+		List<ItemVO> list = null;
+		
+		list = sqlSession.selectList(namespace + ".list",item_cate);
+		
+		return (ArrayList<ItemVO>)list;
+		
+	}
+	
+	public String itemCate(String item_cate) {
+		return sqlSession.selectOne(namespace+".itemCate",item_cate);
+	}
+}

@@ -1,0 +1,114 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index.css">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index_carousel.css">
+<link rel="stylesheet" href="http://localhost:9090/pet/css/navbar_techandall.css"><!-- Navigation CSS -->
+<link href="http://localhost:9090/pet/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script src="http://localhost:9090/pet/js/jquery-3.4.1.min.js"></script>
+<script src="http://localhost:9090/pet/js/header_toggle.js"></script>  <!-- header_toggle js -->
+<title>전문가 추천</title>
+<style>
+* {
+	margin: 0px;
+	padding: 0px;
+	font-family: "나눔고딕";
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+body {
+	width: 100%;
+}
+
+body>div>div>div {
+	margin: auto;
+	margin-bottom: 20px;
+	width: 900px;
+}
+
+div#notice_write_header {
+	width: 100%;
+	height: 150px;
+	background: #f1f1f1;
+	margin-top: 50px;
+	font-size: 30px;
+	line-height: 150px;
+	text-align: center;
+}
+
+div#loc {
+	width: 900px;
+	margin: auto;
+	margin-bottom: 50px;
+	margin-top: 10px;
+	color: #737373;
+	font-size: 14px;
+}
+
+div#msg_delete {
+	text-align: center;
+	margin-bottom: 140px;
+}
+
+div#msg_delete>span {
+	color: #787878;
+	display: block;
+	font-size: 24px;
+	font-weight: 500;
+}
+
+div#msg_delete>div#ho {
+	width: 400px;
+	background-color: #787878;
+	height: 1px;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 100px;
+}
+
+div#msg_delete button {
+	border: 3px solid #ffc71d;
+	background-color: white;
+	font-size: 16px;
+	color: black;
+	padding: 7px 35px 7px 35px;
+	margin: 25px 5px 0px 5px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+div#msg_delete button:hover {
+	background-color: #ffc71d;
+	color: white;
+	opacity: 0.7;
+}
+</style>
+</head>
+<body>
+	<div>
+		<!-- header 추가 -->
+		<jsp:include page="../header.jsp"></jsp:include>
+		<div id="notice_write_header">전문가 상담 게시글 삭제</div>
+		<div id="loc">전문가 상담 > 전문가 상담 게시글 삭제</div>
+		<div>
+			<div id="msg_delete">
+				<span>정말 삭제 하시겠습니까?</span>
+				<div id="ho"></div>
+				<a href="vet_delete_process.do"><button type="button">삭제</button></a> 
+				<a href="vet1.do"><button type="button">목록</button></a> 
+				<a href="vet1_detail.do"><button type="button">이전</button></a>
+			</div>
+		</div>
+
+		<!-- footer 추가 -->
+		<jsp:include page="../footer.jsp"></jsp:include>
+	</div>
+</body>
+</html>

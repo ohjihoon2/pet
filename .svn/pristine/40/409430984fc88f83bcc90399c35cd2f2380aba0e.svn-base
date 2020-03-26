@@ -1,0 +1,204 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index.css">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/vet3_detail.css">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index_carousel.css">
+<link rel="stylesheet" href="http://localhost:9090/pet/css/navbar_techandall.css"><!-- Navigation CSS -->
+<link href="http://localhost:9090/pet/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script src="http://localhost:9090/pet/js/jquery-3.4.1.min.js"></script>
+<script src="http://localhost:9090/pet/js/header_toggle.js"></script>  <!-- header_toggle js -->
+<title>전문가 추천</title>
+
+<script>
+	$(document).ready(function(){
+		
+		$('div.pick_img').click(function() {
+			location.href = 'vet3_detail.do';
+		});
+	});
+</script>
+</head>
+<body>
+
+      <!-- header 추가  -->
+ 
+ 		
+ 		
+      <!-- 컨텐츠 부분 -->
+       <div id="container">
+      
+       <img src="http://localhost:9090/pet/images/exbanner.png">
+        <div id="contents">
+
+        <div class="sub_content">
+           
+		<div class="content_box">
+			<div class="pick_Page">
+				<!-- 강아지 기획전 -->
+				<div class="main_goods_cont">
+					<div class="plan_tab">
+						<!-- <a class="dog_btn on" href="./pet_doc_list.php?petCategory=d">강아지</a> -->
+						 <li><a class="dog_btn on" href="http://localhost:9090/pet/vet3.do" id="dog" class="ani">강아지</a></li> 
+						 <li><a class="cat_btn" href="http://localhost:9090/pet/vet6.do" id="cat" class="ani">고양이</a></li>
+						<!-- <a class="cat_btn " href="http://www.petsbe.com/pet/pet_doc_list.php?petCategory=c">고양이</a> -->
+					</div>
+					
+					<div class="tab_cont">
+						<div class="main_goods_tab">
+							<ul>
+								<li class="icon1 "><a href="http://localhost:9090/pet/vet1.do" id="step3" class="step"><span>전문가 상담</span></a></li>
+								<li class="icon2"><a href="http://localhost:9090/pet/vet2.do" id="step4" class="step"><span>반려동물 사료 추천</span></a></li>
+								<li class="icon3 on"><a href="http://localhost:9090/pet/vet3.do" id="step5" class="step"><span>전문가 생활 팁</span></a></li>
+							</ul>
+						</div>
+					</div>
+<!------------------------------------------------------------------------------------------------------------------->		
+<!-- 강아지 - 전문가생활 팁 상세페이지 -->
+				<div class="goods_tab_cont">
+					<div class="pick_list">
+						<div class="contents">
+							<div class="a" > 
+							    <div class="b">
+							        <li class="number">NO.1</li>
+							         <h2 >노령견과 사료</h2>
+							             <p>[노령견을 위한 사료 선택 Tip!!]</p>
+							    </div>
+							             <p class="sub">안녕하세요. 수의사와 함께하는 똑똑한 쇼핑몰 펫투데이 강수 수의사입니다~ 어린 연령에서 필요한 영양소가 다르듯이, 노령견도 사료 변경이 필요할 때가 있어요. 
+							              	영양소에서 큰 차이가 나지 않지만, 구강 질환이 있거나 특정 질환이 있을 때 등이 그 예가 된답니다. 조금 더 자세히 알아볼까요?</p> 	
+							              	<img src="http://localhost:9090/pet/images/vet/tttt.jpg" >	 
+							    		 <h2 >01 노령견 사료는 몇 살 때부터?</h2>
+							             <p class="sub">확실히 정해진 기준은 없지만 대개는 사료 변경이 필요한 것은 7세 이상입니다. 
+										             소형견에서는 좀 더 늦은 시기, 대형견에서는 좀 더 이른 시기를 말하기도 하죠.
+										              나이가 들면서 강아지들은 체력도 떨어지고 건강 상태도 변화하고 있어요. 
+										              또한 에너지 소모가 적어지고 대 사활동이 느려지기 때문에 필요한 칼로리도 적어지게 돼요. 
+										              다만, 특정 질환이 있는 경우엔 칼로리가 많이 필요한 경우도 있습니다.</p> 	
+							              	<img src="http://localhost:9090/pet/images/vet/tttt.jpg" >	
+							              <h2 >02 꼭 노령견용 사료를 급여해야 하나요??</h2>
+							             <p class="sub">현재 문제가 없다면 꼭 사료를 변경할 필요는 없습니다. 강아지가 현재 먹고 있는 사료를 잘 먹고 있고 큰 문제 없이 건강하다면요!
+							             			 건강의 문제가 있고 활동이 줄었거나 체중이 느는 경향이 있는 등의 증상이 있다면, 이땐 변경을 고려해보시는 것이 좋아요.</p> 	
+							              	<img src="http://localhost:9090/pet/images/vet/tttt.jpg" >	 
+							              	<h2 >03 노령견 사료, 영양소는 어떻게 다를까</h2>
+							             <p class="sub">제품마다 차이가 있어서 정확히 말씀 드리긴 어렵지만, 대부분 아래와 같은 몇 가지 차이를 갖고 있습니다.
+									              보통 성견 사료와 비교하여 더 낮은 칼로리를 갖고 있습니다. 또한 신장 기능이 떨어질 경우를 대비해서 단백질을 적게 함유하고 있는 경우가 많아요.
+									               또한 활동량 및 소화기능이 감소할 때 변비가 찾아오는 경우가 많아서 섬유소가 비교적 높은 경향이 있답니다. 이외에 항산화에 도움이 된다는 오메가3, 
+									               유산균 등이 더 첨가되기도 해요.</p> 	
+							              	<img src="http://localhost:9090/pet/images/vet/tttt.jpg" >	 	          	
+							              	
+							</div>
+							
+							
+							<li class="recom_tit">전문가 추천 꿀템</li>
+							
+								<div class="recom_item">	
+									<div>	
+									<a href="#">
+	                       			 <img src="http://localhost:9090/pet/images/vet/feed1.jpg" alt="반려생활 수의사가 만든 건강한 간식 비만도움 80g" title="반려생활 수의사가 만든 건강한 간식 비만도움 80g" class="middle">
+	                  			    </a>
+	                  			    </div>
+	                  			    
+	                  			    <div class="item_info_cont ">
+					                    <div class="item_tit_box">
+					                        <a href="#"><strong class="item_name">반려생활 수의사가 만든 건강한 간식 비만도움 80g</strong></a>
+					                    </div>
+	                   
+						                    <div class="item_money_box">
+						                        
+						                        <strong class="item_price">
+						                            <span><font>9,800</font>원 </span>
+						                        </strong>
+						                    </div>
+											
+	               					</div>
+	 
+								</div>
+							
+								<div class="recom_item">	
+									<div>	
+									<a href="#">
+	                       			 <img src="http://localhost:9090/pet/images/vet/feed1.jpg" alt="반려생활 수의사가 만든 건강한 간식 비만도움 80g" title="반려생활 수의사가 만든 건강한 간식 비만도움 80g" class="middle">
+	                  			    </a>
+	                  			    </div>
+	                  			    
+	                  			    <div class="item_info_cont ">
+					                    <div class="item_tit_box">
+					                        <a href="#"><strong class="item_name">반려생활 수의사가 만든 건강한 간식 비만도움 80g</strong></a>
+					                    </div>
+	                   
+						                    <div class="item_money_box">
+						                        
+						                        <strong class="item_price">
+						                            <span><font>9,800</font>원 </span>
+						                        </strong>
+						                    </div>
+											
+	               					</div>
+	 
+								</div>
+								
+								<div class="recom_item">	
+									<div>	
+									<a href="#">
+	                       			 <img src="http://localhost:9090/pet/images/vet/feed1.jpg" alt="반려생활 수의사가 만든 건강한 간식 비만도움 80g" title="반려생활 수의사가 만든 건강한 간식 비만도움 80g" class="middle">
+	                  			    </a>
+	                  			    </div>
+	                  			    
+	                  			    <div class="item_info_cont ">
+					                    <div class="item_tit_box">
+					                        <a href="#"><strong class="item_name">반려생활 수의사가 만든 건강한 간식 비만도움 80g</strong></a>
+					                    </div>
+	                   
+						                    <div class="item_money_box">
+						                       
+						                        <strong class="item_price">
+						                            <span><font>9,800</font>원 </span>
+						                        </strong>
+						                    </div>
+											
+	               					</div>
+	 
+								</div>
+								
+								<div class="recom_item">	
+									<div>	
+									<a href="#">
+	                       			 <img src="http://localhost:9090/pet/images/vet/feed1.jpg" alt="반려생활 수의사가 만든 건강한 간식 비만도움 80g" title="반려생활 수의사가 만든 건강한 간식 비만도움 80g" class="middle">
+	                  			    </a>
+	                  			    </div>
+	                  			    
+	                  			    <div class="item_info_cont ">
+					                    <div class="item_tit_box">
+					                        <a href="#"><strong class="item_name">반려생활 수의사가 만든 건강한 간식 비만도움 80g</strong></a>
+					                    </div>
+	                   
+						                    <div class="item_money_box">
+						                      
+						                        <strong class="item_price">
+						                            <span><font>9,800</font>원 </span>
+						                        </strong>
+						                    </div>
+											
+	               					</div>
+	 
+								</div>
+							
+							</div>
+						</div>
+					</div>
+							
+				</div>
+			</div>
+			</div>
+			</div>
+     		</div>
+     		</div>
+     	 </div>
+
+   <!-- footer 추가 -->
+   
+
+</body>
+</html>

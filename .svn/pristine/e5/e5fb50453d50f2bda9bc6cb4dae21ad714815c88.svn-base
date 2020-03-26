@@ -1,0 +1,72 @@
+package com.myspring.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.pettoday.dao.memberDAO;
+import com.pettoday.vo.JoinVO;
+
+@Controller
+public class MemberController {
+	
+	@Autowired
+	private memberDAO memberDao;
+
+	/**
+	 * 로그인 컨트롤러
+	 */
+	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
+	public String login() {
+		return "/member/login.user";
+	}
+	
+	/**
+	 * 회원가입 컨트롤러
+	 */
+	@RequestMapping(value = "/join.do", method = RequestMethod.GET)
+	public String join() {
+		return "/member/join.user";
+	}
+	@RequestMapping(value = "/join_proc.do", method = RequestMethod.POST)
+	public String join_proc(JoinVO vo) {
+		String resPage = "";
+		int joinResult = memberDao.getResultJoin(vo);
+
+		// DB연동
+		/*JoinCheckService service = new JoinCheckService();
+		joinResult = service.getJoinResult(vo);*/
+
+		if (joinResult!=0) {
+			resPage = "redirect:/login.do";
+		} else {
+			resPage = "redirect:/join.do";
+		}
+
+		return resPage;
+	}
+	@RequestMapping(value = "/join_OK.do", method = RequestMethod.GET)
+	public String join_OK() {
+		return "/member/join_OK.user";
+	}
+	
+	/**
+	 * 주소팝업 컨트롤러
+	 */
+	@RequestMapping(value = "/Sample.do", method = RequestMethod.GET)
+	public String Sample() {
+		return "/member/Sample";
+	}
+	
+	// 아이디 중복 확인(id_check_process.jsp파일은 필요없어짐)
+		@RequestMapping(value = "/id_check_process.do", method = RequestMethod.GET)
+		@ResponseBody
+		public String id_check_process(String mem_id) {
+			System.out.println("mem_id(controller)="+mem_id);
+			int result = memberDao.getResultIdCheck(mem_id);
+
+			return String.valueOf(result);
+		}
+}

@@ -1,0 +1,12 @@
+a{
+	 cursor: pointer;
+	 text-decoration: none;
+}
+div#content{
+	width:1611.8px;
+	height:1230px;
+	float: right;
+	border-left: 1px solid #cccccc;
+	background-color: #eeeeee;
+	margin: 0px;
+}

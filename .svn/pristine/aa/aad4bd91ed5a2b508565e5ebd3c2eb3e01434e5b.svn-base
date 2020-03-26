@@ -1,0 +1,114 @@
+package com.pettoday.vo;
+
+public class VetVO {
+
+	  
+	  int tip_id,rno;
+
+	String tip_date,tip_mainimg,tip_title,tip_content,tip_img,tip_title2,
+	  tip_content2,tip_img2,tip_title3,tip_content3,tip_img3,tip_title4,tip_content4,tip_img4,tip_kind;
+	
+	public int getRno() {
+		return rno;
+	}
+	public void setRno(int rno) {
+		this.rno = rno;
+	}
+	public String getTip_date() {
+		return tip_date;
+	}
+	public void setTip_date(String tip_date) {
+		this.tip_date = tip_date;
+	}
+	public int getTip_id() {
+		return tip_id;
+	}
+	public void setTip_id(int tip_id) {
+		this.tip_id = tip_id;
+	}
+	public String getTip_mainimg() {
+		return tip_mainimg;
+	}
+	public void setTip_mainimg(String tip_mainimg) {
+		this.tip_mainimg = tip_mainimg;
+	}
+	public String getTip_title() {
+		return tip_title;
+	}
+	public void setTip_title(String tip_title) {
+		this.tip_title = tip_title;
+	}
+	public String getTip_content() {
+		return tip_content;
+	}
+	public void setTip_content(String tip_content) {
+		this.tip_content = tip_content;
+	}
+	public String getTip_img() {
+		return tip_img;
+	}
+	public void setTip_img(String tip_img) {
+		this.tip_img = tip_img;
+	}
+	public String getTip_title2() {
+		return tip_title2;
+	}
+	public void setTip_title2(String tip_title2) {
+		this.tip_title2 = tip_title2;
+	}
+	public String getTip_content2() {
+		return tip_content2;
+	}
+	public void setTip_content2(String tip_content2) {
+		this.tip_content2 = tip_content2;
+	}
+	public String getTip_img2() {
+		return tip_img2;
+	}
+	public void setTip_img2(String tip_img2) {
+		this.tip_img2 = tip_img2;
+	}
+	public String getTip_title3() {
+		return tip_title3;
+	}
+	public void setTip_title3(String tip_title3) {
+		this.tip_title3 = tip_title3;
+	}
+	public String getTip_content3() {
+		return tip_content3;
+	}
+	public void setTip_content3(String tip_content3) {
+		this.tip_content3 = tip_content3;
+	}
+	public String getTip_img3() {
+		return tip_img3;
+	}
+	public void setTip_img3(String tip_img3) {
+		this.tip_img3 = tip_img3;
+	}
+	public String getTip_title4() {
+		return tip_title4;
+	}
+	public void setTip_title4(String tip_title4) {
+		this.tip_title4 = tip_title4;
+	}
+	public String getTip_content4() {
+		return tip_content4;
+	}
+	public void setTip_content4(String tip_content4) {
+		this.tip_content4 = tip_content4;
+	}
+	public String getTip_img4() {
+		return tip_img4;
+	}
+	public void setTip_img4(String tip_img4) {
+		this.tip_img4 = tip_img4;
+	}
+	public String getTip_kind() {
+		return tip_kind;
+	}
+	public void setTip_kind(String tip_kind) {
+		this.tip_kind = tip_kind;
+	}
+
+}

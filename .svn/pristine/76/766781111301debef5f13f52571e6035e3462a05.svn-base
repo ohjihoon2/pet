@@ -1,0 +1,162 @@
+package com.pettoday.dao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.pettoday.vo.ItemVO;
+
+@Repository
+public class ItemDAO {
+
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	
+	private String namespace="mapper.item";
+	
+	/** 세부카테고리 리스트 - row count행 출력 **/
+	public int execTotalCount2(String[] chkList,String item_value2_cate) {
+	
+		Map<String, String> param = new HashMap<String, String>();
+			for(int i=0; i<chkList.length; i++) {
+				param.put("item"+(i+1), chkList[i]);
+				System.out.println("item="+chkList[i]);
+			}
+			param.put("item_value2_cate", item_value2_cate);
+			/*for(int i=0; i<chkList.length; i--) {
+				param.put("item"+(i+1), chkList[i]);
+				System.out.println("item="+chkList[i]);*/
+	
+		
+		return sqlSession.selectOne(namespace + ".icount_item_detail",param);
+	}
+	
+	/** 카테고리 리스트 - row count행 출력 **/
+	public int execTotalCount(String item_cate) {
+		return sqlSession.selectOne(namespace + ".icount_item_category",item_cate);
+	}
+	
+	/** 전체 리스트 - row count행 출력 **/
+	public int execTotalCount() {
+		return sqlSession.selectOne(namespace + ".icount");
+	}
+	
+	/** 세부카테고리 전체 리스트 **/
+	public ArrayList<ItemVO> getCateDetailResultList(int start, int end,String[] chkList,String item_value2_cate){
+		List<ItemVO> list = null;
+		
+		Map<String, String> param = new HashMap<String, String>();
+		for(int i=0; i<chkList.length; i++) {
+			param.put("item"+(i+1), chkList[i]);
+			//System.out.println("item="+chkList[i]);
+		}
+		param.put("start", String.valueOf(start));
+		param.put("end", String.valueOf(end));
+		param.put("item_value2_cate", item_value2_cate);
+		
+		
+		list = sqlSession.selectList(namespace + ".cate_detail_list", param);
+		
+		return (ArrayList<ItemVO>)list;
+	}
+		
+	
+	/** 카테고리별 전체 리스트 **/
+	public ArrayList<ItemVO> getCateResultList(int start, int end,String item_cate){
+		List<ItemVO> list = null;
+		
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("start", String.valueOf(start));
+		param.put("end", String.valueOf(end));
+		param.put("item_cate", item_cate);
+		
+		list = sqlSession.selectList(namespace + ".cate_list", param);
+		
+		return (ArrayList<ItemVO>)list;
+		
+	}
+	
+	
+	/** 전체 리스트 **/
+	public ArrayList<ItemVO> getResultList(int start, int end){
+		List<ItemVO> list = null;
+		
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("start", String.valueOf(start));
+		param.put("end", String.valueOf(end));
+		
+		list = sqlSession.selectList(namespace + ".list", param);
+		
+		return (ArrayList<ItemVO>)list;
+		
+	}
+	
+	/** 추천상품 리스트 **/
+	public ArrayList<ItemVO> getGoodList(){
+		List<ItemVO> list = null;
+		list = sqlSession.selectList(namespace + ".goodlist");
+		
+		return (ArrayList<ItemVO>)list;
+		
+	}
+	/** 강아지추천상품 리스트 **/
+	public ArrayList<ItemVO> getDogGoodList(){
+		List<ItemVO> list = null;
+		list = sqlSession.selectList(namespace + ".doggoodlist");
+		
+		return (ArrayList<ItemVO>)list;
+		
+	}
+	/** 고양이추천상품 리스트 **/
+	public ArrayList<ItemVO> getCatGoodList(){
+		List<ItemVO> list = null;
+		
+		list = sqlSession.selectList(namespace + ".catgoodlist");
+		
+		return (ArrayList<ItemVO>)list;
+		
+	}
+	/** 최근 본 상품 리스트 **/
+	public ArrayList<ItemVO> getNearList(){
+		List<ItemVO> list = null;
+		list = sqlSession.selectList(namespace + ".neargoodlist");
+		
+		return (ArrayList<ItemVO>)list;
+		
+	}
+	/** 추천(강아지) 상품 리스트 **/
+	public ArrayList<ItemVO> getRecommandList(String meat,String feature,String feel){
+		List<ItemVO> list = null;
+		System.out.println(meat);
+		System.out.println(feature);
+		System.out.println(feel);
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("meat", meat);
+		param.put("feature", feature);
+		param.put("feel", feel);
+		
+		
+		list = sqlSession.selectList(namespace + ".recommend",param);
+		
+		return (ArrayList<ItemVO>)list;
+		
+	}
+	
+	/** 최근 본 아이템 **/
+	public void getReadItem(String item_no) {
+		sqlSession.insert(namespace+".nearinsert",item_no);
+	}
+	
+	
+	
+	/** 아이템 상세리스트 **/
+	public ItemVO getResultItemDetail(String iid) {
+		return sqlSession.selectOne(namespace+".detailList",iid);
+	}
+	
+}

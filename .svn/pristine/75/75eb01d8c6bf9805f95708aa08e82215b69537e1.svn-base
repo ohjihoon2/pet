@@ -1,0 +1,66 @@
+package com.pettoday.vo;
+
+public class ItemVO {
+	int rno,item_no, item_price,item_hits;
+	
+	String  item_name, item_img, item_description, item_date, 
+	 item_cate_no;
+	
+	public int getRno() {
+		return rno;
+	}
+	public void setRno(int rno) {
+		this.rno = rno;
+	}
+	public int getItem_hits() {
+		return item_hits;
+	}
+	public void setItem_hits(int item_hits) {
+		this.item_hits = item_hits;
+	}
+	public int getItem_no() {
+		return item_no;
+	}
+	public void setItem_no(int item_no) {
+		this.item_no = item_no;
+	}
+	public int getItem_price() {
+		return item_price;
+	}
+	public void setItem_price(int item_price) {
+		this.item_price = item_price;
+	}
+	public String getItem_name() {
+		return item_name;
+	}
+	public void setItem_name(String item_name) {
+		this.item_name = item_name;
+	}
+	public String getItem_img() {
+		return item_img;
+	}
+	public void setItem_img(String item_img) {
+		this.item_img = item_img;
+	}
+	public String getItem_description() {
+		return item_description;
+	}
+	public void setItem_description(String item_description) {
+		this.item_description = item_description;
+	}
+	public String getItem_date() {
+		return item_date;
+	}
+	public void setItem_date(String item_date) {
+		this.item_date = item_date;
+	}
+	public String getItem_cate_no() {
+		return item_cate_no;
+	}
+	public void setItem_cate_no(String item_cate_no) {
+		this.item_cate_no = item_cate_no;
+	}
+	
+	
+
+}

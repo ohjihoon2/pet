@@ -1,0 +1,32 @@
+package com.pettoday.vo;
+
+public class ItemLikeVO {
+	int rno,item_like_no,item_no;
+	String mem_id;
+	
+	public int getRno() {
+		return rno;
+	}
+	public void setRno(int rno) {
+		this.rno = rno;
+	}
+	public int getItem_like_no() {
+		return item_like_no;
+	}
+	public void setItem_like_no(int item_like_no) {
+		this.item_like_no = item_like_no;
+	}
+	public int getItem_no() {
+		return item_no;
+	}
+	public void setItem_no(int item_no) {
+		this.item_no = item_no;
+	}
+	public String getMem_id() {
+		return mem_id;
+	}
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+
+}

@@ -1,0 +1,77 @@
+a{
+	 cursor: pointer;
+	 text-decoration: none;
+}
+div#content{
+	width:1611.8px;
+	height:1230px;
+	float: right;
+	border-left: 1px solid #cccccc;
+	background-color: #eeeeee;
+	margin: 0px;
+}
+
+div#vet table {
+	width: 1000px;
+	border-spacing: 0;
+	border-style: none;
+	padding: 0px;
+	font-family: "³ª´®°íµñ";
+	font-size: 15px;
+	 margin:170px 0 0 250px;
+	text-align: center;
+	
+}
+div#vet table a{
+	color: black;
+}
+
+div#vet table tr th {
+	height: 40px;
+	border-top: solid 1px #888888;
+	border-bottom: solid 1px #c7c7c7;
+	background: #f1f1f1;
+	
+}
+
+div#vet table tr td {
+	height: 60px;
+	border-bottom: solid 1px #c7c7c7;
+	
+	
+}
+
+div#vet table tr td.table_title {
+	text-align: center;
+}
+div#vet{
+	width: 1510px;
+	height: 1130px;
+	border: 1px solid #cccccc;
+	border-radius:10px;
+	display: inline-block;
+	background-color: white;
+	margin-top: 50px;
+	margin-left:50px;
+	text-align: center;
+	
+}
+div.vet_btn button{
+	 float: right; 
+	background-color: white;
+	padding: 12px;
+	border: 1px solid #cccccc;
+	color: #333333;
+	margin: 117px 270px 0px 0px;
+	padding-left:14px;
+	font-weight: bold;
+	
+}
+.title{
+	float: left;
+	margin: 40px 0px 0 40px;
+}
+
+
+
+

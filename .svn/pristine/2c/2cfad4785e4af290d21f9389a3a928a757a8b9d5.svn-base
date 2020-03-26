@@ -1,0 +1,40 @@
+package com.myspring.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.pettoday.dao.ItemDAO;
+
+@Controller
+public class ItemController {
+	
+	@Autowired
+	private ItemDAO itemDao;
+	
+	/**
+	 * AllItem 메인페이지
+	 */
+	@RequestMapping(value = "/item.do", method = RequestMethod.GET)
+	public String item_dog_food() {
+		return "/allitem/item.user";
+	}
+	
+	
+	/**
+	 * AllItem 상세컨트롤러
+	 */
+	@RequestMapping(value="itemDetail.do", method = RequestMethod.GET)
+	public ModelAndView itemDetail(String iid) {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("iid",iid);
+		mv.setViewName("/allitem/itemDetail.user");
+		
+		return mv;
+	}
+	
+	
+}

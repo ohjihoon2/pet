@@ -1,0 +1,328 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index.css">
+	<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index_carousel.css">
+	<link rel="stylesheet" href="http://localhost:9090/pet/css/navbar_techandall.css"><!-- Navigation CSS -->
+	<link href="http://localhost:9090/pet/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/item.css"><!-- item CSS -->
+	
+	<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/item_checkbox.css"><!-- item_checkbox CSS -->
+	
+	<script src="http://localhost:9090/pet/js/jquery-3.4.1.min.js"></script>
+	<script src="http://localhost:9090/pet/js/header_toggle.js"></script>  <!-- header_toggle js -->
+	<!-- 강아지와고양이 +,- 스크립트 -->
+	<script>
+	$(document).ready(function(){
+		
+		$("#asidedog1").click(function(){
+			$("#asidedog2").css("display","block");
+			$("#asideimg1").attr("src","http://localhost:9090/pet/images/minus.png");
+			$("#asidecat2").css("display","none");
+			$("#asideimg2").attr("src","http://localhost:9090/pet/images/plus.png");
+		});
+		
+		$("#asidecat1").click(function(){
+			$("#asidecat2").css("display","block");
+			$("#asideimg2").attr("src","http://localhost:9090/pet/images/minus.png");
+			$("#asidedog2").css("display","none");
+			$("#asideimg1").attr("src","http://localhost:9090/pet/images/plus.png");
+		});
+		
+	});
+	</script>
+	
+	<!-- sequence 스크립트 -->
+	<script>
+	$(document).ready(function(){
+		
+		$("#l1").click(function(){
+			$("#l1 a").css("color","black");
+			$("#l2 a").css("color","#666666");
+			$("#l3 a").css("color","#666666");
+			$("#l4 a").css("color","#666666");
+			$("#l5 a").css("color","#666666");
+		});
+		
+		$("#l2").click(function(){
+			$("#l1 a").css("color","#666666");
+			$("#l2 a").css("color","black");
+			$("#l3 a").css("color","#666666");
+			$("#l4 a").css("color","#666666");
+			$("#l5 a").css("color","#666666");
+		});
+		
+		$("#l3").click(function(){
+			$("#l1 a").css("color","#666666");
+			$("#l2 a").css("color","#666666");
+			$("#l3 a").css("color","black");
+			$("#l4 a").css("color","#666666");
+			$("#l5 a").css("color","#666666");
+		});
+		
+		$("#l4").click(function(){
+			$("#l1 a").css("color","#666666");
+			$("#l2 a").css("color","#666666");
+			$("#l3 a").css("color","#666666");
+			$("#l4 a").css("color","black");
+			$("#l5 a").css("color","#666666");
+		});
+		
+		$("#l5").click(function(){
+			$("#l1 a").css("color","#666666");
+			$("#l2 a").css("color","#666666");
+			$("#l3 a").css("color","#666666");
+			$("#l4 a").css("color","#666666");
+			$("#l5 a").css("color","black");
+		});
+		
+		
+	});
+	</script>
+	
+	<style>
+		#asidecat2{
+			display: none;
+		}
+	</style>
+	
+	<!-- 체크박스 하나만 선택/해제 -->
+	<script type="text/javascript">
+	
+	function oneCheckbox(a){
+	
+	    var obj = document.getElementsByName("checkbox1");
+	
+	    for(var i=0; i<obj.length; i++){
+	
+	        if(obj[i] != a){
+	
+	        	obj[i].checked = false;
+	
+	        }
+	
+	    }
+	
+	}
+	
+	function oneCheckbox2(a){
+		
+	    var obj = document.getElementsByName("checkbox2");
+	
+	    for(var i=0; i<obj.length; i++){
+	
+	        if(obj[i] != a){
+	
+	        	obj[i].checked = false;
+	
+	        }
+	
+	    }
+	
+	}
+		
+	function oneCheckbox3(a){
+			
+		    var obj = document.getElementsByName("checkbox3");
+		
+		    for(var i=0; i<obj.length; i++){
+		
+		        if(obj[i] != a){
+		
+		        	obj[i].checked = false;
+		
+		        }
+		
+		    }
+		
+		}
+		
+	function oneCheckbox4(a){
+		
+	    var obj = document.getElementsByName("checkbox4");
+	
+	    for(var i=0; i<obj.length; i++){
+	
+	        if(obj[i] != a){
+	
+	        	obj[i].checked = false;
+	
+	        }
+	
+	    }
+	
+	}
+	
+	</script>
+
+
+</head>
+
+<body>
+<div>
+		<!-- header -->
+														
+		<div id="con_item">
+			<aside>
+				<div id="asidemenu">
+					<h3 id="asidedog1">강아지 <img id="asideimg1" src="http://localhost:9090/pet/images/minus.png" width="14px" height="14px"/></h3>
+					<ul id="asidedog2">
+						<li><a href="http://localhost:9090/pet/item.do?cate=111">사료</a></li>
+						<li><a href="http://localhost:9090/pet/item.do?cate=112">간식</a></li>
+						<li><a href="http://localhost:9090/pet/item.do?cate=113">위생/배변</a></li>
+					</ul>
+					
+					<hr>
+					
+					<h3 id="asidecat1">고양이 <img id="asideimg2" src="http://localhost:9090/pet/images/plus.png" width="14px" height="14px"/></h3>
+					<ul id="asidecat2">
+						<li><a href="#">사료</a></li>
+						<li><a href="#">간식</a></li>
+						<li><a href="#">모래</a></li>
+					</ul>
+				</div>
+			</aside>
+			
+			<section>
+				<article>
+					<dt>카테고리</dt>
+					<dd>
+						<input type="checkbox" name="checkbox1" class="checkbox1" id="item_detailcate1" value="a1" onclick="oneCheckbox(this)">
+						<label for="item_detailcate1">건식</label>
+						
+						<input type="checkbox" name="checkbox1" class="checkbox1" id="item_detailcate2" value="a2" onclick="oneCheckbox(this)">
+						<label for="item_detailcate2">습식</label>
+						
+						<input type="checkbox" name="checkbox1" class="checkbox1" id="item_detailcate3" value="a3" onclick="oneCheckbox(this)">
+						<label for="item_detailcate3">소프트</label>
+					</dd>
+				</article>
+				
+				<article>
+					<dt>브랜드</dt>
+					<dd>
+						<input type="checkbox" name="checkbox2" class="checkbox1" id="item_detailcate4" value="b1" onclick="oneCheckbox2(this)">
+						<label for="item_detailcate4">내추럴발란스</label>
+						
+						<input type="checkbox" name="checkbox2" class="checkbox1" id="item_detailcate5" value="b2" onclick="oneCheckbox2(this)">
+						<label for="item_detailcate5">ANF</label>
+						
+						<input type="checkbox" name="checkbox2" class="checkbox1" id="item_detailcate6" value="b3" onclick="oneCheckbox2(this)">
+						<label for="item_detailcate6">건강백서</label>
+					</dd>
+				</article>
+				
+				<article>
+					<dt>특징/기능</dt>
+					<dd>
+						<input type="checkbox" name="checkbox3" class="checkbox1" id="item_detailcate7" value="c1" onclick="oneCheckbox3(this)">
+						<label for="item_detailcate7">피부/털개선</label>
+						
+						<input type="checkbox" name="checkbox3" class="checkbox1" id="item_detailcate8" value="c2" onclick="oneCheckbox3(this)">
+						<label for="item_detailcate8">뼈/관절강화</label>
+						
+						<input type="checkbox" name="checkbox3" class="checkbox1" id="item_detailcate9" value="c3" onclick="oneCheckbox3(this)">
+						<label for="item_detailcate9">면역력강화</label>
+					</dd>
+				</article>
+				
+				<article>
+					<dt>주원료</dt>
+					<dd>
+						<input type="checkbox" name="checkbox4" class="checkbox1" id="item_detailcate10" value="d1" onclick="oneCheckbox4(this)">
+						<label for="item_detailcate10">닭고기</label>
+						
+						<input type="checkbox" name="checkbox4" class="checkbox1" id="item_detailcate11" value="d2" onclick="oneCheckbox4(this)">
+						<label for="item_detailcate11">소고기</label>
+						
+						<input type="checkbox" name="checkbox4" class="checkbox1" id="item_detailcate12" value="d3" onclick="oneCheckbox4(this)">
+						<label for="item_detailcate12">연어</label>
+					</dd>
+				</article>
+			</section>
+			
+			
+			<section>
+				<article>
+					<span id="sp3">사료</span> 카테고리에  <span id="sp3">319</span> 개의 상품이 있습니다.
+				</article>
+				
+				<article>
+					<div class="box_sequence">
+						<ul>
+							<li id="l1"><a href="#">인기순</a></li>
+							<li id="l2"><a href="#">최신순</a></li>
+							<li id="l3"><a href="#">상품평순</a></li>
+							<li id="l4"><a href="#">낮은가격순</a></li>
+							<li id="l5"><a href="#">높은가격순</a></li>
+						</ul>					
+					</div>
+					
+					<div class="box_sequence2">
+						<ul>
+							<li>
+								<a href="itemDetail.do?iid=1">
+									<div>
+										<img src="http://localhost:9090/pet/images/사료1.jpg" class="middle" />
+									</div>
+									<div>
+										<span>건강백서 말티즈 2kg</span>
+										<span>14,500원</span>
+									</div>
+								</a>
+							</li>
+								
+							<li>
+								<a href="#">
+									<div>
+										<img src="http://localhost:9090/pet/images/사료2.jpg" class="middle" />
+									</div>
+									
+									<div>
+										<span>내추럴발란스 독 수제 스튜 포뮬라 LID 오리&닭고기 수제</span>
+										<span>3,200원</span>
+									</div>
+								</a>
+							</li>
+								
+							<li>
+								<a href="#">
+									<div>
+										<img src="http://localhost:9090/pet/images/사료3.jpg" class="middle" />
+									</div>
+									
+									<div>
+										<span>now 그레인프리 스몰브리드 (어덜트) 2.7kg</span>
+										<span>37,800원</span>
+									</div>
+								</a>
+							</li>
+								
+							<li>
+								<a href="#">
+									<div>
+										<img src="http://localhost:9090/pet/images/사료4.jpg" class="middle" />
+									</div>
+									
+									<div>
+										<span>수제사료 소고기 공기밥 120g</span>
+										<span>1,500원</span>
+									</div>
+								</a>
+							</li>	
+						</ul>
+					</div>
+					
+				</article>
+			</section>
+		</div>
+		
+		<!-- footer -->
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>로그인</title>
+<link rel="stylesheet" type="text/css" href="http://localhost:9090/pet/css/member.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:9090/pet/css/index.css">
+<link rel="stylesheet" href="http://localhost:9090/pet/css/navbar_techandall.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:9090/pet/css/index_carousel.css">
+<link href="http://localhost:9090/pet/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="http://localhost:9090/pet/js/jquery-3.4.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="http://localhost:9090/pet/js/member.js"></script>
+<script src="http://localhost:9090/pet/js/header_toggle.js"></script>  <!-- header_toggle js -->
+</head>
+<body>
+	<div>
+		<div id="login">
+			<form action="login_proc.do" method="post" class="login" name="loginform">
+				<span>로그인</span> 
+				<input type="text" name="id" id="id" placeholder="아이디를 입력해 주세요." > 
+				<input type="password" name="pass" id="pass" placeholder="비밀번호를 입력해 주세요." > 
+				<div>
+					<input type="checkbox" name="saveID" id="saveID">아이디 저장
+					<a href="http://localhost:9090/pet/join.do"><span>회원가입 l </span></a>
+					<a href="#"><span>아이디</span>/</a><a href="#"><span>비밀번호 찾기</span></a>
+				</div>
+				<button type="button" id="btnLogin">로그인</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

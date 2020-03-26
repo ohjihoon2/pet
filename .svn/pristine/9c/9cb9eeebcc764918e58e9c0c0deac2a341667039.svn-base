@@ -1,0 +1,523 @@
+package com.myspring.controller;
+
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.pettoday.dao.ItemDAO;
+import com.pettoday.vo.ItemBoardVO;
+import com.pettoday.vo.ItemVO;
+import com.pettoday.vo.PhotocontestVO;
+import com.pettoday.vo.SessionVO;
+
+@Controller
+public class ItemController {
+	
+	@Autowired
+	private ItemDAO itemDao;
+	
+	/**
+	 * 주문제작 결제 컨트롤러
+	 */
+	@RequestMapping(value = "/item_pay.do", method = RequestMethod.GET)
+	public ModelAndView cus_pay(String type,String color,String price,String size) {
+		ModelAndView mv =new ModelAndView();
+		
+		String price1=price;
+		String[] price2=price1.split("원");
+	
+		mv.addObject("type",type);
+		mv.addObject("color",color);
+		mv.addObject("price",price);
+		mv.addObject("price2",price2[0]);
+		mv.addObject("size",size);
+	
+	
+		mv.setViewName("/allitem/item_pay.user");
+		return mv;
+	}
+	
+	
+	/**
+	 * 아이템 상세페이지_글 삭제완료
+	 */
+	@RequestMapping(value="/item_review_delete_proccess.do", method=RequestMethod.GET,produces = "application/text; charset=utf8")
+	public String item_review_delete_proccess(String ITEM_BOARD_NO,String ITEM_NO) {
+		ModelAndView mv = new ModelAndView();
+		boolean result = itemDao.getResultDelete(ITEM_BOARD_NO);
+		String respage="";
+		
+		if(result) {
+			respage="redirect:/itemDetail.do?iid="+ITEM_NO;
+		}
+		
+		return respage;
+	}
+	
+	/**
+	 * 아이템 상세페이지_글 삭제
+	 */
+	@RequestMapping(value="/item_review_delete.do", method=RequestMethod.GET,produces = "application/text; charset=utf8")
+	public ModelAndView item_review_delete(String ITEM_BOARD_NO,String ITEM_NO) {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("ITEM_BOARD_NO",ITEM_BOARD_NO);
+		mv.addObject("ITEM_NO",ITEM_NO);
+		mv.setViewName("/allitem/item_review_delete.user");
+		
+		return mv;
+	}
+	
+	/**
+	 * 아이템 상세페이지_글 수정완료
+	 */
+	@RequestMapping(value="/item_review_update_proccess.do", method=RequestMethod.POST,produces = "application/text; charset=utf8")
+	public String item_review_update_proccess(ItemBoardVO vo) {
+		boolean result = false;
+		result = itemDao.getResultUpdate(vo);
+		String respage= "";
+		System.out.println(vo.getITEM_NO());
+		
+		if(result) {
+			respage="redirect:/itemDetail.do?iid="+vo.getITEM_NO();
+		}
+		
+		return respage;
+	}
+	
+	/**
+	 * 아이템 상세페이지_글 수정
+	 */
+	@RequestMapping(value="/item_review_update.do", method=RequestMethod.GET,produces = "application/text; charset=utf8")
+	public ModelAndView item_review_update(String ITEM_BOARD_NO) {
+		ModelAndView mv = new ModelAndView();
+		
+		ItemBoardVO vo = itemDao.getResultContent(ITEM_BOARD_NO);
+		
+		mv.addObject("vo",vo);
+		mv.setViewName("/allitem/item_review_update.user");
+		
+		return mv;
+	}
+	
+	
+	/**
+	 * 아이템 상세페이지_글쓰기 상세
+	 */
+	@RequestMapping(value="/item_review_content.do", method=RequestMethod.GET,produces = "application/text; charset=utf8")
+	public ModelAndView item_review_content(String rpage, String ITEM_BOARD_NO) {
+		ModelAndView mv = new ModelAndView();
+		
+		ItemBoardVO vo = itemDao.getResultContent(ITEM_BOARD_NO);
+		
+		if(vo.getITEM_BOARD_TITLE() != null && vo.getITEM_BOARD_TITLE() != "") {
+			itemDao.getResultReviewUpdateHits(ITEM_BOARD_NO);
+			mv.addObject("vo",vo);
+			mv.addObject("rpage",rpage);
+			mv.setViewName("/allitem/item_review_content.user");
+		}else {
+			mv.setViewName("errorPage.user");
+		}
+		
+		return mv;
+	}
+	
+	
+	/**
+	 * 아이템 상세페이지_글쓰기 완료
+	 */
+	@RequestMapping(value="/item_review_write_process.do", method=RequestMethod.POST)
+	public String item_review_write_process(ItemBoardVO vo) {
+		
+		boolean result = itemDao.getResultWrite(vo);
+		String respage="";
+		
+		if(result) {
+			respage="redirect:/itemDetail.do?iid="+vo.getITEM_NO();
+		}
+		
+		System.out.println("** 글쓰기 완료 **");
+		System.out.println("아이디="+vo.getMEM_ID());
+		System.out.println("제목="+vo.getITEM_BOARD_TITLE());
+		System.out.println("평점="+vo.getITEM_BOARD_GRADE());
+		System.out.println("내용="+vo.getITEM_BOARD_CONTENT());
+		
+		
+		return respage;
+	}
+	
+	/**
+	 * 아이템 상세페이지_글쓰기
+	 */
+	@RequestMapping(value="/item_review_write.do", method=RequestMethod.GET,produces = "application/text; charset=utf8")
+	public ModelAndView item_review_write(String item_no, String item_name) {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("item_no",item_no);
+		mv.addObject("item_name",item_name);
+		mv.setViewName("/allitem/item_review_write.user");
+		return mv;
+	}
+	
+	/**
+	 * 아이템 상세페이지_찜하기삭제
+	 */
+	@ResponseBody
+	@RequestMapping(value="itemDetail_like_del_process.do", method=RequestMethod.GET, produces = "application/text; charset=utf8")
+	public String itemDetail_like_del_process(String sid, String iid) {
+		boolean result = false;
+		result = itemDao.getItemDelLike(sid,iid);
+		String resPage="";
+		
+		if(result) {
+			resPage="찜하기취소";
+		}else {
+			resPage="찜하기삭제 실패";
+		}
+		
+		return resPage;
+	}
+	
+	/**
+	 * 아이템 상세페이지_찜하기
+	 */
+	@ResponseBody
+	@RequestMapping(value="itemDetail_like_process.do", method=RequestMethod.GET, produces = "application/text; charset=utf8")
+	public String itemDetail_like_process(String sid, String iid) {
+		boolean result = false;
+		result = itemDao.getItemLike(sid,iid);
+		String resPage="";
+		
+		if(result) {
+			resPage="찜하기";
+		}else {
+			resPage="찜하기 실패";
+		}
+		
+		
+		return resPage;
+	}
+	
+	
+	
+	/**
+	 * 아이템 상세페이지 후기 페이징리스트
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/itemDetail_review.do", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	public String itemDetail_review(String rpage,String iid) {
+		ModelAndView mv = new ModelAndView();
+		
+		//페이징처리 - startCount, endCount 구하기
+		int startCount = 0;
+		int endCount = 0;
+		int pageSize = 10;	//한페이지당 게시물 수
+		int reqPage = 0;	//요청페이지	, rpage를 대체
+		int pageCount = 1;	//전체 페이지 수
+		int dbCount = itemDao.execTotalBoardCount(iid);	//DB에서 가져온 전체 행수 
+		
+		//총 페이지 수 계산
+		if(dbCount % pageSize == 0){
+			pageCount = dbCount/pageSize;
+		}else{
+			pageCount = dbCount/pageSize+1;
+		}
+
+		//요청 페이지 계산
+		if(rpage != null){
+			reqPage = Integer.parseInt(rpage);
+			startCount = (reqPage-1) * pageSize+1;
+	 		endCount = reqPage *pageSize;
+		}else{
+			reqPage = 1;
+			startCount = 1;
+			endCount = 10;
+		}
+		
+		//System.out.println(startCount+","+ endCount+","+check_text);			
+		ArrayList<ItemBoardVO> list = itemDao.getBoardResultList(startCount, endCount,iid);
+		
+		Gson gson = new Gson();
+		JsonArray jlist = new JsonArray();
+		JsonObject jdata = new JsonObject();
+	
+	    
+		for(ItemBoardVO vo: list){
+			JsonObject obj = new JsonObject();
+			obj.addProperty("rno", vo.getRno());
+			obj.addProperty("ITEM_BOARD_NO", vo.getITEM_BOARD_NO());
+			obj.addProperty("ITEM_BOARD_GRADE", vo.getITEM_BOARD_GRADE());
+			obj.addProperty("ITEM_BOARD_TITLE", vo.getITEM_BOARD_TITLE());
+			obj.addProperty("MEM_ID", vo.getMEM_ID());
+			obj.addProperty("ITEM_BOARD_DATE", vo.getITEM_BOARD_DATE());
+			obj.addProperty("ITEM_BOARD_HITS", vo.getITEM_BOARD_HITS());
+			
+			jlist.add(obj);
+		}	 
+
+		jdata.add("list",jlist);
+		jdata.addProperty("dbcount", String.valueOf(dbCount));
+		jdata.addProperty("rpage", reqPage);
+		jdata.addProperty("pagesize", pageSize);
+		
+		System.out.println("리뷰리스트="+jdata);
+		return String.valueOf(gson.toJson(jdata));
+	}
+	
+	/**
+	 * 아이템 상세페이지
+	 */
+	@RequestMapping(value="itemDetail.do", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	public ModelAndView itemDetail(String iid,String rpage,HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		
+		ItemVO vo = itemDao.getResultItemDetail(iid);
+		
+		if(vo.getItem_name() != null && vo.getItem_name() != "") {
+			itemDao.getResultItemUpdateHits(iid);
+		}
+		
+		itemDao.getReadItem(iid);
+		
+		String sid = (String)session.getAttribute("sid");
+		
+		if(sid != null && sid != "") {
+			int rs_like = itemDao.getResultLike(sid,iid);
+			System.out.println(rs_like);
+			mv.addObject("rs_like",rs_like);
+		}
+		
+		mv.addObject("vo",vo);
+		mv.setViewName("/allitem/itemDetail.user");
+		
+		return mv;
+	}
+	
+	
+	/**
+	 * AllItem 메인페이지_상세 카테고리별_페이징리스트(ajax), 인기순, 최신순, 낮은가격순, 높은가격순(ajax)
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/item_list_detail.do", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	public String item_list_detail(String rpage,String[] chkList,String item_value2_cate,String item_sequence,String item_cate_name) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("상세카테고리별="+rpage+","+chkList.length+","+item_value2_cate+","+item_sequence+","+item_cate_name);
+		
+		for(String item : chkList) {
+			if(item != null || item != "") {
+				System.out.println(item+",");
+				
+			}else {
+				System.out.println("00000");
+			}
+			
+		}
+		
+		String item_cate_name2 = item_cate_name;
+		
+		//페이징처리 - startCount, endCount 구하기
+		int startCount = 0;
+		int endCount = 0;
+		int pageSize = 12;	//한페이지당 게시물 수
+		int reqPage = 0;	//요청페이지	, rpage를 대체
+		int pageCount = 1;	//전체 페이지 수
+		int dbCount = itemDao.execTotalCount2(chkList,item_value2_cate);	//DB에서 가져온 전체 행수 
+		
+		//총 페이지 수 계산
+		if(dbCount % pageSize == 0){
+			pageCount = dbCount/pageSize;
+		}else{
+			pageCount = dbCount/pageSize+1;
+		}
+
+		//요청 페이지 계산
+		if(rpage != null){
+			reqPage = Integer.parseInt(rpage);
+			startCount = (reqPage-1) * pageSize+1;
+	 		endCount = reqPage *pageSize;
+		}else{
+			reqPage = 1;
+			startCount = 1;
+			endCount = 12;
+		}
+		//System.out.println(startCount+","+ endCount+","+check_text);			
+		ArrayList<ItemVO> list = itemDao.getCateDetailResultList(startCount, endCount,chkList,item_value2_cate,item_sequence);
+		
+		Gson gson = new Gson();
+		JsonArray jlist = new JsonArray();
+		JsonObject jdata = new JsonObject();
+	
+	    
+		for(ItemVO vo: list){
+			JsonObject obj = new JsonObject();
+			obj.addProperty("item_no", vo.getItem_no());
+			obj.addProperty("item_img", vo.getItem_img());
+			obj.addProperty("item_simg", vo.getItem_simg());
+			obj.addProperty("item_name", vo.getItem_name());
+			obj.addProperty("item_price", vo.getItem_price());
+			
+			jlist.add(obj);
+		}	 
+
+		jdata.add("list",jlist);
+		jdata.addProperty("dbcount", String.valueOf(dbCount));
+		jdata.addProperty("rpage", reqPage);
+		jdata.addProperty("pagesize", pageSize);
+		jdata.addProperty("item_cate_name", item_cate_name2);
+		
+		System.out.println("item_cate="+jdata);
+		return String.valueOf(gson.toJson(jdata));
+	}
+	
+	/**
+	 * AllItem 메인페이지_사이드메뉴_페이징리스트(ajax)
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/item_list.do", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	public String item_list(String rpage,String item_cate,String item_sequence, String item_cate_name) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("카테고리별="+rpage+","+item_cate+","+item_sequence);
+		
+		String item_cate_name2 = item_cate_name;
+		
+		//페이징처리 - startCount, endCount 구하기
+		int startCount = 0;
+		int endCount = 0;
+		int pageSize = 12;	//한페이지당 게시물 수
+		int reqPage = 0;	//요청페이지	, rpage를 대체
+		int pageCount = 1;	//전체 페이지 수
+		int dbCount = itemDao.execTotalCount(item_cate);	//DB에서 가져온 전체 행수 
+		
+		//총 페이지 수 계산
+		if(dbCount % pageSize == 0){
+			pageCount = dbCount/pageSize;
+		}else{
+			pageCount = dbCount/pageSize+1;
+		}
+
+		//요청 페이지 계산
+		if(rpage != null){
+			reqPage = Integer.parseInt(rpage);
+			startCount = (reqPage-1) * pageSize+1;
+	 		endCount = reqPage *pageSize;
+		}else{
+			reqPage = 1;
+			startCount = 1;
+			endCount = 12;
+		}
+		//System.out.println(startCount+","+ endCount+","+item_cate);			
+		ArrayList<ItemVO> list = itemDao.getCateResultList(startCount, endCount,item_cate,item_sequence);
+		
+		Gson gson = new Gson();
+		JsonArray jlist = new JsonArray();
+		JsonObject jdata = new JsonObject();
+	
+	    
+		for(ItemVO vo: list){
+			JsonObject obj = new JsonObject();
+			obj.addProperty("item_no", vo.getItem_no());
+			obj.addProperty("item_img", vo.getItem_img());
+			obj.addProperty("item_simg", vo.getItem_simg());
+			obj.addProperty("item_name", vo.getItem_name());
+			obj.addProperty("item_price", vo.getItem_price());
+			
+			jlist.add(obj);
+		}	 
+
+		jdata.add("list",jlist);
+		jdata.addProperty("dbcount", String.valueOf(dbCount));
+		jdata.addProperty("rpage", reqPage);
+		jdata.addProperty("pagesize", pageSize);
+		jdata.addProperty("item_cate_name", item_cate_name2);
+		
+		//System.out.println(jdata);
+		return String.valueOf(gson.toJson(jdata));
+	}
+	
+	/**
+	 * AllItem 메인페이지 페이징,인기순,최신순,높은가격순,낮은가격순 ajax
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/item_all_list.do", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	public String item_all_list(String rpage,String item_sequence) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("전체="+rpage+","+item_sequence);
+		
+		
+		//페이징처리 - startCount, endCount 구하기
+		int startCount = 0;
+		int endCount = 0;
+		int pageSize = 12;	//한페이지당 게시물 수
+		int reqPage = 0;	//요청페이지	, rpage를 대체
+		int pageCount = 1;	//전체 페이지 수
+		int dbCount = itemDao.execTotalCount();	//DB에서 가져온 전체 행수 
+		
+		//총 페이지 수 계산
+		if(dbCount % pageSize == 0){
+			pageCount = dbCount/pageSize;
+		}else{
+			pageCount = dbCount/pageSize+1;
+		}
+
+		//요청 페이지 계산
+		if(rpage != null){
+			reqPage = Integer.parseInt(rpage);
+			startCount = (reqPage-1) * pageSize+1;
+	 		endCount = reqPage *pageSize;
+		}else{
+			reqPage = 1;
+			startCount = 1;
+			endCount = 12;
+		}
+		//System.out.println(startCount+","+ endCount+","+item_cate);			
+		ArrayList<ItemVO> list = itemDao.getResultList(startCount, endCount,item_sequence);
+		
+		Gson gson = new Gson();
+		JsonArray jlist = new JsonArray();
+		JsonObject jdata = new JsonObject();
+	
+	    
+		for(ItemVO vo: list){
+			JsonObject obj = new JsonObject();
+			obj.addProperty("item_no", vo.getItem_no());
+			obj.addProperty("item_img", vo.getItem_img());
+			obj.addProperty("item_simg", vo.getItem_simg());
+			obj.addProperty("item_name", vo.getItem_name());
+			obj.addProperty("item_price", vo.getItem_price());
+			
+			jlist.add(obj);
+		}	 
+
+		jdata.add("list",jlist);
+		jdata.addProperty("dbcount", String.valueOf(dbCount));
+		jdata.addProperty("rpage", reqPage);
+		jdata.addProperty("pagesize", pageSize);
+		
+		//System.out.println(jdata);
+		return String.valueOf(gson.toJson(jdata));
+	}
+	
+	
+	/**
+	 * AllItem 메인페이지
+	 */
+	@RequestMapping(value = "/item.do", method = RequestMethod.GET)
+	public String item(String rpage) {
+		
+		return "/allitem/item.user";
+	}
+	
+	
+	
+	
+}

@@ -1,0 +1,436 @@
+/* Basic Style */
+body{
+  font-family:"돋움";
+  padding: 0px;
+  margin: 0px;
+}
+label.mobile_menu span {
+	margin-left: 10px;
+	color: white;
+	display: none;
+}
+
+.nav {
+	font-size:13pt;
+	line-height: 13px;
+	position: relative;
+	padding: 0 0 0 4px; /* Fix for inline-block spacing*/
+	margin: 0;
+    background-color: white;
+}
+
+
+.nav a, .nav a:link, .nav a:visited, .nav a:hover, .nav a:focus{
+	color: black;
+	text-decoration: none;
+}
+
+
+.nav > li {
+	display: inline-block;
+	text-align: center;
+	margin-left: -4px; /* For the inline-block spacing */
+	/* border: 1px solid black; */
+	width: 150px;
+	padding: 15.5px 0px;
+}
+
+.nav > li:first-child {
+	background-color: #ffc71d;
+}
+
+
+.nav > li > a {
+	width: 150px;
+	border-right: 1px solid #cccccc;
+	display: block;
+	padding: 0px;
+	/* border: 1px solid red;*/
+}
+
+.nav > li > a:hover {
+	background: none;
+	/* border: 1px solid red;*/
+}
+
+.nav > li:first-child > a {
+	border-right: none;
+}
+
+.nav > li:last-child > a {
+	border-right: none;
+}
+
+
+
+.nav >.fulldrop1 {
+	position: absolute;
+	top:43px;
+	left: 0px;
+	width: 262px;
+	display:none;
+	z-index: 99;
+	
+}
+
+
+.nav > li:hover .fulldrop1 {
+	opacity: 1;
+	visibility: visible;
+	margin-top: 0px;
+}
+
+.nav ul li:hover:after {
+	color: white;
+}
+
+.nav > li:hover .coldrop {
+	visibility: visible;
+	margin-top: 0px;
+}
+
+.nav .coldrop .column1 {
+	width: 130px;margin:0 0px;
+	}
+
+
+
+.nav .column1 {
+	width: 200px;
+	float: left;
+	color:white;
+	/*border: 1px solid red;*/
+	
+}
+
+.nav .column1 ul {
+	padding: 0;
+	margin: 0;
+}
+
+.nav .column1 ul li {
+	list-style: none;
+	padding: 0;
+	list-style: none;
+	font-size: 16px;
+	background: linear-gradient(to bottom,  rgba(75,78,88,1) 0%,rgba(63,66,74,1) 100%); /* W3C */
+	box-shadow: rgba(255,255,255,0.1) 1px 1px 0 inset;
+	border-bottom: #292b30 1px solid;
+	
+}
+
+.nav .column1 ul li:hover {
+	text-decoration: underline;
+}
+
+.nav .column1 h3 {
+	width:120px;
+	font-size: 24px;
+	padding: 17px 5px;
+	font-weight: bold;
+	cursor: pointer;
+	color: #dddddd;
+	border: #292b30 1px solid;
+	/*border: 1px solid red;*/
+	margin: 0;
+}
+
+.nav .column1 ul li a {
+	display: block;
+	color:#dddddd;
+	padding: 15px 20px;
+	/*border: 1px solid red;*/
+}
+
+.nav .column1 ul li a:hover {
+	background:#494c56;
+	/*border: 1px solid red;*/
+}
+
+
+.nav .column1 #dog1{
+	background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(235,235,235,1) 100%); /* W3C */
+	box-shadow: rgba(255,255,255,0.1) 1px 1px 0 inset;
+	color: #454851;
+}
+
+.nav .column1 #dog1 img{
+	position: absolute;
+	top: 12px;
+	left: 75px;
+}
+
+.nav .column1 #dog2 li{
+	width: 262px;
+	
+}
+
+.nav .column1 #cat1{
+	position:absolute;
+	top:0px;
+	left: 130px;
+	display: inline-block;
+	color: #dddddd;
+	background: linear-gradient(to bottom,  rgba(75,78,88,1) 0%,rgba(63,66,74,1) 100%); /* W3C */
+	box-shadow: rgba(255,255,255,0.1) 1px 1px 0 inset;
+}
+
+.nav .column1 #cat1 img{
+	position: absolute;
+	top: 11px;
+	left: 75px;
+}
+
+.nav .column1 #cat2 li{
+	width: 262px;
+}
+/**
+ 2번째
+**/
+.nav > li > .fulldrop2 {
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	list-style: none;
+	top:43px;
+	left: 0px;
+	background: #32353b;
+	width: 150px;
+	text-align: left;
+	margin-top:30px;
+	z-index: 99;
+	overflow: hidden;
+}
+
+
+.nav > li:hover .fulldrop2 {
+	opacity: 1;
+	visibility: visible;
+	margin-top: 0px;
+}
+
+.nav .coldrop .column2 {
+	width: 130px;margin:0 9px;
+	}
+
+
+
+.nav .column2 {
+	width: 150px;
+	float: left;
+	text-align:center;
+	/*border: 1px solid red;*/
+	
+}
+
+.nav .column2 ul {
+	padding: 0;
+	margin: 0;
+}
+
+.nav .column2 ul li {
+	list-style: none;
+	font-size: 14px;
+	background: -webkit-linear-gradient(top,  rgba(75,78,88,1) 0%,rgba(63,66,74,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(75,78,88,1) 0%,rgba(63,66,74,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(75,78,88,1) 0%,rgba(63,66,74,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(75,78,88,1) 0%,rgba(63,66,74,1) 100%); /* W3C */
+	box-shadow: rgba(255,255,255,0.1) 1px 1px 0 inset;
+	border-bottom: #292b30 1px solid;
+	
+}
+
+.nav .column2 h3 {
+	font-size: 11pt;
+	padding: 2px 0;
+	font-weight: bold;
+	margin: 5px 0 5px 0;
+}
+
+.nav .column2 ul li a {
+	display: block;
+	color:#dddddd;
+	padding: 15px 5px;
+	/*border: 1px solid red;*/
+}
+
+.nav .column2 ul li a:hover {
+	background:#494c56;
+	/*border: 1px solid red;*/
+}
+
+/**
+ 3번째
+**/
+.nav > li > .fulldrop3 {
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	list-style: none;
+	top:43px;
+	left: 0px;
+	background: #32353b;
+	width: 150px;
+	text-align: left;
+	margin-top:30px;
+	z-index: 99;
+	overflow: hidden;
+}
+
+
+.nav > li:hover .fulldrop3 {
+	opacity: 1;
+	visibility: visible;
+	margin-top: 0px;
+}
+
+.nav .coldrop .column3 {
+	width: 130px;margin:0 9px;
+	}
+
+
+
+.nav .column3 {
+	width: 150px;
+	float: left;
+	color:white;
+	text-align:center;
+	/*border: 1px solid red;*/
+	
+}
+
+.nav .column3 ul {
+	padding: 0;
+	margin: 0;
+}
+
+.nav .column3 ul li {
+	padding: 0;
+	list-style: none;
+	font-size: 14px;
+	background: -webkit-linear-gradient(top,  rgba(75,78,88,1) 0%,rgba(63,66,74,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(75,78,88,1) 0%,rgba(63,66,74,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(75,78,88,1) 0%,rgba(63,66,74,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(75,78,88,1) 0%,rgba(63,66,74,1) 100%); /* W3C */
+	box-shadow: rgba(255,255,255,0.1) 1px 1px 0 inset;
+	border-bottom: #292b30 1px solid;
+}
+
+.nav .column3 h3 {
+	font-size: 11pt;
+	padding: 2px 0;
+	font-weight: bold;
+	margin: 5px 0 5px 0;
+}
+
+.nav .column3 ul li a {
+	display: block;
+	padding: 15px 5px;
+	color:#dddddd;
+	/*border: 1px solid red;*/
+}
+
+.nav .column3 ul li a:hover {
+	background:#494c56;
+	/*border: 1px solid red;*/
+}
+/**
+ 4번째
+**/
+.nav > li > .fulldrop4 {
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	list-style: none;
+	top:43px;
+	left: 0px;
+	width: 150px;
+	text-align: left;
+	margin-top:30px;
+	z-index: 99;
+	overflow: hidden;
+}
+
+
+.nav > li:hover .fulldrop4 {
+	opacity: 1;
+	visibility: visible;
+	margin-top: 0px;
+}
+
+.nav .coldrop .column4 {
+	width: 130px;margin:0 9px;
+	}
+
+
+
+.nav .column4 {
+	width: 150px;
+	float: left;
+	color:white;
+	text-align:center;
+	/*border: 1px solid red;*/
+	
+}
+
+.nav .column4 ul {
+	padding: 0;
+	margin: 0;
+}
+
+.nav .column4 ul li {
+	padding: 0;
+	list-style: none;
+	font-size: 14px;
+	background: -webkit-linear-gradient(top,  rgba(75,78,88,1) 0%,rgba(63,66,74,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(75,78,88,1) 0%,rgba(63,66,74,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(75,78,88,1) 0%,rgba(63,66,74,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(75,78,88,1) 0%,rgba(63,66,74,1) 100%); /* W3C */
+	box-shadow: rgba(255,255,255,0.1) 1px 1px 0 inset;
+	border-bottom: #292b30 1px solid;
+}
+
+.nav .column4 h3 {
+	font-size: 11pt;
+	padding: 2px 0;
+	font-weight: bold;
+	margin: 5px 0 5px 0;
+}
+
+.nav .column4 ul li a {
+	display: block;
+	padding: 15px 5px;
+	color:#dddddd;
+	/*border: 1px solid red;*/
+}
+
+
+.nav .column4 ul li a:hover {
+	background:#494c56;
+	/*border: 1px solid red;*/
+}
+/**
+ 5번째
+**/
+.nav > li > .fulldrop5 {
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	list-style: none;
+	top:43px;
+	left: 454px;
+	background-color: #16a085;
+	width: 150px;
+	text-align: left;
+	margin-top:30px;
+	padding: 0;
+	z-index: 99;
+	overflow: hidden;
+}
+
+
+.nav > li:hover .fulldrop5{
+	opacity: 1;
+	visibility: visible;
+	margin-top: 0px;
+}

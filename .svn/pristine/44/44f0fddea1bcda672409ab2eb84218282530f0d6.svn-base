@@ -1,0 +1,132 @@
+package com.pettoday.dao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.pettoday.vo.ItemLikeVO;
+import com.pettoday.vo.JoinVO;
+import com.pettoday.vo.MyPageVO;
+import com.pettoday.vo.PurchasesVO;
+
+@Repository
+public class MypageDAO {
+
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	
+	private String namespace="mapper.mypage";
+	
+	/***************** 장바구니 전체 row count 출력 *****************/
+	public int execTotalCount(String sid){
+		return sqlSession.selectOne(namespace + ".cartcount",sid);
+	}
+	
+	/***************** 장바구니 리스트 - 페이징 처리 start-end *****************/
+	public ArrayList<ItemLikeVO> getResultList(int start, int end, String sid){
+		List<ItemLikeVO> list = null;
+		
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("start", String.valueOf(start));
+		param.put("end", String.valueOf(end));
+		param.put("sid", sid);
+		
+		list = sqlSession.selectList(namespace + ".cartlist", param);
+		
+		return (ArrayList<ItemLikeVO>)list;
+		
+	}
+
+	/**
+	 * 회원정보 보기
+	 * @param sid
+	 * @return
+	 */
+	public JoinVO getMemberInfo(String sid) {
+		return sqlSession.selectOne(namespace+".info", sid);
+		
+	}
+
+	public int updatePassUpdate(String pass, String sid) {
+		Map<String, String> map = new HashMap<String,String>();
+		map.put("sid", sid);
+		map.put("pass", pass);
+		
+		return sqlSession.update(namespace+".passUpdate", map);
+	}
+
+	public int infoUpdate(JoinVO vo) {
+		
+		return sqlSession.update(namespace+".infoUpdate", vo);
+	}
+
+	public int delMember(String sid) {
+		
+		return sqlSession.update(namespace+".delMember", sid);
+	}
+
+	public ArrayList<PurchasesVO> selectPurchaseInfo(String sid) {
+		List list = null;
+		list = sqlSession.selectList(namespace+".selectPurchaseInfo", sid);
+		return (ArrayList<PurchasesVO>) list;
+	}
+	
+	public ArrayList<PurchasesVO> selectPurchaseInfoAjax(String sid, String start, String end) {
+		Map<String,String> map = new HashMap<String, String>();
+		
+		map.put("sid", sid);
+		map.put("start", start);
+		map.put("end", end);
+		
+		List list = null;
+		list = sqlSession.selectList(namespace+".selectPurchaseInfoAjax", map);
+		
+		return (ArrayList<PurchasesVO>) list;
+	}
+
+	public ArrayList<MyPageVO> getMyPost(String sid, int start, int end) {
+		
+		List list = null;
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("start", String.valueOf(start));
+		param.put("end", String.valueOf(end));
+		param.put("sid", sid);
+		list = sqlSession.selectList(namespace+".getMyPost", param);
+		return (ArrayList<MyPageVO>) list;
+	}
+	
+	public int getMyPostcount(String sid){
+		return sqlSession.selectOne(namespace+".getMyPostcount", sid);
+	}
+	
+	public int getMyPostcount(String sid, String startdate, String enddate){
+		Map<String,String> map = new HashMap<String, String>();
+		
+		map.put("sid", sid);
+		map.put("startdate", startdate);
+		map.put("enddate", enddate);
+		
+		return sqlSession.selectOne(namespace+".getMyPostcount2", map);
+	}
+
+	public ArrayList<MyPageVO> selectMypostAjax(String sid, int startCount, int endCount, String startdate,String enddate) {
+		Map<String,String> map = new HashMap<String, String>();
+		
+		map.put("sid", sid);
+		map.put("startCount", String.valueOf(startCount));
+		map.put("endCount", String.valueOf(endCount));
+		map.put("startdate", startdate);
+		map.put("enddate", enddate);
+		
+		List list = null;
+		list = sqlSession.selectList(namespace+".selectMypostAjax", map);
+		
+		return (ArrayList<MyPageVO>) list;
+	}
+	
+}

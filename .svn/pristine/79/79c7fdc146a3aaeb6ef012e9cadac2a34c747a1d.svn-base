@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.item">
+
+	<!-- 관리자 고양이리스트 -->
+	<select id="admin_cat_list" parameterType="map" resultType="com.pettoday.vo.ItemVO">
+		select *
+		from(select rownum rno,ITEM_NO,ITEM_NAME,ITEM_PRICE,ITEM_IMG,ITEM_DESCRIPTION,to_char(ITEM_DATE,'yyyy/mm/dd') ITEM_DATE,
+		ITEM_CATE_CATE1,ITEM_CATE_BRAND1,ITEM_CATE_FEATURE1,ITEM_CATE_MATERIAL1,ITEM_CATE_NO,item_hits,item_simg,item_sdescription
+      			from(select ITEM_NO,ITEM_NAME,ITEM_PRICE,ITEM_IMG,ITEM_DESCRIPTION,ITEM_DATE,ITEM_CATE_CATE1,
+      			ITEM_CATE_BRAND1,ITEM_CATE_FEATURE1,ITEM_CATE_MATERIAL1,item_animal.ITEM_CATE_NO,item_hits,item_simg,item_sdescription
+               		 from item_animal
+               		 where ITEM_CATE_NO IN ('1004','1005','1006')
+							ORDER BY item_date DESC
+					))
+ 		WHERE rno BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 관리자 고양이리스트 - row count행 출력  -->
+	<select id="icount_admin_cat" resultType="int">
+		select count(*) from item_animal
+		where ITEM_CATE_NO IN('1004','1005','1006')
+	</select>
+	
+	<!-- 관리자 강아지 리스트 업로드 폴더2 이미지 출력 -->
+	<select id="del_item_sdescription" parameterType="java.lang.String" resultType="java.lang.String">
+		select item_sdescription from item_animal where item_no=#{item_no}
+	</select>
+	
+	<!-- 관리자 강아지 리스트 업로드 폴더1 이미지 출력 -->
+	<select id="del_item_simg" parameterType="java.lang.String" resultType="java.lang.String">
+		select item_simg from item_animal where item_no=#{item_no}
+	</select>
+	
+	<!-- 관리자 강아지리스트 삭제  -->
+	<delete id="admin_dog_delete" parameterType="java.lang.String">
+		delete from item_animal where item_no=#{item_no}
+	</delete>
+	
+	<!-- 관리자 강아지리스트 파일없는 상품수정 -->
+	<update id="admin_dog_update_nofile" parameterType="com.pettoday.vo.ItemVO">
+		update item_animal set 
+		item_cate_no=#{item_cate_no},item_name=#{item_name},item_price=#{item_price},item_cate_cate1=#{item_cate_cate1},
+		item_cate_brand1=#{item_cate_brand1},item_cate_feature1=#{item_cate_feature1},
+		item_cate_material1=#{item_cate_material1}
+		where item_no=#{item_no}
+	</update>
+	
+	<!-- 관리자 강아지리스트 상품수정 -->
+	<update id="admin_dog_update" parameterType="com.pettoday.vo.ItemVO">
+		update item_animal set 
+		item_cate_no=#{item_cate_no},item_img=#{item_img},item_simg=#{item_simg},
+		item_description=#{item_description},item_sdescription=#{item_sdescription},
+		item_name=#{item_name},item_price=#{item_price},item_cate_cate1=#{item_cate_cate1},
+		item_cate_brand1=#{item_cate_brand1},item_cate_feature1=#{item_cate_feature1},
+		item_cate_material1=#{item_cate_material1}
+		where item_no=#{item_no}
+	</update>
+	
+	
+	<!-- 관리자 강아지,고양이리스트 상세페이지 -->
+	<select id="admin_dog_content" parameterType="java.lang.String" resultType="com.pettoday.vo.ItemVO">
+		select ITEM_NO,ITEM_NAME,ITEM_PRICE,ITEM_IMG,ITEM_DESCRIPTION,to_char(ITEM_DATE,'yyyy/mm/dd') ITEM_DATE,ITEM_CATE_CATE1,
+    	ITEM_CATE_BRAND1,ITEM_CATE_FEATURE1,ITEM_CATE_MATERIAL1,item_animal.ITEM_CATE_NO,item_hits,item_simg,item_sdescription
+        from item_animal
+   		where ITEM_NO = #{item_no}
+	</select>
+	
+	<!-- 관리자 강아지리스트 - 상품등록 -->
+	<insert id="ins_good" parameterType="com.pettoday.vo.ItemVO">
+		insert into item_animal values
+		(SEQU_ITEM_NO.nextval,#{item_name},#{item_price},#{item_img},#{item_description},
+		sysdate,#{item_cate_cate1},#{item_cate_brand1},#{item_cate_feature1},#{item_cate_material1},
+		#{item_cate_no},0,#{item_simg},#{item_sdescription}
+		)
+	</insert>
+
+	<!-- 관리자 강아지리스트 -->
+	<select id="admin_dog_list" parameterType="map" resultType="com.pettoday.vo.ItemVO">
+		select *
+		from(select rownum rno,ITEM_NO,ITEM_NAME,ITEM_PRICE,ITEM_IMG,ITEM_DESCRIPTION,to_char(ITEM_DATE,'yyyy/mm/dd') ITEM_DATE,
+		ITEM_CATE_CATE1,ITEM_CATE_BRAND1,ITEM_CATE_FEATURE1,ITEM_CATE_MATERIAL1,ITEM_CATE_NO,item_hits,item_simg,item_sdescription
+      			from(select ITEM_NO,ITEM_NAME,ITEM_PRICE,ITEM_IMG,ITEM_DESCRIPTION,ITEM_DATE,ITEM_CATE_CATE1,
+      			ITEM_CATE_BRAND1,ITEM_CATE_FEATURE1,ITEM_CATE_MATERIAL1,item_animal.ITEM_CATE_NO,item_hits,item_simg,item_sdescription
+               		 from item_animal
+               		 where ITEM_CATE_NO IN ('1001','1002','1003')
+							ORDER BY item_date DESC
+					))
+ 		WHERE rno BETWEEN #{start} AND #{end}
+	</select>
+
+
+	<!-- 관리자 강아지리스트 - row count행 출력  -->
+	<select id="icount_admin_dog" resultType="int">
+		select count(*) from item_animal
+		where ITEM_CATE_NO IN('1001','1002','1003')
+	</select>
+
+	<!-- 아이템 상세페이지 게시판 삭제 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from ITEM_BOARD where ITEM_BOARD_NO=#{ITEM_BOARD_NO}
+	</delete>
+
+	<!-- 아이템 상세페이지 게시판 수정 -->
+	<update id="update" parameterType="com.pettoday.vo.ItemBoardVO">
+		update ITEM_BOARD set ITEM_BOARD_TITLE=#{ITEM_BOARD_TITLE}, ITEM_BOARD_CONTENT=#{ITEM_BOARD_CONTENT}, ITEM_BOARD_GRADE=#{ITEM_BOARD_GRADE}
+		where ITEM_BOARD_NO=#{ITEM_BOARD_NO}
+	</update>
+	
+	<!-- 아이템 상세페이지 조회수 업데이트 -->
+	<update id="review_hits_update" parameterType="java.lang.String">
+		update item_board set item_board_hits = item_board_hits+1
+		where ITEM_BOARD_NO=#{ITEM_BOARD_NO}
+	</update>
+
+	<!-- 아이템 상세페이지 게시판 내용 -->
+	<select id="content" parameterType="java.lang.String" resultType="com.pettoday.vo.ItemBoardVO">
+		select ITEM_BOARD_NO,ITEM_BOARD_TITLE,ITEM_BOARD_CONTENT,ITEM_BOARD_DATE,
+		ITEM_BOARD_GRADE,ITEM_BOARD_HITS,ITEM_NO,MEM_ID
+		from ITEM_BOARD
+		where ITEM_BOARD_NO = #{ITEM_BOARD_NO}
+	</select>
+
+	<!-- 아이템 상세페이지 게시판 리스트 -->
+	<select id="boardlist" parameterType="map" resultType="com.pettoday.vo.ItemBoardVO">
+		select *
+		from(select rownum rno,ITEM_BOARD_NO,ITEM_BOARD_TITLE,ITEM_BOARD_CONTENT
+    		,to_char(ITEM_BOARD_DATE,'yyyy/mm/dd') ITEM_BOARD_DATE,ITEM_BOARD_GRADE,ITEM_BOARD_HITS
+    		,ITEM_NO,MEM_ID
+      			from(select ITEM_BOARD_NO,ITEM_BOARD_TITLE,ITEM_BOARD_CONTENT
+                 	 ,ITEM_BOARD_DATE,ITEM_BOARD_GRADE,ITEM_BOARD_HITS
+               		 ,ITEM_NO,MEM_ID
+               		 from item_board
+               		 where ITEM_NO=#{iid}
+                	 ORDER BY ITEM_BOARD_DATE desc
+               		 ))
+ 		WHERE rno BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 아이템 상세페이지 게시판 행 -->
+	<select id="icount_item_board" parameterType="java.lang.String" resultType="int">
+		select count(*) from item_board
+		where ITEM_NO=#{iid}
+	</select>
+
+	<!-- 아이템 상세페이지_글쓰기 완료 -->
+	<insert id="write" parameterType="com.pettoday.vo.ItemBoardVO">
+		insert into ITEM_BOARD values(SEQU_ITEM_BOARD_NO.nextval,#{ITEM_BOARD_TITLE},
+		#{ITEM_BOARD_CONTENT},sysdate,#{ITEM_BOARD_GRADE},0,#{ITEM_NO},#{MEM_ID})
+	</insert>
+	
+	<!-- 아이템 상세페이지_찜하기유지 -->
+	 <select id="item_like_keep" parameterType="map" resultType="int">
+		select count(*) 
+		from item_like
+		where MEM_ID=#{sid} and ITEM_NO=#{iid}
+	</select>
+	
+	<!-- 아이템 상세페이지_찜하기삭제 -->
+	<delete id="item_like_del" parameterType="map">
+		delete from item_like where mem_id=#{sid} and item_no=#{iid}
+	</delete>
+	
+	<!-- 아이템 상세페이지_찜하기 -->
+	<insert id="item_like" parameterType="map">
+		INSERT INTO item_like VALUES(SEQU_ITEM_LIKE_NO.NEXTVAL,#{sid},#{iid})
+	</insert>
+	
+	<!-- 아이템 상세페이지 조회수 업데이트 -->
+	<update id="item_hits_update" parameterType="java.lang.String">
+		update item_animal set item_hits = item_hits+1
+		where item_no=#{iid}
+	</update>
+
+	<!-- 아이템 상세페이지 -->
+	<select id="detailList" parameterType="java.lang.String" resultType="com.pettoday.vo.ItemVO">
+		select item_no,item_name,item_price,item_img,item_simg,
+		item_description,item_sdescription,
+		to_char(SYSDATE+1,'mm/dd') item_date,item_cate_no
+		from item_animal
+		where item_no=#{iid}
+	</select>
+
+	<!-- 아이템 세부 카테고리별 리스트행 -->
+	<select id="icount_item_detail" parameterType="map" resultType="int">
+		select count(*) from item_animal
+		where ITEM_CATE_NO=#{item_value2_cate}
+		 <if test="p_cate != 'cate'">
+		   and item_cate_cate1 = #{p_cate}
+		  </if>
+    		  <if test="p_brand != 'brand'">
+		  and ITEM_CATE_BRAND1 = #{p_brand}	
+		  </if>
+       		  <if test="p_feature != 'feature'">
+		  and ITEM_CATE_FEATURE1 = #{p_feature}
+		  </if>
+      		  <if test="p_material != 'material'">
+		   and ITEM_CATE_MATERIAL1 = #{p_material}		
+		  </if>
+		  
+	</select>
+	
+	<!-- 아이템 리스트 행 -->
+	<select id="icount" parameterType="java.lang.String" resultType="int">
+		select count(*) from item_animal
+	</select>
+	
+	<!-- 아이템 사이드메뉴 카테고리 리스트행 -->
+	<select id="icount_item_category" parameterType="java.lang.String" resultType="int">
+		select count(*) from item_animal
+		where ITEM_CATE_NO=#{item_cate}
+	</select>
+	
+	<!-- 아이템 세부카테고리별 리스트 -->
+	<select id="cate_detail_list" parameterType="map"  resultType="com.pettoday.vo.ItemVO">
+		select *
+		from(select rownum rno,ITEM_NO,ITEM_NAME,ITEM_PRICE,item_img,item_simg,
+		item_description,item_sdescription,to_char(ITEM_DATE,'yyyy/mm/dd') ITEM_DATE,
+		ITEM_CATE_CATE1,ITEM_CATE_BRAND1,ITEM_CATE_FEATURE1,ITEM_CATE_MATERIAL1,ITEM_CATE_NO,item_hits
+      			from(select ITEM_NO,ITEM_NAME,ITEM_PRICE,item_img,item_simg,
+		item_description,item_sdescription,ITEM_DATE,ITEM_CATE_CATE1,
+      			ITEM_CATE_BRAND1,ITEM_CATE_FEATURE1,ITEM_CATE_MATERIAL1,item_animal.ITEM_CATE_NO,item_hits
+               		 from item_animal
+               		 where ITEM_CATE_NO=#{item_value2_cate}
+               		  <if test="p_cate != 'cate'">
+					   and item_cate_cate1 = #{p_cate}
+					  </if>
+               		  <if test="p_brand != 'brand'">
+					  and ITEM_CATE_BRAND1 = #{p_brand}	
+					  </if>
+               		  <if test="p_feature != 'feature'">
+					  and ITEM_CATE_FEATURE1 = #{p_feature}
+					  </if>
+               		  <if test="p_material != 'material'">
+					   and ITEM_CATE_MATERIAL1 = #{p_material}		
+					  </if>
+					  
+					 <choose>
+						<when test="item_sequence == 'star'">
+							ORDER BY item_hits DESC
+						</when>
+						<when test="item_sequence == 'new'">
+							ORDER BY item_date DESC
+						</when>
+						<when test="item_sequence == 'lowprice'">
+							 ORDER BY item_price asc
+						</when>
+						<when test="item_sequence == 'highprice'">
+							ORDER BY item_price DESC
+						</when>
+						<otherwise>
+							ORDER BY item_price asc
+						</otherwise>
+					</choose>
+					))
+					  
+ 		WHERE rno BETWEEN #{start} AND #{end}
+ 		
+	</select>
+	
+	<!-- 아이템 사이드메뉴 카테고리 전체 리스트 -->
+	<select id="cate_list" parameterType="map"  resultType="com.pettoday.vo.ItemVO">
+		select *
+		from(select rownum rno,ITEM_NO,ITEM_NAME,ITEM_PRICE,item_img,item_simg,
+		item_description,item_sdescription,to_char(ITEM_DATE,'yyyy/mm/dd') ITEM_DATE,
+		ITEM_CATE_CATE1,ITEM_CATE_BRAND1,ITEM_CATE_FEATURE1,ITEM_CATE_MATERIAL1,ITEM_CATE_NO,item_hits
+      			from(select ITEM_NO,ITEM_NAME,ITEM_PRICE,item_img,item_simg,
+		item_description,item_sdescription,ITEM_DATE,ITEM_CATE_CATE1,
+      			ITEM_CATE_BRAND1,ITEM_CATE_FEATURE1,ITEM_CATE_MATERIAL1,item_animal.ITEM_CATE_NO,item_hits
+               		 from item_animal
+               		 where ITEM_CATE_NO= #{item_cate}
+               		 <choose>
+						<when test="item_sequence == 'star'">
+							ORDER BY item_hits DESC
+						</when>
+						<when test="item_sequence == 'new'">
+							ORDER BY item_date DESC
+						</when>
+						<when test="item_sequence == 'lowprice'">
+							 ORDER BY item_price asc
+						</when>
+						<when test="item_sequence == 'highprice'">
+							ORDER BY item_price DESC
+						</when>
+						<otherwise>
+							ORDER BY item_price asc
+						</otherwise>
+					</choose>
+					))
+ 		WHERE rno BETWEEN #{start} AND #{end}
+	</select>
+	
+	
+	<!-- 아이템 전체 리스트 -->
+	<!-- <select id="list" parameterType="map"  resultType="com.pettoday.vo.ItemVO">
+		select *
+		from(select rownum rno,ITEM_NO,ITEM_NAME,ITEM_PRICE,item_img,item_simg,
+		item_description,item_sdescription,to_char(ITEM_DATE,'yyyy/mm/dd') ITEM_DATE,
+		ITEM_CATE_CATE1,ITEM_CATE_BRAND1,ITEM_CATE_FEATURE1,ITEM_CATE_MATERIAL1,ITEM_CATE_NO,item_hits
+      			from(select ITEM_NO,ITEM_NAME,ITEM_PRICE,item_img,item_simg,
+		item_description,item_sdescription,ITEM_DATE,ITEM_CATE_CATE1,
+      			ITEM_CATE_BRAND1,ITEM_CATE_FEATURE1,ITEM_CATE_MATERIAL1,item_animal.ITEM_CATE_NO,item_hits
+               		 from item_animal
+							ORDER BY item_price asc
+               		 ))
+ 		WHERE rno BETWEEN #{start} AND #{end}
+	</select> -->
+	
+	<!-- 아이템 전체 리스트 -->
+	 <select id="llist" parameterType="map"  resultType="com.pettoday.vo.ItemVO">
+		select *
+		from(select rownum rno,ITEM_NO,ITEM_NAME,ITEM_PRICE,item_img,item_simg,
+		item_description,item_sdescription,to_char(ITEM_DATE,'yyyy/mm/dd') ITEM_DATE,
+		ITEM_CATE_CATE1,ITEM_CATE_BRAND1,ITEM_CATE_FEATURE1,ITEM_CATE_MATERIAL1,ITEM_CATE_NO,item_hits
+      			from(select ITEM_NO,ITEM_NAME,ITEM_PRICE,item_img,item_simg,
+		item_description,item_sdescription,ITEM_DATE,ITEM_CATE_CATE1,
+      			ITEM_CATE_BRAND1,ITEM_CATE_FEATURE1,ITEM_CATE_MATERIAL1,item_animal.ITEM_CATE_NO,item_hits
+               		 from item_animal
+               		  <choose>
+						<when test="item_sequence == 'star'">
+							ORDER BY item_hits DESC
+						</when>
+						<when test="item_sequence == 'new'">
+							ORDER BY item_date DESC
+						</when>
+						<when test="item_sequence == 'lowprice'">
+							 ORDER BY item_price asc
+						</when>
+						<when test="item_sequence == 'highprice'">
+							ORDER BY item_price DESC
+						</when>
+					</choose>
+               		 ))
+ 		WHERE rno BETWEEN #{start} AND #{end}
+	</select> 
+	
+	<!-- 추천 아이템 리스트 -->
+	 <select id="goodlist" resultType="com.pettoday.vo.ItemVO">
+		select * from(select rownum rno,item_no,item_name,item_price,item_img,item_simg
+		from (select item_no,item_name,item_price,item_img,item_simg from item_animal order by item_hits desc)) 
+		where rno between 1 and 10
+	</select> 
+	
+		<!-- 강아지 추천 아이템 리스트 -->
+ 	<select id="doggoodlist" resultType="com.pettoday.vo.ItemVO">
+		select * from(select rownum rno,item_no,item_name,item_price,item_img,item_simg
+		from (select item_no,item_name,item_price,item_img,item_simg from item_animal where item_cate_no in('1001','1002','1003')  order by item_hits desc)) 
+		where rno between 1 and 8
+	</select> 
+			<!-- 고양이 추천 아이템 리스트 -->
+	 <select id="catgoodlist" resultType="com.pettoday.vo.ItemVO">
+		select * from(select rownum rno,item_no,item_name,item_price,item_img,item_simg
+		from (select item_no,item_name,item_price,item_img,item_simg from item_animal where item_cate_no in('1004','1005','1006')  order by item_hits desc)) 
+		where rno between 1 and 8
+	</select> 
+	
+	
+	<insert id="nearinsert" parameterType="java.lang.String">
+		INSERT INTO read_item VALUES(READ_SEQU.NEXTVAL,'test',SYSDATE,#{item_no})
+	</insert>
+	
+	<!-- 최근본 아이템 리스트 -->
+	<select id="neargoodlist" parameterType="java.lang.String" resultType="com.pettoday.vo.ItemVO">
+		select item_name,item_img,item_simg,i1.item_no
+		from item_animal i1,(select distinct item_no,max(HITSDATE) from read_item 
+		<choose>
+						<when test="mem_id == null">
+							
+						</when>
+						<otherwise>
+							where mem_id=#{mem_id}
+						</otherwise>
+					</choose>
+		
+		
+		 group by item_no order by max(hitsdate) desc) i2
+		where i1.item_no=i2.item_no and rownum between 1 and 2
+	</select>
+	
+	<!-- 추천 사료 리스트 -->
+	<select id="recommend" parameterType="map" resultType="com.pettoday.vo.ItemVO">
+		select item_no,item_name,item_price,item_img,item_simg from item_animal where item_cate_material1=#{meat} and item_cate_feature1=#{feature} and item_cate_cate1=#{feel}
+		and item_cate_no in('1001','1002','1003') and rownum between 1 and 3
+	</select>
+	<!-- 추천 사료 리스트 -->
+	<select id="catrecommend" parameterType="map" resultType="com.pettoday.vo.ItemVO">
+		select item_no,item_name,item_price,item_img,item_simg from item_animal where item_cate_material1=#{meat} and item_cate_feature1=#{feature} and item_cate_cate1=#{feel}
+		and item_cate_no in('1004','1005','1006') and rownum between 1 and 3
+	</select>
+	
+	
+	<!-- 최근 등록 강아지 아이템 리스트 -->
+	<select id="recentlist" resultType="com.pettoday.vo.ItemVO">
+		select * from(select rownum rno,item_no,item_name,item_price,item_img,item_simg  
+		from (select item_no,item_name,item_price,item_img,item_simg from item_animal where item_cate_no in('1001','1002','1003')  order by ITEM_DATE desc)) 
+		where rno between 1 and 8
+	</select>
+	
+	<!-- 최근 등록 고양이 아이템 리스트 -->
+	<select id="recentcatlist" resultType="com.pettoday.vo.ItemVO">
+		select * from(select rownum rno,item_no,item_name,item_price,item_img,item_simg 
+		from (select item_no,item_name,item_price,item_img,item_simg from item_animal where item_cate_no in('1004','1005','1006')  order by ITEM_DATE desc)) 
+		where rno between 1 and 8
+	</select>
+	
+	
+</mapper>

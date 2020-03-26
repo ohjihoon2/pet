@@ -1,0 +1,328 @@
+package com.myspring.controller;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.pettoday.dao.PhotocontestDAO;
+import com.pettoday.vo.PhotocontestVO;
+
+@Controller
+public class PhotoContestController {
+
+	@Autowired
+	private PhotocontestDAO photocontestDao;
+
+	/**
+	 * 사진대회 컨트롤러
+	 */
+	@RequestMapping(value = "/photocontest.do", method = RequestMethod.GET)
+	public ModelAndView photocontest(String rpage) {
+		ModelAndView mv = new ModelAndView();
+
+		// 페이징 처리 - startCount, endCount 구하기
+		int startCount = 0;
+		int endCount = 0;
+		int startCount2 = 1;
+		int endCount2 = 3;
+		int pageSize = 9; // 한페이지당 게시물 수
+		int reqPage = 1; // 요청페이지
+		int pageCount = 1; // 전체 페이지 수
+		int dbCount = photocontestDao.execTotalCount(); // DB에서 가져온 전체 행수
+
+		// 총 페이지 수 계산
+		if (dbCount % pageSize == 0) {
+			pageCount = dbCount / pageSize;
+		} else {
+			pageCount = dbCount / pageSize + 1;
+		}
+
+		// 요청 페이지 계산
+		if (rpage != null) {
+			reqPage = Integer.parseInt(rpage);
+			startCount = (reqPage - 1) * pageSize + 1;
+			endCount = reqPage * pageSize;
+		} else { // 가장 처음 페이지 즉, 1번페이지가 나온다.
+			startCount = 1;
+			endCount = 9;
+		}
+
+		ArrayList<PhotocontestVO> list = photocontestDao.getResultList(startCount, endCount);
+		ArrayList<PhotocontestVO> list2 = photocontestDao.getResultList2(startCount2, endCount2);
+
+		mv.addObject("list", list);
+		mv.addObject("list2", list2);
+		mv.addObject("dbCount", dbCount);
+		mv.addObject("rpage", rpage);
+		mv.addObject("pageSize", pageSize);
+		mv.setViewName("/photocontest/photocontest.user");
+
+		return mv;
+	}
+
+	/**
+	 * 사진대회 상세 컨트롤러
+	 */
+	@RequestMapping(value = "/photocontest_content.do", method = RequestMethod.GET)
+	public ModelAndView photocontest_content(String pho_no, String page) {
+		ModelAndView mv = new ModelAndView();
+		
+		PhotocontestVO vo = photocontestDao.getResultContent(pho_no);
+		
+		if (vo.getPho_title() != "" && vo.getPho_title() != null) {
+			
+			photocontestDao.getResultUpdatehits(pho_no);
+
+			if (vo.getPho_explain() != "" && vo.getPho_explain() != null) {
+				vo.setPho_explain(vo.getPho_explain().replace("\r\n", "<br>"));
+				vo.setPho_uniqueness(vo.getPho_uniqueness().replace("\r\n", "<br>"));
+
+				mv.addObject("vo", vo);
+				mv.addObject("rpage", page);
+				//mv.addObject("rlist", rlist);
+				mv.setViewName("/photocontest/photocontest_content.user");
+			} else {
+				vo.setPho_explain("");
+			}
+
+		} else {
+			mv.setViewName("errorPage");
+		}
+
+		return mv;
+	}
+
+	/**
+	 * 사진대회 등록 컨트롤러
+	 */
+	@RequestMapping(value = "/photocontest_content_write.do", method = RequestMethod.GET)
+	public String photocontest_content_write(String sid) {
+		String regPage = "";
+		if(sid != null && sid != "") {
+			regPage= "/photocontest/photocontest_content_write.user";
+		}else {
+			regPage= "/member/login.user";
+		}
+		return regPage;
+	}
+
+	@RequestMapping(value = "/photocontest_content_write_proc.do", method = RequestMethod.POST)
+	public String photocontest_content_write_proc(PhotocontestVO vo, HttpServletRequest request) throws Exception {
+		String root_path = "", attach_path = "", pho_sfile = "";
+
+		if (vo.getPho_cfile().getOriginalFilename() != null && vo.getPho_cfile().getOriginalFilename() != "") {
+			root_path = request.getSession().getServletContext().getRealPath("/");
+			attach_path = "\\resources\\upload\\";
+
+			UUID uuid = UUID.randomUUID();
+			String pho_file = vo.getPho_cfile().getOriginalFilename();
+			pho_sfile = uuid + "_" + vo.getPho_cfile().getOriginalFilename();
+			//System.out.println("pho_file=" + pho_file);
+			//System.out.println("pho_sfile=" + pho_sfile);
+
+			vo.setPho_file(pho_file);
+			vo.setPho_sfile(pho_sfile);
+		}else {
+			vo.setPho_sfile("");
+			vo.setPho_file("");
+		}
+		
+		boolean result = photocontestDao.getResultWrite(vo);
+		String resPage = "";
+		
+		if(result) {
+			if(vo.getPho_cfile().getOriginalFilename() != null && vo.getPho_cfile().getOriginalFilename() != "") {
+				//System.out.println( root_path+attach_path+pho_sfile);
+				String upload_path = root_path+attach_path+pho_sfile;
+				
+				File file = new File(upload_path);
+				vo.getPho_cfile().transferTo(file);
+			}
+			
+			resPage = "redirect:/photocontest.do";
+		}else {
+			resPage = "errorPage";
+		}
+
+		return resPage;
+	}
+	
+	/**
+	 * 사진대회 수정
+	 */
+	@RequestMapping(value = "/photocontest_update.do", method = RequestMethod.GET)
+	public ModelAndView photocontest_update(String pho_no) {
+		ModelAndView mv = new ModelAndView();
+
+		//BoardCheckService board = new BoardCheckService();
+		PhotocontestVO vo = photocontestDao.getResultContent(pho_no);
+
+		mv.addObject("vo", vo);
+		mv.setViewName("/photocontest/photocontest_update.user");
+
+		return mv;
+	}
+	
+	/**
+	 * 사진대회 수정 완료 처리
+	 */
+	@RequestMapping(value = "/photocontest_update_proc.do", method = RequestMethod.POST)
+	public ModelAndView photocontest_update_proc(PhotocontestVO vo, HttpServletRequest request, String del_pho_sfile) throws Exception {
+		// System.out.println("del_bsfile : " + del_bsfile);
+		ModelAndView mv = new ModelAndView();
+
+		//BoardCheckService board = new BoardCheckService();
+		boolean result = false;
+
+		if (vo.getPho_cfile().getOriginalFilename() != null && vo.getPho_cfile().getOriginalFilename() != "") {
+			//System.out.println("파일 있음");
+
+			String root_path = request.getSession().getServletContext().getRealPath("/");
+			String attach_path = "\\resources\\upload\\";
+
+			// 중복방지 처리
+			UUID uuid = UUID.randomUUID();
+			String pho_file = vo.getPho_cfile().getOriginalFilename();
+			String pho_sfile = uuid + "_" + vo.getPho_cfile().getOriginalFilename();
+
+			// System.out.println("ubfile=" + bfile);
+			// System.out.println("ubsfile=" + bsfile);
+
+			// db연동을 위한 파일명 set
+			vo.setPho_file(pho_file);
+			vo.setPho_sfile(pho_sfile);
+			result = photocontestDao.getResultUpdate(vo); // 전체데이터 업데이트
+
+			if (result) {
+				// 업로드폴더에 파일 저장
+				String upload_path = root_path + attach_path + pho_sfile;
+
+				File file = new File(upload_path);
+				vo.getPho_cfile().transferTo(file);
+
+				// 기존 파일 삭제
+				if (del_pho_sfile != null && del_pho_sfile != "") {
+					String del_path = root_path + attach_path + del_pho_sfile;
+					File delFile = new File(del_path);
+					if (delFile.exists())
+						delFile.delete();
+				}
+			}
+		}/* else {
+			// 타이틀, 내용만 업데이트
+			System.out.println("파일 없음");
+			result = photocontestDao.getResultUpdateNofile(vo);// 타이틀,내용만
+		}*/
+
+		if (result) {
+			mv.setViewName("redirect:/photocontest.do"); // if(result) mv.setViewName("/board/board_list"); ------------->
+		} // 이렇게 자주 하는데 null포인트가 뜬다 board.do부분
+			// 컨트롤러에서 만든 arraylist같은것이 실행이 안되서
+			// 그렇다 그래서 다시 board.do부분 컨트롤러를 호출해야된다
+
+		return mv;
+	}
+	
+	/**
+	 * 사진대회 삭제
+	 */
+	@RequestMapping(value = "/photocontest_delete.do", method = RequestMethod.GET)
+	public ModelAndView photocontest_delete(String pho_no) {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("pho_no", pho_no);
+		mv.setViewName("/photocontest/photocontest_delete.user");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="/photocontest_delete_proc.do", method = RequestMethod.GET)
+	public ModelAndView photocontest_delete_proc(String pho_no, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		
+		boolean result = photocontestDao.getResultDelete(pho_no, request);
+		
+		if(result) {
+			mv.setViewName("redirect:/photocontest.do");
+		}else {
+			mv.setViewName("errorPage");	
+		}
+
+		return mv;
+	}
+	
+	/**
+	 * 사진대회 ajax
+	 */
+	@RequestMapping(value = "/photocontest_ajax.do", method = RequestMethod.GET , produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String photocontest_ajax(String rpage, String category, String search) {
+		//System.out.println("category = "+category);
+		//System.out.println("search = "+search);
+		// 페이징 처리 - startCount, endCount 구하기
+		int startCount = 0;
+		int endCount = 0;
+		int pageSize = 9; // 한페이지당 게시물 수
+		int reqPage = 1; // 요청페이지
+		int pageCount = 1; // 전체 페이지 수
+		int dbCount = photocontestDao.execTotalCount(search); // DB에서 가져온 전체 행수
+
+		// 총 페이지 수 계산
+		if (dbCount % pageSize == 0) {
+			pageCount = dbCount / pageSize;
+		} else {
+			pageCount = dbCount / pageSize + 1;
+		}
+		//System.out.println("pageCount = "+pageCount);
+		// 요청 페이지 계산
+		if (rpage != null) {
+			reqPage = Integer.parseInt(rpage);
+			startCount = (reqPage - 1) * pageSize + 1;
+			endCount = reqPage * pageSize;
+		} else { // 가장 처음 페이지 즉, 1번페이지가 나온다.
+			startCount = 1;
+			endCount = 9;
+		}
+
+		ArrayList<PhotocontestVO> list = photocontestDao.getResultList(startCount, endCount, category, search);
+		
+		Gson gson = new Gson();
+		JsonArray jlist = new JsonArray();
+		JsonObject jdata = new JsonObject();
+	
+	    
+		for(PhotocontestVO vo: list){
+			JsonObject obj = new JsonObject();
+			obj.addProperty("pho_title", vo.getPho_title());
+			obj.addProperty("pho_date", vo.getPho_date());
+			obj.addProperty("pho_hits", vo.getPho_hits());
+			obj.addProperty("pho_no", vo.getPho_no());
+			obj.addProperty("pho_sfile", vo.getPho_sfile());
+			
+			jlist.add(obj);
+		}	 
+
+		jdata.add("list",jlist);
+		jdata.addProperty("dbcount", String.valueOf(dbCount));
+		jdata.addProperty("rpage", reqPage);
+		jdata.addProperty("pagesize", pageSize);
+		
+		
+	//System.out.println("jdate=" + jdata);	
+		
+		return String.valueOf(gson.toJson(jdata));
+	}
+
+}

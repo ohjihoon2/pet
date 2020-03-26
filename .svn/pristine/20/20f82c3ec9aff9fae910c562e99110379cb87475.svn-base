@@ -1,0 +1,177 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>친구와 산책</title>
+<link rel="stylesheet" type="text/css" href="http://localhost:9090/pet/css/walktogether.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:9090/pet/css/index.css">
+<link rel="stylesheet" href="http://localhost:9090/pet/css/navbar_techandall.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:9090/pet/css/index_carousel.css">
+<link href="http://localhost:9090/pet/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="http://localhost:9090/pet/js/header_toggle.js"></script>  <!-- header_toggle js -->
+<script>
+	$(document).ready(function() {
+		$(function() {
+			$('div#search ul li').click(function() {
+				$('div#search ul li').removeClass()
+				$(this).addClass('on')
+			});
+		});
+		
+		$(function() {
+			$('div#walktogether_menu table tr td').click(function() {
+				$('div#walktogether_menu table tr td').removeClass()
+				$(this).addClass('on')
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<div>
+		<jsp:include page="../header.jsp"></jsp:include>
+		<div id="walktogether">
+			<div id="walktogether_all">
+				<label>친구와 산책</label>
+				<div id="search">
+					<input type="search" id="searchPlace" placeholder="검색어를 입력하세요.">
+					<button type="button" id="searchBtn">검색</button>
+					<a href="http://localhost:9090/pet/walktogether_write.do"><button type="button" id="writeBtn">글쓰기</button></a>
+				</div>
+				<div id="walktogether_menu">
+					<table>
+						<tr>
+							<td id = "a1">경기</td>
+							<td id = "a2">강원</td>
+							<td id = "a3">충북</td>
+							<td id = "a4">충남</td>
+							<td id = "a5">경북</td>
+							<td id = "a6">경남</td>
+							<td id = "a7">전북</td>
+							<td id = "a8">전남</td>
+						</tr>
+						<tr>
+							<td id = "b1">서울</td>
+							<td id = "b2">인천</td>
+							<td id = "b3">대전</td>
+							<td id = "b4">대구</td>
+							<td id = "b5">울산</td>
+							<td id = "b6">부산</td>
+							<td id = "b7">광주</td>
+							<td id = "b8">세종</td>
+						</tr>
+					</table>
+				</div>
+				<div id="walktogether_profile">
+					<a href="http://localhost:9090/pet/walktogether_content.do">
+						<div class="profile">
+							<img src="http://localhost:9090/pet/images/contest2.jpg">
+							<ul>
+								<li>이름 : 돕영오</li>
+								<li>종 : k3</li>
+								<li>사는 곳 : 경기도 오산시</li>
+								<li>소개 : 소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에</li>
+							</ul>
+						</div>
+					</a>	
+					<a href="http://localhost:9090/pet/walktogether_content.do">
+						<div class="profile">
+							<img src="http://localhost:9090/pet/images/contest2.jpg">
+							<ul>
+								<li>이름 : 돕영오</li>
+								<li>종 : k3</li>
+								<li>사는 곳 : 경기도 오산시</li>
+								<li>소개 : 소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에</li>
+							</ul>
+						</div>
+					</a>	
+					<a href="http://localhost:9090/pet/walktogether_content.do">
+						<div class="profile">
+							<img src="http://localhost:9090/pet/images/contest2.jpg">
+							<ul>
+								<li>이름 : 돕영오</li>
+								<li>종 : k3</li>
+								<li>사는 곳 : 경기도 오산시</li>
+								<li>소개 : 소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에</li>
+							</ul>
+						</div>
+					</a>	
+					<a href="http://localhost:9090/pet/walktogether_content.do">
+						<div class="profile">
+							<img src="http://localhost:9090/pet/images/contest2.jpg">
+							<ul>
+								<li>이름 : 돕영오</li>
+								<li>종 : k3</li>
+								<li>사는 곳 : 경기도 오산시</li>
+								<li>소개 : 소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에</li>
+							</ul>
+						</div>
+					</a>	
+					<a href="http://localhost:9090/pet/walktogether_content.do">
+						<div class="profile">
+							<img src="http://localhost:9090/pet/images/contest2.jpg">
+							<ul>
+								<li>이름 : 돕영오</li>
+								<li>종 : k3</li>
+								<li>사는 곳 : 경기도 오산시</li>
+								<li>소개 : 소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에</li>
+							</ul>
+						</div>
+					</a>	
+					<a href="http://localhost:9090/pet/walktogether_content.do">
+						<div class="profile">
+							<img src="http://localhost:9090/pet/images/contest2.jpg">
+							<ul>
+								<li>이름 : 돕영오</li>
+								<li>종 : k3</li>
+								<li>사는 곳 : 경기도 오산시</li>
+								<li>소개 : 소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에</li>
+							</ul>
+						</div>
+					</a>	
+					<a href="http://localhost:9090/pet/walktogether_content.do">
+						<div class="profile">
+							<img src="http://localhost:9090/pet/images/contest2.jpg">
+							<ul>
+								<li>이름 : 돕영오</li>
+								<li>종 : k3</li>
+								<li>사는 곳 : 경기도 오산시</li>
+								<li>소개 : 소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에</li>
+							</ul>
+						</div>
+					</a>	
+					<a href="http://localhost:9090/pet/walktogether_content.do">
+						<div class="profile">
+							<img src="http://localhost:9090/pet/images/contest2.jpg">
+							<ul>
+								<li>이름 : 돕영오</li>
+								<li>종 : k3</li>
+								<li>사는 곳 : 경기도 오산시</li>
+								<li>소개 : 소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에</li>
+							</ul>
+						</div>
+					</a>	
+					<a href="http://localhost:9090/pet/walktogether_content.do">
+						<div class="profile">
+							<img src="http://localhost:9090/pet/images/contest2.jpg">
+							<ul>
+								<li>이름 : 돕영오</li>
+								<li>종 : k3</li>
+								<li>사는 곳 : 경기도 오산시</li>
+								<li>소개 : 소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에소오개에</li>
+							</ul>
+						</div>
+					</a>	
+						
+				</div>
+			</div>
+		</div>
+		<jsp:include page="../footer.jsp"></jsp:include>
+	</div>
+</body>
+</html>

@@ -1,0 +1,152 @@
+package com.pettoday.dao;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.pettoday.vo.PhotocontestVO;
+
+@Repository
+public class PhotocontestDAO {
+
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+
+	private String namespace = "mapper.photocontest";
+
+	public int execTotalCount(String search) {
+		return sqlSession.selectOne(namespace + ".pho_count1", search);
+	}
+	public int execTotalCount() {
+		return sqlSession.selectOne(namespace + ".pho_count2");
+	}
+
+	/**
+	 * 전체 리스트 출력
+	 */
+	public ArrayList<PhotocontestVO> getResultList(int start, int end) {
+		List<PhotocontestVO> list = null;
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("start", String.valueOf(start));
+		param.put("end", String.valueOf(end));
+
+		list = sqlSession.selectList(namespace + ".pho_list", param);
+
+		return (ArrayList<PhotocontestVO>) list;
+	}
+	/**
+	 * 전체 리스트 출력(카테고리별)
+	 */
+	public ArrayList<PhotocontestVO> getResultList(int start, int end, String category, String search) {
+		List<PhotocontestVO> list = null;
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("start", String.valueOf(start));
+		param.put("end", String.valueOf(end));
+		param.put("category", category);
+		param.put("search",search);
+
+		list = sqlSession.selectList(namespace + ".pho_list_category", param);
+		return (ArrayList<PhotocontestVO>) list;
+	}
+	
+	public ArrayList<PhotocontestVO> getResultList2(int start, int end) {
+		List<PhotocontestVO> list = null;
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("start", String.valueOf(start));
+		param.put("end", String.valueOf(end));
+
+		list = sqlSession.selectList(namespace + ".pho_list2", param);
+
+		return (ArrayList<PhotocontestVO>) list;
+	}
+	public ArrayList<PhotocontestVO> getResultList3() {
+		List<PhotocontestVO> list = null;
+		list = sqlSession.selectList(namespace + ".pho_list3");
+		return (ArrayList<PhotocontestVO>) list;
+	}
+
+
+	/**
+	 * 사진대회 작성
+	 */
+	public boolean getResultWrite(PhotocontestVO vo) {
+		boolean result = false;
+		int ins_result = sqlSession.insert(namespace + ".pho_write", vo);
+		if (ins_result != 0) {
+			result = true;
+		}
+		return result;
+	}
+
+	/**
+	 * 사진대회 상세
+	 */
+	public PhotocontestVO getResultContent(String pho_no) {
+		return sqlSession.selectOne(namespace + ".pho_content", pho_no);
+	}
+
+	/**
+	 * 사진대회 조회수
+	 */
+	public void getResultUpdatehits(String pho_no) {
+		sqlSession.update(namespace + ".hits_update", pho_no);
+	}
+
+	/**
+	 * 사진대회 수정
+	 */
+	public boolean getResultUpdate(PhotocontestVO vo) {
+		boolean result = false;
+		int up_result = sqlSession.update(namespace + ".pho_update", vo);
+		if (up_result != 0) {
+			result = true;
+		}
+		return result;
+	}
+
+	/**
+	 * 사진대회 파일없음
+	 */
+	/*
+	 * public boolean getResultUpdateNofile(BoardVO vo) { boolean result = false;
+	 * int ins_result = sqlSession.update(namespace+".bupdate_nofile", vo);
+	 * if(ins_result != 0) { result = true; } return result; }
+	 */
+
+	/**
+	 * 사진대회 삭제
+	 */
+	public boolean getResultDelete(String pho_no, HttpServletRequest request) {
+		boolean result = false;
+		String pho_sfile = sqlSession.selectOne(namespace + ".del_pho_sfile", pho_no);// 이게 먼저 나와야함
+		int del_result = sqlSession.delete(namespace + ".pho_delete", pho_no);
+
+		if (del_result != 0) {
+			result = true;
+		}
+
+		if (result) {
+
+			if (pho_sfile != null && pho_sfile != "") {
+				// 파일 생성 삭제
+				String root_path = request.getSession().getServletContext().getRealPath("/");
+				String attach_path = "\\resources\\upload\\";
+				String delete_path = root_path + attach_path + pho_sfile;
+				File file = new File(delete_path);
+
+				if (file.exists()) {
+					file.delete();
+				}
+			}
+		}
+		return result;
+	}
+}

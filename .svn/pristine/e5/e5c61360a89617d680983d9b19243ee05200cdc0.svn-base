@@ -1,0 +1,84 @@
+package com.pettoday.dao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.pettoday.vo.ItemLikeVO;
+import com.pettoday.vo.JoinVO;
+import com.pettoday.vo.MyPostVO;
+import com.pettoday.vo.MyReviewVO;
+import com.pettoday.vo.PurchasesVO;
+
+@Repository
+public class MypageDAO {
+
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	
+	private String namespace="mapper.mypage";
+	
+	/***************** 구매상세내역 리스트 *****************/
+	public ArrayList<PurchasesVO> getOrderDetailList(String sid,String pc_no){
+		List<PurchasesVO> list = null;
+		
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("sid", sid);
+		param.put("pc_no", pc_no);
+		
+		list = sqlSession.selectList(namespace + ".ordDetailList",param);
+		
+		return (ArrayList<PurchasesVO>)list;
+	}
+	
+	/***************** 구매내역 리스트 *****************/
+	public ArrayList<PurchasesVO> getOrderList(String sid){
+		List<PurchasesVO> list = null;
+		
+		list = sqlSession.selectList(namespace + ".ordList",sid);
+		
+		return (ArrayList<PurchasesVO>)list;
+	}
+	
+	/***************** 장바구니 선택 삭제 *****************/
+	public int cartDelete(ItemLikeVO vo){
+		
+		return sqlSession.delete(namespace + ".cartdelete",vo);
+	}
+	
+	/***************** 장바구니 수량변경 출력 *****************/
+	public int cartUpdate(String qty, String item_like_no){
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("qty", qty);
+		param.put("item_like_no", item_like_no);
+		
+		return sqlSession.update(namespace + ".cartupdate",param);
+	}
+	
+	/***************** 장바구니 전체 row count 출력 *****************/
+	public int execTotalCount(String sid){
+		return sqlSession.selectOne(namespace + ".cartcount",sid);
+	}
+	
+	/***************** 장바구니 리스트 - 페이징 처리 start-end *****************/
+	public ArrayList<ItemLikeVO> getResultList(int start, int end, String sid){
+		List<ItemLikeVO> list = null;
+		
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("start", String.valueOf(start));
+		param.put("end", String.valueOf(end));
+		param.put("sid", sid);
+		
+		list = sqlSession.selectList(namespace + ".cartlist", param);
+		
+		return (ArrayList<ItemLikeVO>)list;
+		
+	}
+	
+	
+}

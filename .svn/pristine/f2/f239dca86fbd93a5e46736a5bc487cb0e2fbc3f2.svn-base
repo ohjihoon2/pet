@@ -1,0 +1,279 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index.css">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index_carousel.css">
+<link rel="stylesheet" href="http://localhost:9090/pet/css/navbar_techandall.css"><!-- Navigation CSS -->
+<link href="http://localhost:9090/pet/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script src="http://localhost:9090/pet/js/jquery-3.4.1.min.js"></script>
+<script src="http://localhost:9090/pet/js/header_toggle.js"></script>  <!-- header_toggle js -->
+<title>전문가 추천</title>
+<style>
+
+/**************************
+   컨텐츠 스타일 적용 부분
+*****************************/
+* {
+   font-family:"나눔고딕";
+}
+a{
+   text-decoration: none;
+}  
+div#content {         
+   text-align: center;
+   margin-bottom: 0px;
+   margin: auto;
+}
+
+div#container>img{   
+   height: 360px;
+   width: 100%;  
+   margin-bottom: 60px; 
+
+}
+.plan_tab {
+    width: 100%;
+    overflow: hidden;
+    clear: both;
+    margin-bottom: 28px;
+}
+
+
+.plan_tab a {		/* 강아지 | 고양이  */
+    float: left;
+    width: 50%;
+    height: 56px;
+    line-height: 54px;
+    background: #f7f9fd;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 300;
+    color: #3c465e;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: 1px solid #d8dce5;
+    border-width: 1px 1px 1px 0;
+    }
+a.dog_btn.on{
+background: #373536;
+    border-color: #373536;
+    color: #fff;
+    font-weight: 400;
+}
+.main_goods_cont{
+	width: 1200px;
+    position: relative;
+    margin: 0 auto;
+    text-decoration: none;
+}
+.main_goods_tab ul li a {
+	/* border: 1px solid blue; */
+    display: block;
+    height: 47px;
+    /* width: 380px; */
+    line-height: 45px;
+    background-color: #fff;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 300;
+    color: #838383;
+    letter-spacing: -1px;
+    text-decoration: none;
+   /*  margin-left:-10px; */
+    
+}
+
+.main_goods_tab {
+    width: 100%;
+    margin-bottom: 38px;
+    border-top: 2px solid #170709;
+    border-bottom: 1px solid #a1a3ae;
+    
+}
+.main_goods_tab ul li a span {
+    display: inline-block;
+    vertical-align: top;
+    height: 47px;
+    line-height: 45px;
+    font-size: 16px;
+    font-weight: 300;
+    color: #838383;
+}
+dl, ul, ol, li {
+list-style: none;
+}
+.main_goods_tab ul li.on a {	/* 카테고리 선택시 */
+    background-color: #ffc71d;
+    width: 390px;
+}
+
+.main_goods_tab ul li.icon1,
+.main_goods_tab ul li.icon2,
+.main_goods_tab ul li.icon3{
+	width: 407px;
+    margin-left: -10px;
+}
+.main_goods_tab ul li{
+	float:left;
+}
+.main_goods_tab ul {
+    width: 100%;
+    overflow: hidden;
+    clear: both;
+    margin:0px 80px 0px -30px;
+}
+
+
+/********* vet4 css *********/
+
+button#btnInsert.consulting-insert{
+	border: 1px solid #ffc71d;
+	width: 140px;
+	height: 50px;
+	border-radius: 6px;
+	margin-left: 1060px;
+	margin-top: -20px;
+	margin-bottom: 20px;
+	background:#ffc71d;
+	font-size: 17px;
+}
+button#btnInsert.consulting-insert:hover{
+	opacity: 0.8;
+   cursor: pointer;
+
+}
+div.consulting_list{
+    width: 1200px;
+    height: 100px;
+    border-top: 1px solid #ccc;
+    padding: 35px 0px 35px 0px;
+    margin-bottom: 20px;
+}
+
+div.consulting-title>h1>a{
+    text-decoration: none;
+    color: #3b3b3b;
+    font-size: 18px;
+    font-family: "나눔고딕";
+    }
+
+div.consulting-item-etc-img> img#img{
+	width: 40px;
+    height: 40px;
+}
+
+div.consulting-item-etc{
+	/* border: 2px solid blue; */
+	margin-left: 50px;
+	margin-top: -30px;
+	
+}
+
+span.consulting-item-user {
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+    color: #a3a3a3;
+    font-size: 15px;
+    font-weight: bold;
+    }
+    
+span.consulting-item-date{
+    display: inline-block;
+    height: 30px;
+    color: #757575;
+    font-size: 13px;
+    margin-right: 10px;
+   }
+    
+span.consulting-item-reply{
+    display: inline-block;
+    height: 30px;
+    color: #757575;
+    font-size: 13px;
+    }
+</style>
+
+<script>
+	$(document).ready(function(){
+		
+		$("#btnInsert").click(function() {
+			location.href = 'vet4New.do';
+		});
+		
+	});
+	
+		
+</script>
+
+</head>
+<body>
+
+<!-- header 추가  -->
+
+ 		 		
+<div id="container">     
+       <img src="http://localhost:9090/pet/images/vet/VET.jpg">
+        <div id="contents">
+         <div class="sub_content">          
+		  <div class="content_box">
+			<div class="pick_Page">
+			
+				<div class="main_goods_cont">
+					<div class="plan_tab">					
+						 <li><a class="dog_btn on" href="#" id="dog" class="ani">강아지</a></li> 
+						 <li><a class="cat_btn" href="#" id="cat" class="ani">고양이</a></li>					
+					</div>
+					
+					
+				<div class="main_goods_tab">
+					<ul>
+						<li class="icon1 on"><a href="#" id="step3" class="step"><span>전문가 상담</span></a></li>
+						<li class="icon2"><a href="#" id="step4" class="step"><span>반려동물 사료 추천</span></a></li>
+						<li class="icon3"><a href="#" id="step5" class="step"><span>전문가 생활 팁</span></a></li>
+					</ul>
+				</div>
+				
+<!------------------------------------------------------------------------------------------------------------------->		
+<!-- 고양이 - 전문가 상담 -->
+
+				<div class="dog_vet4_cont">
+					<div> <!-- 질문하기 버튼 -->
+						<button id="btnInsert" class="consulting-insert">
+						<span>질문하기</span>
+						</button>
+					</div>
+					
+					<div class="consulting_list" id="consulting">
+						<input type="hidden" name="vetNo" id="vetNo" value="">
+						
+						<div class="consulting-title">
+							<h1 class="title"><a href="http://localhost:9090/pet//vet4_detail.do">고양이 예방접종 질문이요.</a></h1>
+						</div>
+	
+						<div class="consulting-item-etc-img">
+							<img  src="http://localhost:9090/pet/images/vet/user.png" id="img">						
+						</div>
+						
+						<div class="consulting-item-etc">
+							<span class="consulting-item-user">홍길동 </span> 
+							<span class="consulting-item-date">2019.11.26</span> 
+							<span class="consulting-item-reply">답변 <span class="consulting-item-reply-count"></span> </span> 
+						</div>
+					</div>					
+			    </div> 										
+			</div>	
+		</div>
+	 </div>
+   </div>
+ </div>
+</div>
+
+<!-- footer 추가 -->
+
+</body>
+</html>

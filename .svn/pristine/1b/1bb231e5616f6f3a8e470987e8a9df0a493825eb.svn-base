@@ -1,0 +1,171 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script>
+function logouttt(node) {
+    return confirm("로그아웃 되었습니다.");
+}
+</script>
+
+</head>
+
+<body>
+	<header>
+	<div>
+		<div id="d1">
+			<nav>
+			<ul>
+				<c:choose>
+					<c:when test="${sessionScope.sid!=null }">
+						<li id="logoutttt"><a href="http://localhost:9090/pet/logout.do" onclick="return logouttt(this);">로그아웃</a></li>
+						<li><a href="http://localhost:9090/pet/mypageMain.do?mem_id=${sessionScope.sid}">마이 페이지</a></li>
+						<c:if test="${sessionScope.sid == 'admin' }">
+							<li><a href="http://localhost:9090/pet/admin_main.do">관리자</a></li>
+						</c:if>
+						<!-- <li><a href="http://localhost:9090/pet/join.do">회원가입</a></li> -->
+						<li><a href="http://localhost:9090/pet/cc.do">고객센터</a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="http://localhost:9090/pet/login.do">로그인</a></li>
+						<li><a href="http://localhost:9090/pet/join.do">회원가입</a></li>
+						<li><a href="http://localhost:9090/pet/cc.do">고객센터</a></li>
+					</c:otherwise>
+				</c:choose> 
+			</ul>
+			</nav>
+		</div>
+	</div>
+
+	<div>
+		<div>
+			<div>
+				<a href="http://localhost:9090/pet/index.do"> <img
+					src="http://localhost:9090/pet/images/logo2.png" />
+				</a>
+			</div>
+
+			<div>
+				<input type="text" name="search">
+
+				<div id="d2">
+					<a href=""><img
+						src="http://localhost:9090/pet/images/search.jpg" /></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="d3">
+		<div>
+			<ul class="nav">
+				<!----- Full Drop Down Name ---->
+				<li class="dropdown" id="allitem">
+				<a href="http://localhost:9090/pet/item.do">
+					<!-- <img src="http://localhost:9090/pet/images/버거메뉴.png" width="16px" height="13px" style="padding-right: 10px;"/> -->
+					전체아이템
+				</a> <!----- Full Drop Down Name Ends Here ---->
+					<!----- Full Drop Down Contents  Starts Here---->
+				</li>
+				<!-- <div class="fulldrop1">
+					<div class="column1" >
+						<h3 id="dog1">강아지 <img src="http://localhost:9090/pet/images/dog1.png" width="23px" height="24px"/></h3>
+						<ul id="dog2">
+							<li><a href='http://localhost:9090/pet/item.do?item_cate=1001&item=dog'>사료</a></li>
+							<li><a href='http://localhost:9090/pet/item.do?item_cate=1002&item=dog'>간식</a></li>
+							<li><a href='http://localhost:9090/pet/item.do?item_cate=1003&item=dog'>미용/목욕</a></li>
+						</ul>
+
+						<h3 id="cat1">고양이 <img src="http://localhost:9090/pet/images/cat1.png" width="23px" height="24px"/></h3>
+						<ul id="cat2">
+							<li><a href='http://localhost:9090/pet/item.do?item_cate=1004&item=cat'>사료</a></li>
+							<li><a href='http://localhost:9090/pet/item.do?item_cate=1005&item=cat'>간식</a></li>
+							<li><a href='http://localhost:9090/pet/item.do?item_cate=1006&item=cat'>모래</a></li>
+						</ul>
+					</div>
+
+				</div> -->
+				<!----- Full Drop Down Contents  Ends  Here---->
+
+<!----- Full Drop Down Name ---->
+				<li class="dropdown"><a href="#">주문제작</a> <!----- Full Drop Down Name Ends Here ---->
+
+					<!----- Full Drop Down Contents  Starts Here---->
+
+					<div class="fulldrop2">
+						<div class="column2">
+							<ul>
+								<li><a href="http://localhost:9090/pet/cus_main.do">옷</a></li>
+								<li><a href="http://localhost:9090/pet/cus_main_tum.do">텀블러</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</li>
+				<!----- Full Drop Down Contents  Ends  Here---->
+
+
+
+				<!----- Regular Menu Button ---->
+				<li class="dropdown"><a href="#">전문가추천</a>
+				
+				<!----- Full Drop Down Contents  Starts Here---->
+
+					<div class="fulldrop3">
+						<div class="column3">
+							<ul>
+							
+								<li><a href="http://localhost:9090/pet/vet2.do">사료추천</a></li>
+								<li><a href="http://localhost:9090/pet/vet3.do">전문가 팁</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</li>
+				<!----- Full Drop Down Contents  Ends  Here---->
+				
+				<!----- Regular Menu Button Ends---->
+
+
+				<!----- Regular Menu Button ---->
+				<li class="dropdown"><a href="#"> 커뮤니티 </a>
+				
+				<!----- Full Drop Down Contents  Starts Here---->
+
+					<div class="fulldrop4">
+						<div class="column4">
+							<ul>
+								<li><a href="http://localhost:9090/pet/photocontest.do">사진대회</a></li>
+								<li><a href="http://localhost:9090/pet/wonder.do">궁금해요</a></li>
+								<li><a href="http://localhost:9090/pet/walktogether.do">친구와 산책</a></li>
+								<li><a href="http://localhost:9090/pet/hospitalMap.do">집 주변 동물병원</a></li>
+								
+							</ul>
+						</div>
+
+					</div>
+				</li>
+				<!----- Full Drop Down Contents  Ends  Here---->
+				
+				<!----- Regular Menu Button Ends---->
+
+
+				<!----- Regular Menu Button ---->
+			
+
+				</div>
+				</li>
+				<!----- Regular Menu Button Ends---->
+
+			</ul>
+		</div>
+	</div>
+
+	</header>
+
+</body>
+</html>

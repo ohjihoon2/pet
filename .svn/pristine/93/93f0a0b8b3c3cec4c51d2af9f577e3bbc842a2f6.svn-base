@@ -1,0 +1,144 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index.css">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index_carousel.css">
+<link rel="stylesheet" href="http://localhost:9090/pet/css/navbar_techandall.css"><!-- Navigation CSS -->
+<link href="http://localhost:9090/pet/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script src="http://localhost:9090/pet/js/jquery-3.4.1.min.js"></script>
+<!-- modal  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<script src="http://localhost:9090/pet/js/header_toggle.js"></script>  <!-- header_toggle js -->
+<title>마이페이지</title>
+<style>
+body > div.mypageButton{
+	/* border: 2px solid green; */
+	text-align: center;	 
+	 height:800px;
+	 width:800px;
+}
+.button{
+	border: 5px solid #ffc71d;
+	border-radius: 20px;
+	width: 600px;
+	height: 140px;
+	font-size:30px;
+	margin-top:20px;
+	text-align: left;
+	background-color: white;
+	cursor: pointer;
+}
+
+.button:hover {
+	background-color: #ffc71d;
+	}
+	
+#btnUpdate{			/* 회원정보 수정 전체 */
+	/* border: 1px solid red; */
+	margin-top: 100px;
+}
+
+#btnUpdate > span.mu{		/* 회원정보 수정 글씨 */
+	border-right: 3px solid #d8dce5;
+	padding :0px 40px 50px 40px;
+}
+#btnShoppingCart > span.sc{		/* 장바구니  글씨 */
+	border-right: 3px solid #d8dce5;
+	padding :0px 71px 50px 71px;
+}
+#btnBuyList > span.bl{		/* 구매내역 글씨 */
+	border-right: 3px solid #d8dce5;
+	padding :0px 71px 50px 71px;
+}
+#btnMyPost > span.mp{		/* 내가 쓴 글 글씨 */
+	border-right: 3px solid #d8dce5;
+	padding :0px 62px 50px 62px;
+}
+div.\31 {		/*div class="1"  */
+	font-size: 20px;
+	width: 240px;
+	height: 20px;
+	margin-left: 280px;
+	margin-top: -25px;
+	text-decoration: none;
+}
+div.\32 {		/*div class="2"  */
+	border-right:3px solid #d8dce5;
+	width: 121px;
+	margin-top: 20px;
+	margin-left: 280px;
+	font-size: 20px;
+}
+div.\33 {		/*div class="3"  */
+	width: 140px;
+	margin-top: -20px;
+	margin-left: 414px;
+	font-size: 20px;
+}
+</style>
+<script>
+ $(document).ready(function(){
+	$("#btnUpdate").click(function(){
+		location.href = 'updateInfo.do';
+	});
+	
+	$("#btnShoppingCart").click(function(){
+		location.href = 'shoppingCart.do';	
+	});
+	
+	$("#btnBuyList").click(function(){
+		location.href = 'purchaseInfo.do';	
+	});
+	
+	$("#btnMyPost").click(function(){
+		location.href = 'myPosts.do';	
+	});
+ });
+</script>
+</head>
+<body>
+
+      <!-- header 추가  -->
+      <jsp:include page="../header.jsp"></jsp:include>
+
+		     <div class="mypageButton">
+						<button id="btnUpdate" class="button">
+						<span class="mu">회원정보 수정</span>
+						<div class="1">정보를 수정하고 관리하세요</div>
+						<div class="2">회원정보 수정</div>
+						<div class="3">회원탈퇴</div>
+						</button>
+						
+						<button id="btnShoppingCart" class="button">
+						<span class="sc">장바구니</span>
+						<div class="1">장바구니를 확인해 보세요</div>
+						<div class="2">회원정보 수정</div>
+						<div class="3">회원탈퇴</div>
+						</button>
+						
+						<button id="btnBuyList" class="button">
+						<span class="bl">구매내역</span>
+						<div class="1">구매내역을 확인해 보세요</div>
+						<div class="2">회원정보 수정</div>
+						<div class="3">회원탈퇴</div>
+						</button>
+						
+						<button id="btnMyPost" class="button">
+						<span class="mp">내가 쓴 글</span>
+						<div class="1">내가 쓴 글을 확인해 보세요</div>
+						<div class="2">회원정보 수정</div>
+						<div class="3">회원탈퇴</div>
+						</button>
+			</div>
+      
+     
+	   <!-- footer 추가 -->
+	   <jsp:include page="../footer.jsp"></jsp:include>
+
+
+</body>
+</html>

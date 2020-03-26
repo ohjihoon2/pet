@@ -1,0 +1,85 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>친구와 산책 작성</title>
+<link rel="stylesheet" type="text/css" href="http://localhost:9090/pet/css/walktogether.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:9090/pet/css/index.css">
+<link rel="stylesheet" href="http://localhost:9090/pet/css/navbar_techandall.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:9090/pet/css/index_carousel.css">
+<link href="http://localhost:9090/pet/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://localhost:9090/pet/resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script src="http://localhost:9090/pet/js/walktogether.js"></script> 
+<script src="http://localhost:9090/pet/js/header_toggle.js"></script>  <!-- header_toggle js -->
+<script>
+$(document).ready(function(){
+	$("#reset").click(function(){
+		$("div#file img").remove();
+	});
+});
+</script>
+</head>
+<body>
+	<div>
+		<div id="walktogether_write">
+		<div id="namecard_back2"></div>
+			<div id="walktogether_write_all">
+				<div id="nav">홈 &nbsp; &nbsp;> &nbsp; &nbsp;친구와 산책 &nbsp; &nbsp;> &nbsp; &nbsp;친구와 산책 작성</div>
+				<div>
+				<form action="walktogether_update_proc.do" id="walktogether_write_form" class="walktogether_write_form" name="walktogether_write_form" method="post" enctype="multipart/form-data">
+						<div id="namecard">
+							<input type="file" name="wal_cfile" id="profile_pt"  onchange="previewImage(this,'file')" style="margin-top: 30px;margin-left: 60px;position: absolute;">
+								<img src="http://localhost:9090/pet/images/namecard.png">
+								<div id="file"></div><!-- <img src="http://localhost:9090/pet/images/contest2.jpg" id="namecardprofile"> -->
+								<ul>
+									<li><input type="text" id="namecard_name" class="namecard_name" name="wal_name" value="${vo.wal_name}"></li>
+									<li>견종 : <input type="text" id="namecard_kinds" name="wal_dog" value="${vo.wal_dog }"></li>
+									<li>나이 : <input type="text" id="namecard_age" name="wal_age" maxlength="2" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="숫자로 입력해주세요."  value="${vo.wal_age }"></li>
+									<li>사는 곳 :
+									 <select id="namecard_add" name="wal_address" >
+										<option>${vo.wal_address }</option>
+										<option>경기</option>
+										<option>강원</option>
+										<option>충북</option>
+										<option>충남</option>
+										<option>경북</option>
+										<option>경남</option>
+										<option>전북</option>
+										<option>전남</option>
+										<option>서울</option>
+										<option>인천</option>
+										<option>대전</option>
+										<option>대구</option>
+										<option>울산</option>
+										<option>부산</option>
+										<option>광주</option>
+										<option>세종</option>
+									</select></li>
+									<li>좋아하는 것 : <input type="text" id="namecard_like" name="wal_favorite" value="${vo.wal_favorite }"></li>
+								</ul>
+						</div>
+						
+						<div id="con">
+							<div id="box_01_02"  style="width: 687px;display: inline-block;">
+								<div class="content">
+									<textarea rows="10" cols="30" id="vetContent" name="wal_content" style="width: 685px; height: 412px;">${vo.wal_content }</textarea>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" name="del_wal_sfile" value="${vo.wal_sfile }">
+						<input type="hidden" name="wal_no" value="${vo.wal_no }">
+						<button type="reset" class="walktogetherbtn" id="reset">초기화</button>
+						<a href="walktogether.do?wal_no=${vo.wal_no }"><button type="button" class="walktogetherbtn">목록</button></a></td>
+						<button type="button" class="walktogetherbtn" id= "walktogetherWbtn"style="margin-right: 0px;">등록하기</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

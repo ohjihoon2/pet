@@ -1,0 +1,90 @@
+package com.pettoday.dao;
+
+import java.util.ArrayList; 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+
+import com.pettoday.vo.NoticeVO;  
+
+@Repository
+public class NoticeDAO {
+
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	private String namespace = "mapper.notice";
+	
+	
+	public int execTotalCount() {
+		return sqlSession.selectOne(namespace + ".notice_count");
+	}
+	
+	
+	/**
+	 * 전체 리스트 출력
+	 */
+	public ArrayList<NoticeVO> getResultList(int start, int end) {
+		List<NoticeVO> list = null;
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("start", String.valueOf(start));
+		param.put("end", String.valueOf(end));
+
+		list = sqlSession.selectList(namespace + ".notice_list", param);
+
+		return (ArrayList<NoticeVO>) list;
+	}
+	
+	/** 4단계 : 공지사항  등록 **/
+	public boolean getResultWrite(NoticeVO vo) {
+		
+		boolean result = false;
+		int ins_result = sqlSession.insert(namespace + ".write", vo);
+		if(ins_result != 0) {
+			result = true;
+		}
+		
+		return result;
+		
+	}
+	/** 4단계 : 공지사항 상세정보 **/
+	public NoticeVO getResultContent(String not_no) {
+		return sqlSession.selectOne(namespace + ".content",not_no);
+	}
+	
+	
+	
+	/** 공지사항 수정 파일 없음 **/
+	public boolean getResultUpdate(NoticeVO vo) {
+		boolean result = false;
+		int update_result =sqlSession.update(namespace+".Nofileupdate",vo);
+		if(update_result != 0) {
+			result = true;
+		}
+		return result;
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

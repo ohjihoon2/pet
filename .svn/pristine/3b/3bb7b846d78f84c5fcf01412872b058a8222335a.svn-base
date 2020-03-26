@@ -1,0 +1,153 @@
+package com.myspring.controller;
+
+import java.util.ArrayList;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.pettoday.dao.MypageDAO;
+import com.pettoday.vo.ItemLikeVO;
+import com.pettoday.vo.JoinVO;
+import com.pettoday.vo.PurchasesVO;
+
+/**
+ * @author sist.jihoon
+ * 
+ */
+@Controller
+public class MypageController {
+	
+	@Autowired
+	private MypageDAO mypageDao;
+	
+	/**
+	 * 구매상세내역 보기
+	 * @return
+	 */
+	@RequestMapping(value = "/orderView.do", method = RequestMethod.GET)
+	public ModelAndView oderView(HttpSession session,String pc_no) {
+		ModelAndView mv = new ModelAndView();
+		
+		String sid = (String)session.getAttribute("sid");
+		
+		ArrayList<PurchasesVO> list =  mypageDao.getOrderDetailList(sid,pc_no);
+		
+		mv.addObject("list", list);
+		mv.setViewName("/mypage/orderView.user");
+		
+		return mv;
+	}
+	
+	/**
+	 * 구매내역 보기
+	 * @return
+	 */
+	@RequestMapping(value = "/purchaseInfo.do", method = RequestMethod.GET)
+	public ModelAndView purchaseInfo(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		
+		String sid = (String)session.getAttribute("sid");
+		ArrayList<PurchasesVO> list =  mypageDao.getOrderList(sid);
+		
+		mv.addObject("list", list);
+		mv.setViewName("/mypage/purchaseInfo.user");
+		return mv;
+	}
+
+	@RequestMapping(value = "/mypageMain.do", method = RequestMethod.GET)
+	public String mypageMain() {
+		return "/mypage/mypageMain.user";
+	} 
+	
+	/** 찜하기 삭제 **/
+	@ResponseBody
+	@RequestMapping(value = "/cart_delete.do", method = RequestMethod.GET)
+	public String cart_delete(String[] checkList,HttpSession session, ItemLikeVO vo){
+		
+		String sid = (String)session.getAttribute("sid");
+		int item_like_no = 0;
+		int result=0;
+		
+		if(sid != null) {
+			vo.setMem_id(sid);
+			for(String i : checkList) {
+				item_like_no = Integer.parseInt(i);
+				//System.out.println(item_like_no);
+				vo.setItem_like_no(item_like_no);
+				result = mypageDao.cartDelete(vo);
+			}
+		}
+		
+	
+		return String.valueOf(result);
+	}
+	
+	/** 찜하기 수량변경 **/
+	@ResponseBody
+	@RequestMapping(value = "/cart_proc.do", method = RequestMethod.GET)
+	public String cart_proc(String qty,String item_like_no) {
+		
+		
+		int result = mypageDao.cartUpdate(qty,item_like_no);
+		
+		
+		return String.valueOf(result);
+	}
+	
+	
+	/** 찜하기 **/
+	@RequestMapping(value = "/shoppingCart.do", method = RequestMethod.GET)
+	public ModelAndView shoppingCart(String rpage, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String sid = (String)session.getAttribute("sid");
+		//페이징 처리 - startCount, endCount 구하기
+		int startCount = 0;
+		int endCount = 0;
+		int pageSize = 10;	//한페이지당 게시물 수
+		int reqPage = 0;	//요청페이지	, rpage를 대체
+		int pageCount = 1;	//전체 페이지 수
+		int dbCount = mypageDao.execTotalCount(sid);	//DB에서 가져온 전체 행수
+		
+		//총 페이지 수 계산
+		if(dbCount % pageSize == 0){
+			pageCount = dbCount/pageSize;
+		}else{
+			pageCount = dbCount/pageSize+1;
+		}
+
+		//요청 페이지 계산
+		if(rpage != null){
+			reqPage = Integer.parseInt(rpage);
+			startCount = (reqPage-1) * pageSize+1;
+	 		endCount = reqPage *pageSize;
+		}else{
+			reqPage = 1;
+			startCount = 1;
+			endCount = 10;
+		}
+
+		ArrayList<ItemLikeVO> list = mypageDao.getResultList(startCount, endCount,sid);
+		
+		mv.addObject("list",list);
+		mv.addObject("dbcount",dbCount);
+		mv.addObject("rpage",reqPage);
+		mv.addObject("pagesize",pageSize);
+		mv.setViewName("/mypage/shoppingCart.user");
+		
+		
+		return mv;
+	}
+	
+	
+	
+}

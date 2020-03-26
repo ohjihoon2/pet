@@ -1,0 +1,247 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index.css">
+	<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index_carousel.css">
+	<link rel="stylesheet" href="http://localhost:9090/pet/css/navbar_techandall.css"><!-- Navigation CSS -->
+	<link rel="stylesheet" href="http://localhost:9090/pet/css/community.css"><!-- community CSS -->
+	<link href="http://localhost:9090/pet/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<script src="http://localhost:9090/pet/js/jquery-3.4.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js">
+	<script type="text/javascript" src="http://localhost:9090/pet/js/ddmenu.js"></script>
+	<script src="http://localhost:9090/pet/js/header_toggle.js"></script>  <!-- header_toggle js -->
+		
+	<script>
+	$(document).ready(function(){
+		
+		$("div.question_comment_space").hide();
+		$(".my_answer_write").hide();
+		
+  		$(".questionBtn").click(function(){
+	    	$("div.question_comment_space").toggle();
+  		});
+  		
+  		
+  		$(".answerWriteBoardBtn").toggle(
+			function(){
+				$(".my_answer_write").css("margin-top","30px");
+  				var str = "<iframe width='850px' height='660px' src='answerNew.do?wonder_no=${wvo.wonder_no}' class='my_editor'></iframe>";
+				$("div.my_answer_body div.my_answer_write").append(str);
+				$(".my_answer_write").show();
+   			},
+    		function(){
+				$("div.my_answer_body div.my_answer_write").empty();
+	   		}
+   		);
+  		
+		$("div.answer_comment_space").hide();
+		
+  		 /**
+  		 * 댓글 toggle 기능
+  		 */
+  		$(".answerBtn").toggle(
+  				function(){
+				/* $('.answer_comment_view').empty(); */
+	  			var rid=$(this).attr("id");
+	  			var rno =$(this).attr("name");
+	  			$.ajax({
+					url:"answer_reply_list.do?wonder_answer_no="+rno,
+					success:function(result){
+						var jsonObj = JSON.parse(result);
+						var str = "";
+						for(i=0;i<jsonObj.arlist.length;i++){
+							
+							str += "<p class='answer_comment_id'>"
+									+"<strong>"+jsonObj.arlist[i].wonder_answer_reply_writer+"</strong>"
+									+"</p>"
+									+"<div class='answer_comment_text'>"
+									+jsonObj.arlist[i].wonder_answer_reply_content
+									+"</div>"
+							+"<p class='answer_comment_date'>"+jsonObj.arlist[i].wonder_answer_reply_date+"</p>"
+						}
+					
+/* 						$('.answer_comment_view').append(str); */
+						$('#answer'+rno).append(str);
+			  			$("div#"+rid).show();
+						
+	  				}
+				});
+  				},
+  	    		function(){
+		  			var rid=$(this).attr("id");
+		  			var rno =$(this).attr("name");
+		  			$('#answer'+rno).empty();
+		  			$("div#"+rid).hide();
+  		   		}
+  		);
+  		
+  		/**
+  			답변 댓글 입력버튼
+  		*/
+  		$(".button_register_registerCommentBtn").click(function(){
+  			var rid = $(this).attr("id");
+  			var text = $("textarea#"+rid).val();
+  			var answer_no = $("input#"+rid).val();
+  			var rno = rid.substring(11);
+  			alert(rno);
+  			if(text ==""){
+  				alert("댓글을 작성하세요.");
+  				$("#answer_comment_write_area").focus();
+  			}else{
+  				if(text.length > 1000){
+					alert("1000글자 이내로 작성해 주세요");
+					$("#answer_comment_write_area").focus();
+				}else{
+					alert(text);
+					$.ajax({
+						url:"answer_reply_proc.do?wonder_answer_reply_writer='test'"+"&wonder_answer_reply_content="+text+"&wonder_answer_no="+answer_no,
+						success:function(result){
+							var jsonObj = JSON.parse(result);
+							var str = "";
+							for(i=0;i<jsonObj.arlist2.length;i++){
+								
+								str += "<p class='answer_comment_id'>"
+										+"<strong>"+jsonObj.arlist2[i].wonder_answer_reply_writer+"</strong>"
+										+"</p>"
+										+"<div class='answer_comment_text'>"
+										+jsonObj.arlist2[i].wonder_answer_reply_content
+										+"</div>"
+								+"<p class='answer_comment_date'>"+jsonObj.arlist2[i].wonder_answer_reply_date+"</p>"
+							}
+						
+	/* 						$('.answer_comment_view').append(str); */
+							$(".answer_comment_write_area").val('');
+							$('#answer'+rno).empty();
+							$('#answer'+rno).append(str);
+						}
+						
+						
+					});
+					
+				}
+  			}
+  		});
+  		 
+  		
+	});//end of document
+	
+	</script>
+</head>
+<body>
+	<div>
+		<div class="wonderDetailContentBox">
+			<div class=wonderDetail_hole>
+				<div class="question_back">
+					<div class="question_content">
+						<div class="question_content_first">
+							<div class="question_icon">
+								<i class="">Q</i>
+							</div>
+							<div class=question_title_content>
+								${wvo.wonder_title }
+							</div>
+						</div><!-- ggg -->
+						<div class="question_content_second">
+							${wvo.wonder_content }
+						</div>
+						<div class="question_content_third">
+							<span>비공개</span>/<span>${wvo.wonder_date }</span>/<span>조회수 ${wvo.wonder_view }</span> 
+							<button type="button" class="questionBtn" id="">댓글버튼</button>
+						</div>
+						<div class="question_comment_space" style="">
+							<fieldset>
+								<legend>댓글 입력</legend>	
+								<div class="question_comment_write">
+									<textarea class="question_comment_write_area" maxlength="1000" title="댓글 입력" placeholder= "개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."></textarea>
+									<button type="submit" class="button_register _registerCommentBtn">등록</button>
+								</div>
+								<div class="question_comment_info">
+									<div class="c-opinion__write-count">
+										<span class="question_comment_write_count_current">0</span>
+										/
+										<span class="question_comment_write_count_total">1000</span>
+									</div>
+								</div>
+							</fieldset>
+							<div class="question_comment_view">
+								<p class="question_comment_id">
+									<strong>test1234</strong>
+								</p>
+								<div class="question_comment_text">
+									<p>맛은 어떤게 있을까요?<br>사볼까 고민중이에요ㅎㅎ</p>
+								</div>
+								<p class="question_comment_date">2019.11.25. 16:09:29</p>
+							</div>
+						</div>
+					</div>
+				</div><!-- question_back end -->
+					
+				<div class="answer_back">
+					<div id="answerWriteArea" class="answer_content_write">
+						<div class="my_answer_editor" id="answerWriteButtonArea">
+							<div class="my_answer_body">
+								<div class="my_answer_title">
+										<p class="title">t1es23yt님, 답변해주세요!</p>
+								</div>
+								<div class="my_answer_button">
+									<a href="#" id="answerWriteButton" role="button" aria-expanded="false" aria-controls="" class="c-button-default c-button-default--blue"><span class="answerWriteBoardBtn">답변하기</span></a>
+								</div>
+								<div class="my_answer_write">
+									
+								</div>
+							</div>
+						</div>
+						<div id="smartEditorArea" class="qna_answer_editor" style="display:none"></div>
+					</div>
+					<c:forEach var="avo" items="${alist}">
+						<div class="answer_content" >
+							<div class="answer_content_first">
+								<div class="answer_icon">
+									<i class="">A</i>
+								</div>
+								<div class=answer_title_content>
+									${avo.wonder_answer_writer } 님의 답변.
+								</div>
+							</div>
+							<div class="answer_content_second">
+								<span class="answer_title_side">${avo.wonder_answer_title}</span>
+								${avo.wonder_answer_content}
+							</div>
+							<div class="answer_content_third">
+								<span>${avo.wonder_answer_date }</span>
+								<button type="button" class="answerBtn" id="reply${avo.wonder_answer_no }" name="${avo.wonder_answer_no }">댓글버튼</button>
+							</div>
+							<div class="answer_comment_space" id="reply${avo.wonder_answer_no }">
+								<fieldset>
+									<legend>댓글 입력</legend>
+									<div class="answer_comment_write">
+										<textarea class="answer_comment_write_area" id="replyRegist${avo.wonder_answer_no }" maxlength="1000" title="댓글 입력" placeholder= "개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."></textarea>
+										<button type="submit" class="button_register_registerCommentBtn" id="replyRegist${avo.wonder_answer_no }">등록</button>
+									</div>
+									<div class="answer_comment_info">
+										<div class="c-opinion__write-count">
+											<span class="answer_comment_write_count_current">0</span>
+											/
+											<span class="answer_comment_write_count_total">1000</span>
+										</div>
+									</div>
+								</fieldset>
+								<div class="answer_comment_view" id="answer${avo.wonder_answer_no }">
+									
+								</div>
+							</div>
+							<input type="hidden" id="replyRegist${avo.wonder_answer_no }" class="wonder_answer_no"name="wonder_answer_no" value="${avo.wonder_answer_no }">
+						</div>
+					</c:forEach>
+				</div><!-- answer_back end -->
+			</div>
+		</div>
+	</div>
+</body>
+</html>

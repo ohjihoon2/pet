@@ -1,0 +1,62 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>친구와 산책 상세</title>
+<link rel="stylesheet" type="text/css" href="http://localhost:9090/pet/css/walktogether.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:9090/pet/css/index.css">
+<link rel="stylesheet" href="http://localhost:9090/pet/css/navbar_techandall.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:9090/pet/css/index_carousel.css">
+<link href="http://localhost:9090/pet/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="http://localhost:9090/pet/js/header_toggle.js"></script>  <!-- header_toggle js -->
+</head>
+<body>
+	<div>
+		<jsp:include page="../header.jsp"></jsp:include>
+		<div id="concon">
+		<div id="namecard_back"></div>
+			<div id="walktogether_content_all">
+				<div id="nav">홈 &nbsp; &nbsp;> &nbsp; &nbsp;친구와 산책 &nbsp; &nbsp;> &nbsp; &nbsp;친구와 산책 상세</div>
+					<div id="namecard">
+						<img src="http://localhost:9090/pet/images/namecard.png">
+						<img src="http://localhost:9090/pet/images/contest2.jpg" id="namecardprofile">
+						<ul>
+							<li>고라니</li>
+							<li>견종 : 말티즈</li>
+							<li>나이 : 25살</li>
+							<li>사는 곳 : 경기도 평택</li>
+							<li>좋아하는 것 : 개껌</li>
+						</ul>
+					</div>
+					
+					<div id="con">
+						<img src ="http://localhost:9090/pet/images/contest1.jpg">
+						<span>사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명</span>
+						<img src ="http://localhost:9090/pet/images/contest3.jpeg">
+						<span>사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명</span>
+						<img src ="http://localhost:9090/pet/images/contest4.jpg">
+						<span>사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명사진 설명</span>
+						
+					</div>
+					
+					<article class="comment">
+						<p class="comment-header">전문가 답변</p>    
+						<input type="text" class="inputForm" value="" placeholder=" 댓글을 작성해 주세요." id="b_rep">		
+					 	<button type="button" id="save"> 답변쓰기</button>
+						<div id="doctor_img">
+		               		<img src="http://localhost:9090/pet/resources/images/vet/dd.png" id="img">
+	                	</div>
+		            </article>
+		                
+					<a href="http://localhost:9090/pet/walktogether.do"><button type="button">목록</button></a>
+			</div>
+		</div>
+		<jsp:include page="../footer.jsp"></jsp:include>
+	</div>
+</body>
+</html>

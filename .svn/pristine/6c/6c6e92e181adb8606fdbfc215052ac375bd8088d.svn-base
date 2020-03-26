@@ -1,0 +1,134 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index.css">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index_carousel.css">
+<link rel="stylesheet" href="http://localhost:9090/pet/css/navbar_techandall.css"><!-- Navigation CSS -->
+<link href="http://localhost:9090/pet/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://localhost:9090/pet/js/ddmenu.js"></script>
+<script src="http://localhost:9090/pet/js/header_toggle.js"></script>  <!-- header_toggle js -->
+<style>
+	#shoppingCart_hole{
+		color: #404040;
+	}
+	.mypage_table{
+		margin:auto;
+		width: 900px;
+	}
+	
+	.mypage_shopping_form  span.page_name{
+		display: block;
+	    font-size: 26px;
+	    color: #353535;
+	    margin-bottom: 35px;
+	    text-align: center;
+	}
+	
+	.mypage_shopping_form input {
+	    margin: 0 auto;
+	    border: 1px solid #ccc; 
+	    width: 20px;
+	    height: 20px;
+	    margin-top: 5px;
+	    margin-bottom: 15px;
+	    padding-left: 15px;	
+	}
+	
+	.mypage_shopping_form{
+	    display: inline-block;
+	    width: 850px;
+	    margin-top: 100px;
+	    margin-bottom: 100px;
+	    padding: 45px 30px 80px 30px;
+	}
+	
+	.mypage_shopping_table{
+		border-top :3px solid #ffc71d;
+	}
+	
+	.mypage_shopping_table th{
+		background-color:#ccc;
+		width:150px;
+		height:40px;
+	}
+	table.mypage_shopping_table > tbody > tr:nth-child(1) > th:nth-child(1),
+	table.mypage_shopping_table > tbody > tr:nth-child(1) > th:nth-child(2){
+		width:90px;
+		height:40px;
+	}
+	
+	table.mypage_shopping_table > tbody > tr:nth-child(1) > th:nth-child(3){
+		width:300px;
+		height:40px;
+	}
+	table.mypage_shopping_table > tbody > tr > td{
+		text-align: center;
+	}
+	
+	#plus{
+		margin-left: 15px;
+	}
+	.cartDeleteBtn,.orderBtn{
+		margin-top:20px;
+	    float: right;
+	    height: 30px;
+	    line-height: 30px;
+	    width: 80px;
+	    text-align: center;
+	    font-weight: 600;
+	    border: 1px solid #E0E0E0;
+	    border-radius:6px;
+	    margin-right: 7px;
+	    font-size: 13px;
+	    background: #FFF;
+	}
+</style>
+</head>
+<body>
+	<div>
+		<jsp:include page="../header.jsp"></jsp:include>
+		<div id="shoppingCart_hole">
+			<div class="mypage_table">	
+				<form action="#" method="post" name="mypage_shopping_form" class="mypage_shopping_form">
+					<span class="page_name">장바구니</span>
+					<table class="mypage_shopping_table">
+						<tr>
+							<th>번호</th>
+							<th>선택</th>
+							<th>상품명(옵션)</th>
+							<th>판매가</th>
+							<th>수량</th>
+							<th>주문금액</th>
+							<th>배송비</th>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td><input type="checkbox" name="chk_item" value=""></td>
+							<td>강아지 옷</td>
+							<td>32,000</td>
+							<td>1<button type="button" id="plus">+</button><button type="button" id="minus">-</button></td>
+							<td>32,000</td>
+							<td>배송비 무료</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td><input type="checkbox" name="chk_item" value=""></td>
+							<td>목걸이</td>
+							<td>12,000</td>
+							<td>1<button type="button" id="plus">+</button><button type="button" id="minus">-</button></td>							<td>12,000</td>
+							<td>배송비 무료</td>
+						</tr>
+					</table>
+					<button type="button" id="cartDeleteBtn" class="cartDeleteBtn">선택삭제</button>
+					<a href="#"><button type="button" class="orderBtn">주문하기</button></a>
+				</form>
+			</div>
+		</div>
+		<jsp:include page="../footer.jsp"></jsp:include>
+	</div>
+</body>
+</html>

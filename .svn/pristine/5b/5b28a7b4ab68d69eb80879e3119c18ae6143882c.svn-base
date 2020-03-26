@@ -1,0 +1,390 @@
+a {
+	text-decoration: none;
+	color: black;
+}
+
+/** 친구와 산책 리스트 **/
+div#walktogether {
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	background: #fff5d8;
+}
+
+div#walktogether_all {
+	width: 1200px;
+	margin: auto;
+	margin-top: 100px;
+}
+
+div#walktogether_all>label {
+	font-size: 40px;
+	color: #000000;
+	font-weight: 500;
+}
+
+div#search {
+	margin: 40px 0px 10px 0px;
+	text-align: right;
+}
+
+div#search>input#search{
+	height: 29px;
+	width: 241px;
+	padding-left: 12px;
+}
+
+div#search>button#searchBtn {
+	border: solid 1px darkgrey;
+	width: 78px;
+	height: 35px;
+	background: #fff;
+}
+
+div#search>button#searchBtn:hover {
+	cursor: pointer;
+}
+
+div#search>a button#writeBtn {
+	border: solid 1px darkgrey;
+	width: 78px;
+	height: 35px;
+	background: #fff;
+}
+
+div#search>a button#writeBtn:hover {
+	cursor: pointer;
+}
+
+div#search ul {
+	display: inline-block;
+	list-style: none;
+	margin: 0px 0px 0px 0px;
+	padding: 0px;
+	float: left;
+}
+
+div#search ul li {
+	display: inline-block;
+	width: 90px;
+	height: 35px;
+	text-align: center;
+	line-height: 35px;
+	border: solid 1px darkgrey;
+	font-size: 15px;
+}
+
+div#search ul li:hover {
+	cursor: pointer;
+}
+
+div#search ul li.on {
+	background: #ffc71d;
+}
+
+div#walktogether_profile {
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+}
+
+div#walktogether_menu table {
+	width: 1200px;
+	height: 100px;
+	border-spacing: 0px;
+	margin-bottom: 20px;
+	border-top: solid 1px darkgrey;
+	border-left: solid 1px darkgrey;
+	background: white;
+}
+
+div#walktogether_menu table:hover {
+	cursor: pointer;
+}
+
+div#walktogether_menu table tr td {
+	border-right: 1px solid darkgrey;
+	border-bottom: 1px solid darkgrey;
+}
+
+div#walktogether_menu table tr td.on {
+	background: #ffc71d;
+}
+
+div#walktogether_profile {
+	width: 1200px;
+	text-align: left;
+}
+
+a div.profile {
+	border: 1px solid darkgrey;
+	width: 520px;
+	height: 200px;
+	display: inline-block;
+	padding: 30px;
+	height: 200px;
+	margin: 20px 7px 0px 8px;
+	background: white;
+}
+
+div#walktogether_profile div#profile_box:last-child {
+	margin-bottom: 80px;
+}
+
+a div.profile img {
+	width: 200px;
+	height: 200px;
+}
+
+a div.profile ul {
+	list-style: none;
+	display: inline-block;
+	vertical-align: top;
+	margin: 0px;
+	padding-left: 25px;
+}
+
+a div.profile ul li {
+	margin-bottom: 35px;
+}
+
+a div.profile ul li:nth-child(4) {
+	width: 288px;
+	overflow: hidden;
+}
+
+/**친구와 산책 상세**/
+div#walktogether_content_all>div#nav {
+	display: block;
+	margin-top: -93px;
+	font-size: 15px;
+	color: #444;
+	position: absolute;
+	width: 1200px;
+	text-align: left;
+}
+
+div#walktogether_content {
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+}
+
+div#namecard_back {
+	margin-top: -60px;
+	width: 100%;
+	height: 560px;
+	position: absolute;
+	background: #fff4d2;
+	z-index: -9999;
+}
+
+div#namecard_back2 {
+	margin-top: 40px;
+	width: 100%;
+	height: 560px;
+	position: absolute;
+	background: #fff4d2;
+	z-index: -9999;
+}
+
+div#walktogether_content_all {
+	width: 1200px;
+	margin: auto;
+	margin-top: 100px;
+}
+
+div#namecard {
+	width: 800px;
+	height: 444px;
+	margin: auto;
+	text-align: left;
+	box-shadow: 5px 5px 10px 0px grey;
+}
+
+div#namecard img {
+	position: absolute;
+	z-index: -9999;
+}
+
+div#namecard img#namecardprofile {
+	width: 281px;
+	height: 318px;
+	position: relative;
+	margin-top: 63px;
+	margin-left: 63px;
+}
+
+div#namecard ul {
+	list-style: none;
+	padding: 0px;
+	display: inline-block;
+	z-index: 99999;
+	vertical-align: top;
+	margin: 100px 0px 0px 106px;
+	line-height: 40px;
+}
+
+div#namecard ul li:first-child {
+	font-family: "Gamja Flower";
+	font-size: 50px;
+	margin-bottom: 58px;
+}
+
+div#namecard ul li {
+	font-size: 16px;
+}
+
+div#con {
+    width: 1200px;
+    overflow: hidden;
+    margin: 100px 0px 50px 0px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 30px;
+}
+
+div#con img {
+	display: block;
+	margin-bottom: 25px;
+}
+
+div#con span {
+	display: block;
+	text-align: left;
+	line-height: 25px;
+	margin-bottom: 80px;
+}
+
+div#walktogether_content_all>a button {
+    border: 1px solid #000000;
+    width: 150px;
+    height: 40px;
+    background-color: #ffffff;
+    color: #464646;
+    font-size: 17px;
+    font-family: "나눔고딕";
+    margin-left: 10px;
+    float: right;
+    margin-bottom: 100px;
+    margin-top:50px;
+}
+
+#detail_main>article>p { /* 전문가 답변 라벨  */
+	/* border: 2px solid blue; */
+	width: 110px;
+	height: 30px;
+	margin-top: -50px;
+	margin-left: 10px;
+	font-size: 20px;
+	font-weight: 500;
+}
+
+#img { /* 전문가 이모티콘  */
+	/* border:3px solid orange; */
+	width: 40px;
+	height: 40px;
+	margin-top: -115px;
+	margin-left: 37px;
+}
+
+#b_rep { /* 댓글 작성칸 */
+	width: 986px;
+	height: 80px;
+	margin-bottom: 30px;
+	margin-left: 100px;
+	border-radius: 4px;
+	padding: 5px;
+}
+
+#content>div>div {
+	border: 1px solid red;
+	width: 40px;
+	height: 40px;
+}
+
+#detail_main>li>article>img { /* 댓글 이모티콘 */
+	width: 40px;
+	height: 40px;
+	margin-left: 40px;
+	margin-top: 10px;
+}
+
+#save { /* 답변쓰기 버튼  */
+	border: 2px solid #dbdbda;
+	width: 80px;
+	height: 40px;
+	color: #bbbbbf;
+	background-color: white;
+	border-radius: 4px;
+	margin-left: 15px;
+	margin-top: 30px;
+	cursor: pointer;
+	position: relative;
+	bottom: -26px;
+}
+
+/** 친구와 산책 작성 **/
+div#walktogether_write {
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+}
+
+div#walktogether_write_all {
+	width: 1200px;
+	margin: auto;
+	margin-top: 100px;
+}
+
+div#walktogether_write_all>div#nav {
+	display: block;
+	margin-top: -93px;
+	font-size: 15px;
+	color: #444;
+	position: absolute;
+	width: 1200px;
+	text-align: left;
+}
+
+div#file {
+	width: 281px;
+	height: 318px;
+	position: relative;
+	margin-top: 63px;
+	margin-left: 63px;
+	display: inline-block;
+}
+
+div#namecard ul li input {
+	border: 1px solid #ffc71d;
+	height: 20px;
+	padding-left: 5px;
+}
+
+div#namecard ul li select {
+	border: 1px solid #ffc71d;
+	height: 27px;
+	padding-left: 5px;
+}
+
+div#walktogether_write_all>div>form button.walktogetherbtn {
+	border: 1px solid #000000;
+	width: 150px;
+	height: 40px;
+	background-color: #ffffff;
+	margin-top: 20px;
+	color: #464646;
+	font-size: 17px;
+	font-family: "나눔고딕";
+	margin-bottom: 60px;
+	margin-right: 10px;
+	display: inline-block;
+}
+
+div#walktogether_write_all>div>form button.walktogetherbtn:hover {
+	cursor: pointer;
+}
+
+div#profile_box>div {
+	display: inline-block;
+}

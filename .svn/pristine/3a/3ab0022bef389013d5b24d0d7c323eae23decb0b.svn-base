@@ -1,0 +1,281 @@
+package com.myspring.controller;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.pettoday.dao.ItemDAO;
+import com.pettoday.vo.ItemVO;
+import com.pettoday.vo.PhotocontestVO;
+
+@Controller
+public class ItemController {
+	
+	@Autowired
+	private ItemDAO itemDao;
+	
+	/**
+	 * AllItem 메인페이지_조회순,인기순,낮은가격순,높은가격순(ajax)
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/item_list_sequence.do", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	public String item_list_sequence(String rpage,String item_sequence,String item_cate) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("인기순, 조회순 ...="+rpage+","+item_sequence+","+item_cate);
+		//페이징처리 - startCount, endCount 구하기
+		int startCount = 0;
+		int endCount = 0;
+		int pageSize = 5;	//한페이지당 게시물 수
+		int reqPage = 0;	//요청페이지	, rpage를 대체
+		int pageCount = 1;	//전체 페이지 수
+		int dbCount = itemDao.execTotalCount3(item_cate);	//DB에서 가져온 전체 행수 
+		
+		//총 페이지 수 계산
+		if(dbCount % pageSize == 0){
+			pageCount = dbCount/pageSize;
+		}else{
+			pageCount = dbCount/pageSize+1;
+		}
+
+		//요청 페이지 계산
+		if(rpage != null){
+			reqPage = Integer.parseInt(rpage);
+			startCount = (reqPage-1) * pageSize+1;
+	 		endCount = reqPage *pageSize;
+		}else{
+			reqPage = 1;
+			startCount = 1;
+			endCount = 5;
+		}
+		//System.out.println(startCount+","+ endCount+","+check_text);			
+		ArrayList<ItemVO> list = itemDao.getSequenceResultList(startCount, endCount,item_sequence,item_cate);
+		
+		Gson gson = new Gson();
+		JsonArray jlist = new JsonArray();
+		JsonObject jdata = new JsonObject();
+	
+	    
+		for(ItemVO vo: list){
+			JsonObject obj = new JsonObject();
+			obj.addProperty("item_no", vo.getItem_no());
+			obj.addProperty("item_img", vo.getItem_img());
+			obj.addProperty("item_name", vo.getItem_name());
+			obj.addProperty("item_price", vo.getItem_price());
+			
+			jlist.add(obj);
+		}	 
+
+		jdata.add("list",jlist);
+		jdata.addProperty("dbcount", String.valueOf(dbCount));
+		jdata.addProperty("rpage", reqPage);
+		jdata.addProperty("pagesize", pageSize);
+		
+		System.out.println("item_cate="+jdata);
+		return String.valueOf(gson.toJson(jdata));
+	}
+	
+	/**
+	 * AllItem 메인페이지_상세 카테고리별_페이징리스트(ajax)
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/item_list_detail.do", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	public String item_list_detail(String rpage,String[] chkList,String item_value2_cate) {
+		ModelAndView mv = new ModelAndView();
+		/*System.out.println("상세카테고리별="+rpage+","+chkList.length);
+		for(String item : chkList) {
+			System.out.println(item);
+		}*/
+		
+		//페이징처리 - startCount, endCount 구하기
+		int startCount = 0;
+		int endCount = 0;
+		int pageSize = 5;	//한페이지당 게시물 수
+		int reqPage = 0;	//요청페이지	, rpage를 대체
+		int pageCount = 1;	//전체 페이지 수
+		int dbCount = itemDao.execTotalCount2(chkList,item_value2_cate);	//DB에서 가져온 전체 행수 
+		
+		//총 페이지 수 계산
+		if(dbCount % pageSize == 0){
+			pageCount = dbCount/pageSize;
+		}else{
+			pageCount = dbCount/pageSize+1;
+		}
+
+		//요청 페이지 계산
+		if(rpage != null){
+			reqPage = Integer.parseInt(rpage);
+			startCount = (reqPage-1) * pageSize+1;
+	 		endCount = reqPage *pageSize;
+		}else{
+			reqPage = 1;
+			startCount = 1;
+			endCount = 5;
+		}
+		//System.out.println(startCount+","+ endCount+","+check_text);			
+		ArrayList<ItemVO> list = itemDao.getCateDetailResultList(startCount, endCount,chkList,item_value2_cate);
+		
+		Gson gson = new Gson();
+		JsonArray jlist = new JsonArray();
+		JsonObject jdata = new JsonObject();
+	
+	    
+		for(ItemVO vo: list){
+			JsonObject obj = new JsonObject();
+			obj.addProperty("item_no", vo.getItem_no());
+			obj.addProperty("item_img", vo.getItem_img());
+			obj.addProperty("item_name", vo.getItem_name());
+			obj.addProperty("item_price", vo.getItem_price());
+			
+			jlist.add(obj);
+		}	 
+
+		jdata.add("list",jlist);
+		jdata.addProperty("dbcount", String.valueOf(dbCount));
+		jdata.addProperty("rpage", reqPage);
+		jdata.addProperty("pagesize", pageSize);
+		
+		System.out.println("item_cate="+jdata);
+		return String.valueOf(gson.toJson(jdata));
+	}
+	
+	/**
+	 * AllItem 메인페이지_카레고리별_페이징리스트(ajax)
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/item_list.do", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	public String item_list(String rpage,String item_cate) {
+		ModelAndView mv = new ModelAndView();
+		//System.out.println("카테고리별="+rpage+","+item_cate);
+		//페이징처리 - startCount, endCount 구하기
+		int startCount = 0;
+		int endCount = 0;
+		int pageSize = 5;	//한페이지당 게시물 수
+		int reqPage = 0;	//요청페이지	, rpage를 대체
+		int pageCount = 1;	//전체 페이지 수
+		int dbCount = itemDao.execTotalCount(item_cate);	//DB에서 가져온 전체 행수 
+		
+		//총 페이지 수 계산
+		if(dbCount % pageSize == 0){
+			pageCount = dbCount/pageSize;
+		}else{
+			pageCount = dbCount/pageSize+1;
+		}
+
+		//요청 페이지 계산
+		if(rpage != null){
+			reqPage = Integer.parseInt(rpage);
+			startCount = (reqPage-1) * pageSize+1;
+	 		endCount = reqPage *pageSize;
+		}else{
+			reqPage = 1;
+			startCount = 1;
+			endCount = 5;
+		}
+		//System.out.println(startCount+","+ endCount+","+item_cate);			
+		ArrayList<ItemVO> list = itemDao.getCateResultList(startCount, endCount,item_cate);
+		
+		Gson gson = new Gson();
+		JsonArray jlist = new JsonArray();
+		JsonObject jdata = new JsonObject();
+	
+	    
+		for(ItemVO vo: list){
+			JsonObject obj = new JsonObject();
+			obj.addProperty("item_no", vo.getItem_no());
+			obj.addProperty("item_img", vo.getItem_img());
+			obj.addProperty("item_name", vo.getItem_name());
+			obj.addProperty("item_price", vo.getItem_price());
+			
+			jlist.add(obj);
+		}	 
+
+		jdata.add("list",jlist);
+		jdata.addProperty("dbcount", String.valueOf(dbCount));
+		jdata.addProperty("rpage", reqPage);
+		jdata.addProperty("pagesize", pageSize);
+		
+		//System.out.println(jdata);
+		return String.valueOf(gson.toJson(jdata));
+	}
+	
+	/**
+	 * 아이템 상세리스트
+	 */
+	@RequestMapping(value="itemDetail.do", method = RequestMethod.GET)
+	public ModelAndView itemDetail(String iid) {
+		ModelAndView mv = new ModelAndView();
+		
+		
+		ItemVO vo = itemDao.getResultItemDetail(iid);
+		
+		itemDao.getReadItem(iid);
+		
+		mv.addObject("vo",vo);
+		mv.setViewName("/allitem/itemDetail.user");
+		
+		return mv;
+	}
+	
+	
+	/**
+	 * AllItem 메인페이지
+	 */
+	@RequestMapping(value = "/item.do", method = RequestMethod.GET)
+	public ModelAndView item_dog_food(String item_cate,String item,String rpage) {
+		ModelAndView mv = new ModelAndView();
+		
+		/*//페이징처리 - startCount, endCount 구하기
+		int startCount = 0;
+		int endCount = 0;
+		int pageSize = 5;	//한페이지당 게시물 수
+		int reqPage = 0;	//요청페이지	, rpage를 대체
+		int pageCount = 1;	//전체 페이지 수
+		int dbCount = itemDao.execTotalCount();	//DB에서 가져온 전체 행수 
+		
+		//총 페이지 수 계산
+		if(dbCount % pageSize == 0){
+			pageCount = dbCount/pageSize;
+		}else{
+			pageCount = dbCount/pageSize+1;
+		}
+
+		//요청 페이지 계산
+		if(rpage != null){
+			reqPage = Integer.parseInt(rpage);
+			startCount = (reqPage-1) * pageSize+1;
+	 		endCount = reqPage *pageSize;
+		}else{
+			reqPage = 1;
+			startCount = 1;
+			endCount = 5;
+		}
+				
+		ArrayList<ItemVO> list = itemDao.getResultList(startCount, endCount);*/
+		
+		
+		mv.addObject("item",item);
+		mv.addObject("item_cate",item_cate);
+		
+		/*mv.addObject("list",list);
+		mv.addObject("dbcount",dbCount);
+		mv.addObject("rpage",reqPage);
+		mv.addObject("pagesize",pageSize);*/
+		mv.setViewName("/allitem/item.user");
+		//System.out.println(reqPage);
+		///System.out.println(pageSize);
+		//System.out.println(dbCount);
+		return mv;
+	}
+	
+	
+	
+	
+}

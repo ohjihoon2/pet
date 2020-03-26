@@ -1,0 +1,348 @@
+package com.myspring.controller;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.pettoday.dao.CommunityDAO;
+import com.pettoday.vo.AnswerVO;
+import com.pettoday.vo.WonderAnswerReplyVO;
+import com.pettoday.vo.WonderReplyVO;
+import com.pettoday.vo.WonderVO;
+
+@Controller
+public class CommunityController {
+	
+	@Autowired
+	private CommunityDAO communityDao;
+	/**
+	 * 궁금해요 wonder page 
+	 * @return
+	 */
+	@RequestMapping(value = "/wonder.do", method = RequestMethod.GET)
+	public ModelAndView wonder(String rpage) {
+		ModelAndView mv = new ModelAndView();
+		
+		int startCount = 0;
+		int endCount = 0;
+		int pageSize = 5;	
+		int reqPage = 1;	
+		int pageCount = 1;	
+		int dbCount = communityDao.execTotalCount();	
+		
+		if(dbCount % pageSize == 0){
+			pageCount = dbCount/pageSize;
+		}else{
+			pageCount = dbCount/pageSize+1;
+		}
+
+		if(rpage != null){
+			reqPage = Integer.parseInt(rpage);
+			startCount = (reqPage-1) * pageSize+1;
+	 		endCount = reqPage *pageSize;
+		}else{
+			startCount = 1;
+			endCount = 5;
+		}
+		
+		ArrayList<WonderVO> list = communityDao.wonderList(startCount, endCount);
+		
+		mv.addObject("list",list);
+		mv.addObject("dbCount",dbCount);
+		mv.addObject("rpage",rpage);
+		mv.addObject("pageSize",pageSize);
+		mv.setViewName("/community1/wonder.user");
+		return mv;
+	}
+	
+	/**
+	 * 궁금해요 상세페이지
+	 * @return
+	 */
+	@RequestMapping(value = "/wonderDetail.do", method = RequestMethod.GET)
+	public ModelAndView wonderDetail(String wonder_no ) {
+		ModelAndView mv = new ModelAndView();
+		
+//		mv.addObject("vo", vo);
+		
+		WonderVO wvo = communityDao.wonderContent(wonder_no);
+		ArrayList<AnswerVO> alist = communityDao.AnswerContentList(wonder_no);
+		
+		for(AnswerVO avo : alist) {
+			System.out.println(avo.getWonder_answer_content());
+			System.out.println(avo.getWonder_answer_date());
+			System.out.println(avo.getWonder_answer_no());
+			System.out.println(avo.getWonder_answer_writer());
+			
+			
+		}
+		
+		mv.addObject("wvo", wvo);
+		mv.addObject("alist", alist);
+		mv.setViewName("/community1/wonderDetail.user");
+		
+		return mv;
+	}
+	
+	/**
+	 * 궁금해요 질문 작성 
+	 * @return
+	 */
+	@RequestMapping(value = "/wonderNew.do", method = RequestMethod.GET)
+	public ModelAndView wonderNew(String id) {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("id", id);
+		mv.setViewName("/community1/wonderNew.user");
+		
+		return mv;
+	}
+	
+	
+	@RequestMapping(value = "/wonderNew_proc.do", method = RequestMethod.POST)
+	public ModelAndView wonderNew_proc(WonderVO vo) {
+		ModelAndView mv = new ModelAndView();
+		
+		System.out.println("1"+vo.getWonder_title());
+		System.out.println("2"+vo.getWonder_content());
+			
+		
+		
+		int int_result = communityDao.wonderWrite(vo);
+		System.out.println("insert 값은 "+int_result);
+		
+		if(int_result != 0) {
+			
+			mv.setViewName("redirect:/wonder.do");
+		}else {
+			mv.setViewName("/errorPage.user");
+		}
+		
+		
+		return mv;
+	}
+	
+	/**
+	 * 집근처 동물 병원
+	 * @return
+	 */
+	@RequestMapping(value = "/hospitalMap.do", method = RequestMethod.GET)
+	public String hospitalMap() {
+		return "/community1/hospitalMap.user";
+	}
+	
+	/**
+	 * 질문 답변쓰기
+	 * @return
+	 */
+	@RequestMapping(value = "/answerNew.do", method = RequestMethod.GET)
+	public ModelAndView testNew(String wonder_no) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("wonder_no", wonder_no);
+		//실행하고 result 값을 1로 받으면 reload해주기 위해서 기본값을 0 을 주고 저장  
+		mv.addObject("result","0");
+		mv.setViewName("/community1/answerNew.none");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/answer_proc.do", method = RequestMethod.POST)
+	public ModelAndView answer_proc(AnswerVO avo) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("wno= "+avo.getWonder_no());
+		System.out.println("atitle= "+avo.getWonder_answer_title());
+		System.out.println("acontent= "+avo.getWonder_answer_content());
+		System.out.println("acontent= "+avo.getWonder_answer_writer());
+		
+		int int_result = communityDao.AnswerInsert(avo);
+		if(int_result != 0) {
+			mv.setViewName("/community1/answerNew.none");
+			mv.addObject("result",String.valueOf(int_result));
+		}
+		return mv;
+	}
+	/**
+	 * ajax를 통한 질문 댓글 list 출력 
+	 * @param wonder_no
+	 * @return
+	 */
+	@RequestMapping(value = "/wonder_reply_list.do", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String wonder_reply_list(int wonder_no) {
+		
+		ArrayList<WonderReplyVO> wrlist = communityDao.WonderReplyList(wonder_no);
+		
+		Gson gson = new Gson();
+		JsonArray jlist = new JsonArray();
+		JsonObject jdata = new JsonObject();
+		
+		for(WonderReplyVO vo :wrlist) {
+			JsonObject obj = new JsonObject();
+			obj.addProperty("wonder_reply_content",vo.getWonder_reply_content());
+			obj.addProperty("wonder_reply_date",vo.getWonder_reply_date() );
+			obj.addProperty("wonder_reply_writer",vo.getWonder_reply_writer() );
+			obj.addProperty("wonder_no",vo.getWonder_no() );
+			obj.addProperty("wonder_reply_no",vo.getWonder_reply_no() );
+			
+			jlist.add(obj);
+		}
+		jdata.add("wrlist", jlist);
+		return String.valueOf(gson.toJson(jdata));
+	}
+	/**
+	 * 질문 댓글 등록
+	 * @param wonder_reply_writer
+	 * @param wonder_reply_content
+	 * @param wonder_no
+	 * @return
+	 */
+	@RequestMapping(value = "/wonder_reply_proc.do", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String wonder_reply_proc(String wonder_reply_writer, String wonder_reply_content, int wonder_no) {
+		
+		WonderReplyVO vo = new WonderReplyVO();
+		vo.setWonder_reply_content(wonder_reply_content);
+		vo.setWonder_reply_writer(wonder_reply_writer);
+		vo.setWonder_no(wonder_no);
+		
+		Gson gson = new Gson();
+		JsonArray jlist = new JsonArray();
+		JsonObject jdata = new JsonObject();
+		
+		System.out.println("wonder_reply_writer = "+wonder_reply_writer );
+		System.out.println("wonder_reply_content = "+wonder_reply_content );
+		System.out.println("wonder_no = "+wonder_no );
+		
+		int int_result = communityDao.WonderReplyInsert(vo);
+		if(int_result != 0) {
+			
+			ArrayList<WonderReplyVO> wrlist = communityDao.WonderReplyList(wonder_no);
+			
+			for(WonderReplyVO wrvo :wrlist) {
+				JsonObject obj = new JsonObject();
+				obj.addProperty("wonder_reply_content",wrvo.getWonder_reply_content());
+				obj.addProperty("wonder_reply_date",wrvo.getWonder_reply_date() );
+				obj.addProperty("wonder_reply_writer",wrvo.getWonder_reply_writer() );
+				obj.addProperty("wonder_no",wrvo.getWonder_no() );
+				obj.addProperty("wonder_reply_no",wrvo.getWonder_reply_no() );
+				
+				jlist.add(obj);
+			}
+			jdata.add("wrlist2", jlist);
+		}
+		
+		return String.valueOf(gson.toJson(jdata));
+	}
+	
+	/**
+	 * ajax를 통한 댓글 list 출력
+	 * @param wonder_answer_no
+	 * @return
+	 */
+	@RequestMapping(value = "/answer_reply_list.do", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String answer_reply_list(int wonder_answer_no) {
+		
+		ArrayList<WonderAnswerReplyVO> arlist = communityDao.AnswerReplyList(wonder_answer_no);
+		
+		Gson gson = new Gson();
+		JsonArray jlist = new JsonArray();
+		JsonObject jdata = new JsonObject();
+		
+		for(WonderAnswerReplyVO vo :arlist) {
+			JsonObject obj = new JsonObject();
+			obj.addProperty("wonder_answer_reply_content",vo.getWonder_answer_reply_content());
+			obj.addProperty("wonder_answer_reply_date",vo.getWonder_answer_reply_date() );
+			obj.addProperty("wonder_answer_reply_writer",vo.getWonder_answer_reply_writer() );
+			obj.addProperty("wonder_answer_no",vo.getWonder_answer_no() );
+			obj.addProperty("wonder_answer_reply_no",vo.getWonder_answer_reply_no() );
+			
+			jlist.add(obj);
+		}
+		jdata.add("arlist", jlist);
+		return String.valueOf(gson.toJson(jdata));
+	}
+	
+	/**
+	 * 답변 댓글 insert 하기
+	 * @param wonder_answer_reply_writer
+	 * @param wonder_answer_reply_content
+	 * @param wonder_answer_no
+	 * @return
+	 */
+	@RequestMapping(value = "/answer_reply_proc.do", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String answer_reply_proc(String wonder_answer_reply_writer, String wonder_answer_reply_content, int wonder_answer_no) {
+		
+		WonderAnswerReplyVO vo = new WonderAnswerReplyVO();
+		vo.setWonder_answer_reply_content(wonder_answer_reply_content);
+		vo.setWonder_answer_reply_writer(wonder_answer_reply_writer);
+		vo.setWonder_answer_no(wonder_answer_no);
+		
+		Gson gson = new Gson();
+		JsonArray jlist = new JsonArray();
+		JsonObject jdata = new JsonObject();
+		
+		System.out.println("wonder_answer_reply_writer = "+wonder_answer_reply_writer );
+		System.out.println("wonder_answer_reply_content = "+wonder_answer_reply_content );
+		System.out.println("wonder_answer_no = "+wonder_answer_no );
+		
+		int int_result = communityDao.AnswerReplyInsert(vo);
+		if(int_result != 0) {
+			
+			ArrayList<WonderAnswerReplyVO> arlist = communityDao.AnswerReplyList(wonder_answer_no);
+			
+			for(WonderAnswerReplyVO arvo :arlist) {
+				JsonObject obj = new JsonObject();
+				obj.addProperty("wonder_answer_reply_content",arvo.getWonder_answer_reply_content());
+				obj.addProperty("wonder_answer_reply_date",arvo.getWonder_answer_reply_date() );
+				obj.addProperty("wonder_answer_reply_writer",arvo.getWonder_answer_reply_writer() );
+				obj.addProperty("wonder_answer_no",arvo.getWonder_answer_no() );
+				obj.addProperty("wonder_answer_reply_no",arvo.getWonder_answer_reply_no() );
+				
+				jlist.add(obj);
+			}
+			jdata.add("arlist2", jlist);
+		}
+		
+		return String.valueOf(gson.toJson(jdata));
+	}
+	
+	@RequestMapping(value = "/wonder_reply_delete_proc.do", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String wonder_reply_delete_proc(String wonder_reply_no, int wonder_no) {
+		
+		communityDao.WonderReplyDelete(wonder_reply_no);
+		
+		ArrayList<WonderReplyVO> wrlist = communityDao.WonderReplyList(wonder_no);
+		
+		Gson gson = new Gson();
+		JsonArray jlist = new JsonArray();
+		JsonObject jdata = new JsonObject();
+		
+		for(WonderReplyVO vo :wrlist) {
+			JsonObject obj = new JsonObject();
+			obj.addProperty("wonder_reply_content",vo.getWonder_reply_content());
+			obj.addProperty("wonder_reply_date",vo.getWonder_reply_date() );
+			obj.addProperty("wonder_reply_writer",vo.getWonder_reply_writer() );
+			obj.addProperty("wonder_no",vo.getWonder_no() );
+			obj.addProperty("wonder_reply_no",vo.getWonder_reply_no() );
+			
+			jlist.add(obj);
+		}
+		jdata.add("wrlist", jlist);
+		
+		return String.valueOf(gson.toJson(jdata));
+		
+	}
+	
+}

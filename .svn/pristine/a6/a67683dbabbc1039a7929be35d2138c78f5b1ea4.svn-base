@@ -1,0 +1,129 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index.css">
+	<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index_carousel.css">
+	<link rel="stylesheet" href="http://localhost:9090/pet/css/navbar_techandall.css"><!-- Navigation CSS -->
+	<link rel="stylesheet" href="http://localhost:9090/pet/css/community.css"><!-- community CSS -->
+	<link href="http://localhost:9090/pet/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<script type="text/javascript" src="http://localhost:9090/pet/js/ddmenu.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="http://localhost:9090/dycgv/css/am-pagination.css">
+	<script src="http://localhost:9090/pet/js/jquery-3.4.1.min.js"></script>
+	<script src="http://localhost:9090/pet/js/am-pagination.js"></script>
+	<script src="http://localhost:9090/pet/js/header_toggle.js"></script>  <!-- header_toggle js -->
+	<script>
+	
+		function fnMove(seq){
+	        var offset = $("div#" +seq).offset();
+	        $('html, body').animate({scrollTop : offset.top}, 400);
+	    }
+		
+		
+		$(document).ready(function(){
+			var pager = jQuery('#ampaginationsm').pagination({
+			
+			    maxSize: 5,	    		// max page size
+			    totals: '${dbCount}',	// total pages	
+			    page: '${rpage}',		// initial page		
+			    pageSize: '${pageSize}',			// max number items per page
+			
+			    // custom labels		
+			    lastText: '&raquo;&raquo;', 		
+			    firstText: '&laquo;&laquo;',		
+			    prevText: '&laquo;',		
+			    nextText: '&raquo;',
+					     
+			    btnSize:'sm'	// 'sm'  or 'lg'		
+			});
+			var searchText='${search}';
+			var sort='${sort}';
+			
+			
+			jQuery('#ampaginationsm').on('am.pagination.change',function(e){
+				   jQuery('.showlabelsm').text('The selected page no: '+e.page);
+					if(searchText =='' && sort ==''){
+			           	$(location).attr('href', "http://localhost:9090/pet/wonder.do?rpage="+e.page);  
+					}else if(searchText != '' && sort !=''){
+			           $(location).attr('href', "http://localhost:9090/pet/wonder_search.do?rpage="+e.page+"&search="+searchText+"&sort="+sort);  
+			           	/* alert("zz1"); */
+			           fnMove('search_hole');
+			           	/* alert("zz2"); */
+					}
+		            var offset = $("div#search_hole").offset();
+			        $('html, body').animate({scrollTop : offset.top}, 400);
+		    });
+			
+			
+			$(".wonderSearchBtn").click(function(){
+				searchText = $("div.search_hole > input#search").val();
+				sort = $("#searchType option:selected").val();
+				if(searchText ==""){
+					alert("검색어를 입력해주세요.");
+				}else{
+					alert(sort+" 에서  "+searchText+"를 검색하겠습니다.");
+					$(location).attr('href', "http://localhost:9090/pet/wonder_search.do?rpage=1&search="+searchText+"&sort="+sort);
+					alert("1");
+		            fnMove('search_hole');
+				}
+			})
+	 	});
+	</script> 
+</head>
+<body>
+	<div>
+		<div class="wonderContentBox">
+			<div class="wonderContentTable">
+				<div class="wonder_title">
+					궁금해요
+				</div>
+				<img alt="" src="http://localhost:9090/pet/images/communtiy/qa.png" class="mainimg">
+				<div class="search_hole" id ="search_hole">
+					<span>총 ${dbCount } 건</span>
+					<select id="searchType" name="searchType">
+			     		<option value="title">제목</option>
+			    	    <option value="writer">작성자</option>
+			      	</select>
+			   		<input type="text" id="search" name="search" placeholder="검색어를 입력하세요.">
+					<button type="button" class="wonderSearchBtn">검색</button>
+		      	</div>
+				<form action="#" method="get">
+					<table class="wonderTable">
+						
+						<tr>
+							<th>번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>조회수</th>
+						</tr>
+						<c:forEach var="vo" items="${list}">
+							<tr>
+								<td>${vo.rno }</td>
+								<td><a href="http://localhost:9090/pet/wonderDetail.do?wonder_no=${vo.wonder_no }">${vo.wonder_title }</a></td>
+								<td>${vo.wonder_writer }</td>
+								<td>${vo.wonder_date }</td>
+								<td>${vo.wonder_view }</td>
+							</tr>
+						</c:forEach>
+						<tr>
+							<td colspan=4><div id="ampaginationsm"></div></td>
+						</tr>
+					</table>
+						<div class="btndiv">
+							<a href="wonder.do"><button type="button" class="wonderListBtn">전체 목록</button></a>
+							<a href="wonderNew.do?id=test"><button type="button" class="wonderWriteBtn">쓰기</button></a>
+						</div>
+				</form>												
+				
+			</div>
+		</div>
+	</div>
+</body>
+</html>

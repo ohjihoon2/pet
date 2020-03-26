@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.photocontest">
+	<select id="pho_count1" parameterType="java.lang.String" resultType="int">
+		select count(*) from photocontest where pho_title like '%'||#{search}||'%'
+	</select>
+	<select id="pho_count2" resultType="int">
+		select count(*) from photocontest
+	</select>
+	
+	<select id="pho_list" parameterType="map" resultType="com.pettoday.vo.PhotocontestVO">
+		SELECT*FROM (SELECT rownum rno, pho_no, pho_title, pho_sfile, TO_CHAR(pho_date,'YYYY/MM/DD') pho_date, pho_hits, mem_id
+                    				 FROM (SELECT pho_no,pho_title,pho_sfile, pho_date, pho_hits, mem_id FROM photocontest ORDER BY pho_date DESC))
+		WHERE RNO BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="pho_list_category" parameterType="map" resultType="com.pettoday.vo.PhotocontestVO">
+		SELECT*FROM (SELECT rownum rno, pho_no, pho_title, pho_sfile, TO_CHAR(pho_date,'YYYY/MM/DD') pho_date, pho_hits
+	                    				 FROM (SELECT pho_no,pho_title,pho_sfile, pho_date, pho_hits FROM photocontest 
+	 <choose>
+			<when test="category == 'new'">
+		where pho_title like '%'||#{search}||'%' ORDER BY pho_date DESC))
+			</when>
+			<when test="category == 'star'">
+		where pho_title like '%'||#{search}||'%' ORDER BY pho_hits DESC))
+			</when>
+			<when test="category == 'name'">
+		where pho_title like '%'||#{search}||'%' ORDER BY pho_title))
+			</when>
+	</choose>
+		WHERE RNO BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="pho_list2" parameterType="map" resultType="com.pettoday.vo.PhotocontestVO">
+		SELECT*FROM (SELECT rownum rno, pho_no, pho_title, pho_sfile, TO_CHAR(pho_date,'YYYY/MM/DD') pho_date, pho_hits
+                    				 FROM (SELECT pho_no,pho_title,pho_sfile, pho_date, pho_hits FROM photocontest ORDER BY pho_hits desc))
+		WHERE RNO BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="pho_list3" resultType="com.pettoday.vo.PhotocontestVO">
+		SELECT*FROM (SELECT rownum rno, pho_no, pho_title, pho_sfile, TO_CHAR(pho_date,'YYYY/MM/DD') pho_date, pho_hits
+                    				 FROM (SELECT pho_no,pho_title,pho_sfile, pho_date, pho_hits FROM photocontest ORDER BY pho_hits desc))
+		where rno between 1 and 2
+	</select>
+	
+	<insert id="pho_write" parameterType="com.pettoday.vo.PhotocontestVO">
+		insert into photocontest VALUES(PHOTOCONTEST_SEQ.nextval,#{pho_title, jdbcType=VARCHAR}, #{pho_file}, #{pho_sfile}, #{pho_species}, #{pho_name}, #{pho_age},
+																	 #{pho_address}, #{pho_favorite}, #{pho_uniqueness}, #{pho_explain}, sysdate, 0, #{mem_id})
+	</insert>
+	
+	<select id="pho_content"  parameterType="java.lang.String" resultType="com.pettoday.vo.PhotocontestVO">
+		select * from photocontest where pho_no = #{pho_no}
+	</select>
+	
+	<update id="hits_update" parameterType="java.lang.String" >
+		UPDATE photocontest SET pho_hits = pho_hits+1 WHERE pho_no=#{pho_no}
+	</update>
+	
+	<update id="pho_update" parameterType="com.pettoday.vo.PhotocontestVO" >
+		update photocontest set pho_title = #{pho_title}, pho_file =#{pho_file},pho_sfile =#{pho_sfile},pho_species =#{pho_species},pho_name =#{pho_name},pho_age =#{pho_age},
+		pho_address =#{pho_address},pho_favorite =#{pho_favorite},pho_uniqueness =#{pho_uniqueness},pho_explain =#{pho_explain},pho_date = sysdate where pho_no=#{pho_no}
+	</update>
+	
+	<delete id="pho_delete" parameterType="java.lang.String">
+		delete from photocontest where pho_no = #{pho_no}
+	</delete>
+	
+	<select id="del_pho_sfile" parameterType="java.lang.String" resultType="java.lang.String">
+		select pho_sfile from photocontest where pho_no=#{pho_no}
+	</select>
+</mapper>

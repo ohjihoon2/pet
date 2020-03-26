@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.item">
+
+	<!-- 아이템 리스트 행 -->
+	<select id="icount" parameterType="java.lang.String" resultType="int">
+		select count(*) from item_animal
+	</select>
+	
+	<!-- 아이템 리스트 행 -->
+	<select id="icount_item_category" parameterType="java.lang.String" resultType="int">
+		select count(*) from item_animal
+		where ITEM_CATE_NO=#{item_cate}
+	</select>
+	
+	<!-- 아이템 리스트 -->
+	<select id="list" parameterType="map"  resultType="com.pettoday.vo.ItemVO">
+		select *
+		from(select rownum rno,ITEM_NO,ITEM_NAME,ITEM_PRICE,ITEM_IMG,ITEM_DESCRIPTION,to_char(ITEM_DATE,'yyyy/mm/dd') ITEM_DATE,ITEM_CATE_CATE1,ITEM_CATE_BRAND1,ITEM_CATE_FEATURE1,ITEM_CATE_MATERIAL1,ITEM_CATE_NO
+      			from(select ITEM_NO,ITEM_NAME,ITEM_PRICE,ITEM_IMG,ITEM_DESCRIPTION,ITEM_DATE,ITEM_CATE_CATE1,ITEM_CATE_BRAND1,ITEM_CATE_FEATURE1,ITEM_CATE_MATERIAL1,item_animal.ITEM_CATE_NO
+               		 from item_animal
+               		 where ITEM_CATE_NO= #{item_cate}
+               		 order by ITEM_DATE desc))
+ 		WHERE rno BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- 아이템 상세리스트 -->
+	<select id="detailList" parameterType="java.lang.String" resultType="com.pettoday.vo.ItemVO">
+		select item_no,item_name,item_price,item_img,ITEM_DESCRIPTION,
+		to_char(SYSDATE+1,'mm/dd') item_date  , item_cate_no
+		from item_animal
+		where item_no=#{iid}
+	</select>
+</mapper>

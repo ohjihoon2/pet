@@ -1,0 +1,76 @@
+package com.myspring.controller;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.pettoday.dao.ItemDAO;
+import com.pettoday.vo.ItemVO;
+
+@Controller
+public class AdminController {
+	
+	@Autowired
+	private ItemDAO itemDao;
+	
+	/**
+	 * 메인 컨트롤러
+	 */
+	@RequestMapping(value = "/admin_main.do", method = RequestMethod.GET)
+	public ModelAndView index() {
+		ModelAndView mv = new ModelAndView();
+		ArrayList<ItemVO> list =itemDao.getRecentList();
+		ArrayList<ItemVO> list2 =itemDao.getRecentCatList();
+		
+		mv.addObject("list",list);
+		mv.addObject("list2",list2);
+		mv.setViewName("admin/admin_main.none");
+		return mv;
+	}
+
+	@RequestMapping(value = "/admin_dog_item.do", method = RequestMethod.GET)
+	public String admin_dog_item() {
+		return "admin/admin_dog_item.none";
+	}
+	@RequestMapping(value = "/admin_cat_item.do", method = RequestMethod.GET)
+	public String admin_cat_item() {
+		return "admin/admin_cat_item.none";
+	}
+	@RequestMapping(value = "/admin_notice.do", method = RequestMethod.GET)
+	public String admin_notice() {
+		return "admin/admin_notice.none";
+	}
+	@RequestMapping(value = "/admin_member.do", method = RequestMethod.GET)
+	public String admin_member() {
+		return "admin/admin_member.none";
+	}
+	@RequestMapping(value = "/admin_photo.do", method = RequestMethod.GET)
+	public String admin_photo() {
+		return "admin/admin_photo.none";
+	}
+	@RequestMapping(value = "/admin_question.do", method = RequestMethod.GET)
+	public String admin_question() {
+		return "admin/admin_question.none";
+	}
+	@RequestMapping(value = "/admin_friend.do", method = RequestMethod.GET)
+	public String admin_friend() {
+		return "admin/admin_friend.none";
+	}
+	@RequestMapping(value = "/admin_vet_counsel.do", method = RequestMethod.GET)
+	public String admin_vet_counsel() {
+		return "admin/admin_vet_counsel.none";
+	}
+	@RequestMapping(value = "/admin_dog_vet.do", method = RequestMethod.GET)
+	public String admin_dog_vet() {
+		return "admin/admin_dog_vet.none";
+	}
+	@RequestMapping(value = "/admin_cat_vet.do", method = RequestMethod.GET)
+	public String admin_cat_vet() {
+		return "admin/admin_cat_vet.none";
+	}
+
+}

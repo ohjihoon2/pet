@@ -1,0 +1,352 @@
+a {
+	text-decoration: none;
+	color: black;
+}
+
+/** 사진대회 화면 **/
+div#contest {
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+}
+
+div#contest_all {
+	width: 1200px;
+	margin: auto;
+	margin-top: 0px;
+}
+
+/**사진대회 TOP3**/
+div#top3 {
+	height: 435px;
+	margin-top: 50px;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 50px;
+}
+
+div#top3>label {
+	border-bottom: 1px solid #ccc;
+	font-size: 26px;
+	color: #353535;
+	display: block;
+	height: 40px;
+	margin-bottom: 40px;
+}
+
+div#top3>div {
+	display: inline-block;
+	margin-right: 20px;
+	width: 375px;
+	text-align: left;
+	font-size: 15px;
+}
+
+div#top3>div:nth-child(4) {
+	margin-right: 0px;
+}
+
+div#top3>div>img:nth-child(1) {
+	position: absolute;
+	margin: 10px;
+	z-index: 9999;
+}
+
+div#top3>div>div {
+	overflow: hidden;
+	border-radius: 7px;
+	margin-bottom: 10px;
+}
+
+div#top3>div>div>a img {
+	width: 375px;
+	height: 300px;
+}
+
+div#top3>div>div>a img:hover {
+	cursor: pointer;
+	border-radius: 7px;
+	transform: scale(1.1); /* 마우스 오버시 이미지 크기를 1.1 배만큼 확대시킨다. */
+	-o-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-webkit-transform: scale(1.1);
+	transition: transform .35s;
+	-o-transition: transform .35s;
+	-moz-transition: transform .35s;
+	-webkit-transition: transform .35s;
+	z-index: 10;
+}
+
+div#top3>div>span:nth-child(4) {
+	margin-left: 197px;
+}
+
+/**콘텐츠**/
+div#contest_content {
+	
+}
+
+div#contest_content_sort {
+	text-align: left;
+	height: 45px;
+	border-bottom: solid 1px #ccc;
+	margin-bottom: 10px;
+}
+
+div#contest_content_sort span {
+	vertical-align: bottom;
+}
+
+div#contest_content_sort span a {
+	color: #484848;
+	font-family: "나눔고딕";
+	font-size: 14px;
+}
+
+button#contest_write {
+	margin-left: 901px;
+	width: 120px;
+	height: 35px;
+	background: white;
+	border: solid 1px black;
+}
+
+button#contest_write:hover {
+	cursor: pointer;
+}
+
+div#contest_content_pic {
+	text-align: left;
+	padding-bottom: 10px;
+	border-bottom: solid 1px #ccc;
+	margin-bottom: 100px;
+}
+
+div#contest_content_pic>div {
+	display: inline-block;
+	margin: 10px;
+	width: 375px;
+	text-align: left;
+	font-size: 15px;
+	width: 375px;
+}
+
+div#contest_content_pic>div>div {
+	overflow: hidden;
+	border-radius: 7px;
+	margin-bottom: 10px;
+}
+
+div#contest_content_pic>div>div>a img {
+	width: 375px;
+	height: 300px;
+}
+
+div#contest_content_pic>div>div>a img:hover {
+	cursor: pointer;
+	border-radius: 7px;
+	transform: scale(1.1); /* 마우스 오버시 이미지 크기를 1.1 배만큼 확대시킨다. */
+	-o-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-webkit-transform: scale(1.1);
+	transition: transform .35s;
+	-o-transition: transform .35s;
+	-moz-transition: transform .35s;
+	-webkit-transition: transform .35s;
+	z-index: 10;
+}
+
+div#contest_content_pic>div>span:nth-child(3) {
+	float: right;
+}
+
+/**사진대회 상세**/
+div#contest_content {
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+}
+
+div#contest_content_all {
+	width: 1200px;
+	margin: auto;
+	margin-top: 0px;
+}
+
+div#contest_content_all>div#nav {
+	display: block;
+	margin-top: 7px;
+	font-size: 15px;
+	color: #444;
+	text-align: left;
+}
+
+div#contest_content_all img {
+	text-align: left;
+	width: 835px;
+	height: 540px;
+	border: solid 5px #ffc71d;
+}
+
+div#contest_content_all>div {
+	display: inline-block;
+	margin-top: 50px;
+}
+
+div#contest_content_all>div>div {
+	display: inline-block;
+	vertical-align: top;
+	height: 550px;
+	width: 300px;
+	margin-left: 50px;
+	text-align: left;
+}
+
+div#contest_content_all>div label {
+	display: block;
+	color: #2f2f2f;
+	font-size: 25px;
+}
+
+div#contest_content_all>div table {
+	display: inline-block;
+	margin-top: 20px;
+	border-spacing: 0px;
+	border-top: solid 1px #ccc;
+}
+
+div#contest_content_all>div table tr td {
+	border-bottom: solid 1px #ccc;
+	height: 50px;
+	line-height: 30px;
+}
+
+div#contest_content_all>div span {
+	display: block;
+	text-align: left;
+	border-top: solid 1px #ccc;
+	border-bottom: solid 1px #ccc;
+	padding-top: 30px;
+	margin-top: 30px;
+	padding-bottom: 30px;
+	height: 250px;
+	margin-bottom: 30px;
+	line-height: 30px;
+}
+
+/**사진대회 작성**/
+div#contest_content_write {
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+}
+
+div#contest_content_write_all {
+	width: 1200px;
+	margin: auto;
+	margin-top: 0px;
+}
+
+div#contest_content_write_all>div#nav {
+	display: block;
+	margin-top: 7px;
+	font-size: 15px;
+	color: #444;
+	text-align: left;
+}
+
+div#contest_content_write_all>div>form {
+	display: inline-block;
+	margin-top: 50px;
+}
+
+div#contest_content_write_all>div>form>div {
+	display: inline-block;
+	vertical-align: top;
+	height: 550px;
+	width: 300px;
+	margin-left: 50px;
+	text-align: left;
+}
+
+div#contest_content_write_all>div>form label {
+	display: block;
+	color: #2f2f2f;
+	font-size: 25px;
+}
+
+div#contest_content_write_all>div>form table {
+	display: inline-block;
+	margin-top: 20px;
+	border-spacing: 0px;
+	border-top: solid 1px #ccc;
+}
+
+div#contest_content_write_all>div>form table tr td {
+	border-bottom: solid 1px #ccc;
+	height: 50px;
+	line-height: 30px;
+}
+
+div#contest_content_write_all>div>form span {
+	display: block;
+	text-align: left;
+	border-top: solid 1px #ccc;
+	border-bottom: solid 1px #ccc;
+	padding-top: 30px;
+	margin-top: 30px;
+	padding-bottom: 35px;
+	height: 250px;
+	line-height: 30px;
+}
+
+div#contest_content_write_all>div>form input {
+	height: 25px;
+	width: 170px;
+	padding-left: 5px;
+}
+
+textarea#special {
+	width: 169px;
+	height: 200px;
+	padding-left: 5px;
+}
+
+textarea#explanation {
+	height: 250px;
+	width: 1191px;
+	padding-left: 5px;
+	padding-top: 5px;
+}
+
+div#contest_content_write_all>div>form button.contestbtn {
+	border: 1px solid #000000;
+	width: 150px;
+	height: 40px;
+	background-color: #ffffff;
+	margin-top: 20px;
+	color: #464646;
+	font-size: 17px;
+	font-family: "나눔고딕";
+	margin-bottom: 60px;
+	margin-right: 10px;
+	display: inline-block;
+}
+
+div#contest_content_write_all>div>form button.contestbtn:hover {
+	cursor: pointer;
+}
+
+div#contest_content_all .contestconbtn {
+	border: 1px solid #000000;
+	width: 150px;
+	height: 40px;
+	background-color: #ffffff;
+	margin-top: 0px;
+	color: #464646;
+	font-size: 17px;
+	font-family: "나눔고딕";
+	margin-bottom: 50px;
+	margin-left: 10px;
+	display: inline-block;
+	float: right;
+}

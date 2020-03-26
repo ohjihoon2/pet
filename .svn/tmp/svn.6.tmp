@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper는 xml파일에 하나만 만들수 있다. -->
+<mapper namespace="mapper.mypage">
+	<select id="info"
+			parameterType="java.lang.String"
+			resultType="com.pettoday.vo.JoinVO">
+			select * from member where mem_id = #{sid}
+	</select>
+	<update id="passUpdate"
+			parameterType="map">
+			update member set mem_pass= #{pass} where mem_id =#{sid} 
+	</update>
+	
+	<update id="infoUpdate"
+			parameterType="com.pettoday.vo.JoinVO">
+			update member set mem_name=#{mem_name}, mem_petname=#{mem_petname}, mem_dogcat =#{mem_dogcat}, mem_species=#{mem_species}, mem_email=#{mem_email3},mem_phone=#{mem_phone},mem_address=#{mem_address4} where mem_id=#{mem_id}
+	</update>
+	<delete id="delMember"
+			parameterType="java.lang.String">
+			delete from member where mem_id=#{sid}
+	</delete>
+	
+	<select id="selectPurchaseInfo"
+			parameterType="java.lang.String"
+			resultType="com.pettoday.vo.PurchasesVO">
+			select * from purchases where mem_id = #{sid}
+	</select>
+	
+	<select id="selectPurchaseInfoAjax"
+			parameterType="map"
+			resultType="com.pettoday.vo.PurchasesVO">
+			select * from purchases where mem_id = #{sid} and PC_DATE <![CDATA[>]]>= #{start} and PC_DATE <![CDATA[<]]> (TO_DATE(#{end})+1)
+	</select>
+	<select id="getMyPost"
+			parameterType="map"
+			resultType="com.pettoday.vo.MyPostVO">
+			select * from
+				(select rownum rno, x.* from
+					(select  title, wdate, wsort from (
+						select * from 
+							(
+							select wal_name as title , wal_date as wdate ,'wt' as wsort from walktogether where mem_id =#{sid}
+							union all
+							select pho_title as title, pho_date as wdate, 'pc' as wsort from PHOTOCONTEST where mem_id =#{sid}
+							union all 
+							select wonder_title as title, wonder_date as wdate,'w' as wsort from wonder where WONDER_WRITER = #{sid}
+							union all
+							select wonder_answer_title as title, wonder_answer_date as wdate,'a' as wsort from wonder_answer where wonder_answer_writer = #{sid}
+							union all
+							select wonder_reply_content as title, wonder_reply_date as wdate,'r' as wsort from wonder_reply where wonder_reply_writer = #{sid}
+              				union all
+							select wonder_answer_reply_content as title, wonder_answer_reply_date as wdate,'r' as wsort from answer_reply where wonder_answer_reply_writer = #{sid}
+							union all
+							select item_board_title as title, item_board_date as wdate,'review' as wsort from item_board where mem_id = #{sid}
+							) 
+						order by wdate desc
+					)
+				) x)
+			WHERE RNO BETWEEN #{start} AND #{end}
+	</select>
+	<select id="getMyPostcount" 
+			parameterType="java.lang.String" 
+			resultType="int">
+			select count(*) from
+					(select  title, wdate, wsort from (
+						select * from 
+							(
+							select wal_name as title , wal_date as wdate ,'wt' as wsort from walktogether where mem_id =#{sid}
+							union all
+							select pho_title as title, pho_date as wdate, 'pc' as wsort from PHOTOCONTEST where mem_id =#{sid}
+							union all 
+							select wonder_title as title, wonder_date as wdate,'w' as wsort from wonder where WONDER_WRITER = #{sid}
+							union all
+							select wonder_answer_title as title, wonder_answer_date as wdate,'a' as wsort from wonder_answer where wonder_answer_writer = #{sid}
+							union all
+							select wonder_reply_content as title, wonder_reply_date as wdate,'r' as wsort from wonder_reply where wonder_reply_writer = #{sid}
+              				union all
+							select wonder_answer_reply_content as title, wonder_answer_reply_date as wdate,'r' as wsort from answer_reply where wonder_answer_reply_writer = #{sid}
+							union all
+							select item_board_title as title, item_board_date as wdate,'review' as wsort from item_board where mem_id = #{sid}
+							) 
+						order by wdate desc
+					)
+				)
+	</select>
+	<select id="getMyPostcount2" 
+			parameterType="map" 
+			resultType="int">
+			select count(*) from
+					(select  title, wdate, wsort from (
+						select * from 
+							(
+							select wal_name as title , wal_date as wdate ,'wt' as wsort from walktogether where mem_id =#{sid}
+							union all
+							select pho_title as title, pho_date as wdate, 'pc' as wsort from PHOTOCONTEST where mem_id =#{sid}
+							union all 
+							select wonder_title as title, wonder_date as wdate,'w' as wsort from wonder where WONDER_WRITER = #{sid}
+							union all
+							select wonder_answer_title as title, wonder_answer_date as wdate,'a' as wsort from wonder_answer where wonder_answer_writer = #{sid}
+							union all
+							select wonder_reply_content as title, wonder_reply_date as wdate,'r' as wsort from wonder_reply where wonder_reply_writer = #{sid}
+              				union all
+							select wonder_answer_reply_content as title, wonder_answer_reply_date as wdate,'r' as wsort from answer_reply where wonder_answer_reply_writer = #{sid}
+							union all
+							select item_board_title as title, item_board_date as wdate,'review' as wsort from item_board where mem_id = #{sid}
+							) where 1=1
+							<choose>
+								<when test="startdate !='전체' and enddate != '전체'">
+								and wdate <![CDATA[>]]>= #{startdate} and wdate <![CDATA[<]]> (TO_DATE(#{enddate})+1)
+								</when>
+							</choose> 
+							<choose>
+					            <when test='category == "w"'>
+				                    and wsort = #{category}
+					            </when>
+					        	<when test='category == "a"'>
+			                    	and wsort = #{category}
+					            </when>
+					            <when test='category == "wt"'>
+				                    and wsort = #{category}
+					            </when>
+					            <when test='category == "pc"'>
+				                     and wsort = #{category}
+					            </when>
+					            <when test='category == "r"'>
+				                     and wsort = #{category}
+					            </when>
+					            <when test='category == "review"'>
+				                     and wsort = #{category}
+					            </when>
+					        </choose>
+						order by wdate desc
+					)
+				)
+	</select>
+	<select id="selectMypostAjax"
+			parameterType="map"
+			resultType="com.pettoday.vo.MyPostVO">
+			select * from
+				(select rownum rno, x.* from
+					(select  title, wdate, wsort from (
+						select * from 
+							(
+							select wal_name as title , wal_date as wdate ,'wt' as wsort from walktogether where mem_id =#{sid}
+							union all
+							select pho_title as title, pho_date as wdate, 'pc' as wsort from PHOTOCONTEST where mem_id =#{sid}
+							union all 
+							select wonder_title as title, wonder_date as wdate,'w' as wsort from wonder where WONDER_WRITER = #{sid}
+							union all
+							select wonder_answer_title as title, wonder_answer_date as wdate,'a' as wsort from wonder_answer where wonder_answer_writer = #{sid}
+							union all
+							select wonder_reply_content as title, wonder_reply_date as wdate,'r' as wsort from wonder_reply where wonder_reply_writer = #{sid}
+              				union all
+							select wonder_answer_reply_content as title, wonder_answer_reply_date as wdate,'r' as wsort from answer_reply where wonder_answer_reply_writer = #{sid}
+							union all
+							select item_board_title as title, item_board_date as wdate,'review' as wsort from item_board where mem_id = #{sid}
+							)  where 1=1
+							<choose>
+								<when test="startdate !='전체' and enddate != '전체'">
+								and wdate <![CDATA[>]]>= #{startdate} and wdate <![CDATA[<]]> (TO_DATE(#{enddate})+1)
+								</when>
+							</choose> 
+							<choose>
+					            <when test='category == "w"'>
+				                    and wsort = #{category}
+					            </when>
+					        	<when test='category == "a"'>
+			                    	and wsort = #{category}
+					            </when>
+					            <when test='category == "wt"'>
+				                    and wsort = #{category}
+					            </when>
+					            <when test='category == "pc"'>
+				                     and wsort = #{category}
+					            </when>
+					            <when test='category == "r"'>
+				                     and wsort = #{category}
+					            </when>
+					            <when test='category == "review"'>
+				                     and wsort = #{category}
+					            </when>
+					        </choose>
+						<!-- order by wdate desc -->
+					)
+				) x)
+			WHERE RNO BETWEEN #{startCount} AND #{endCount}
+	</select>
+	
+	<select id="selectMyReviewAjax"
+			parameterType="map"
+			resultType="com.pettoday.vo.MyPostVO">
+			select * from (
+                           select rownum rowno, x.* from ( 
+                                                          select  item.item_no rno, item.item_simg rimage, item.item_name rname,item.item_cate_cate1 rcate, review.item_board_content rcontent, review.item_board_date rdate, review.ITEM_BOARD_GRADE rgrade
+                                                          from item_animal item ,item_board review  
+                                                          where item.item_no=review.item_no and review.mem_id =#{sid} 
+                                                          ) x order by rdate desc
+                           ) 
+            WHERE ROWNO BETWEEN #{startCount} AND #{endCount}
+	</select>
+	<select id="getMyReview"
+			parameterType="map"
+			resultType="com.pettoday.vo.MyReviewVO">
+			select * from (
+                           select rownum rowno, x.* from ( 
+                                                          select  item.item_no rno, item.item_simg rimage, item.item_name rname,item.item_cate_cate1 rcate, review.item_board_content rcontent, review.item_board_date rdate, review.ITEM_BOARD_GRADE rgrade
+                                                          from item_animal item ,item_board review  
+                                                          where item.item_no=review.item_no and review.mem_id =#{sid} 
+                                                          ) x order by rdate desc
+                           ) 
+            WHERE ROWNO BETWEEN #{start} AND #{end}
+	</select>
+	<select id="getMyReviewcount" 
+			parameterType="java.lang.String" 
+			resultType="int">
+			select count(*) from (select  item.item_no rno, item.item_img rimage, item.item_name rname,item.item_cate_cate1 rcate, review.item_board_content rcontent, review.item_board_date rdate, review.ITEM_BOARD_GRADE rgrade
+			from item_animal item ,item_board review  
+			where item.item_no=review.item_no and review.mem_id =#{sid})
+	</select>
+</mapper>
+	

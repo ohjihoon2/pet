@@ -1,0 +1,259 @@
+$(document).ready(function() {
+	
+	
+	/** 로그인 폼 유효성 체크 **/
+	$("button#btnLogin").click(function() {
+		if ($("#id").val() == 0) {
+			alert("아이디를 입력해주세요.");
+			$("#id").focus();
+		} else if ($("#pass").val() == 0) {
+			alert("비밀번호를 입력해주세요.");
+			$("#pass").focus();
+		} else {
+			loginform.submit();
+		}
+	});
+	
+	/** 비밀번호찾기 유효성 체크 **/
+	$("button#btnLoginPw").click(function() {
+		if ($("#id").val() == 0) {
+			alert("아이디를 입력해주세요.");
+			$("#id").focus();
+		} else if ($("#pass").val() == 0) {
+			alert("이메일을 입력해주세요.");
+			$("#pass").focus();
+		} else {
+			loginPwform.submit();
+		}
+	});
+	
+	/** 아이디찾기 유효성 체크 **/
+	$("button#btnLoginId").click(function() {
+		if ($("#id").val() == 0) {
+			alert("이름을 입력해주세요.");
+			$("#id").focus();
+		} else if ($("#pass").val() == 0) {
+			alert("이메일을 입력해주세요.");
+			$("#pass").focus();
+		} else {
+			loginIdform.submit();
+		}
+	});
+	
+	
+	
+	
+	/** 회원가입 폼 유효성 체크 **/
+	$("#btnjoin").click(function() {		
+		
+			if ($("#id_join").val() == 0) {
+				alert("아이디를 입력해 주세요.");
+				$("#id_join").focus();
+			} else if ($("#pass").val() == 0) {
+				alert("비밀번호를 입력해주세요");
+				$("#pass").focus();
+			} else if ($("#cpass").val() == 0) {
+				alert("비밀번호를 입력해주세요");
+				$("#cpass").focus();
+			}else if ($("#name").val() == 0) {
+				alert("이름을 입력해 주세요.");
+				$("#name").focus();
+			}else if ($("#dogcatname").val() == 0) {
+				alert("애완동물 이름을 입력해 주세요.");
+				$("#dogcatname").focus();
+			} else if ($(':radio[name="mem_dogcat"]:checked').length<1) {
+				alert("강아지/고양이를 선택해주세요");
+				dogcat1.focus();
+			    event.preventDefault();
+			} else if ($("#dogorcat").val() == 0) {
+				alert("견종/묘종을 입력해 주세요.");
+				$("#dogorcat").focus();
+			} else if ($("#email1").val() == 0) {
+				alert("이메일을 입력해주세요.");
+				$("#email1").focus();
+			}  else if ($("#email2").val() == 0) {
+				alert("이메일을 입력해주세요.");
+				$("#email2").focus();
+			}else if ($("#phone").val() == 0) {
+				alert("전화번호를 입력해주세요.");
+				$("#phone").focus();
+			} else if ($("#sample4_postcode").val() == 0) {
+				alert("우편번호 찾기를 해주세요..");
+				$("#sample4_postcode").focus();
+			}else if ($("#sample4_roadAddress").val() == 0) {
+				alert("우편번호 찾기를 해주세요.");
+				$("#sample4_roadAddress").focus();
+			}else if ($("#sample4_detailAddress").val() == 0) {
+				alert("주소를 입력해주세요.");
+				$("#sample4_detailAddress").focus();
+			}else if ($("#memProfileimg").val() == 0) {
+				alert("프로필사진을 등록해 주세요.");
+				$("#memProfileimg").focus();
+			}else {
+				alert("회원가입이 완료되었습니다.");
+				joinform.submit();
+			}
+	});//form check
+	
+	/** 암호일치 체크 **/
+	$("#cpass").focusout(function() {
+		if ($("#pass").val() == "") {
+			alert("암호를 입력해주세요.");
+			$("#pass").focus();
+		} else {
+			if ($("#cpass").val() != "") {
+				$("#cpass").css("margin-bottom","5px");
+				if ($("#pass").val() == $("#cpass").val()) {
+					$("#passCheckResult").css("margin-left","25px").css("display", "block").css("color", "blue").css("margin-bottom", "10px").css("text-align", "left")
+					.css("font-size", "10pt").text("암호가 일치합니다.");
+				} else {
+					$("#passCheckResult").css("margin-left","25px").css("display", "block").css("color", "red").css("margin-bottom", "10px").css("text-align", "left")
+					.css("font-size", "10pt").text("암호가 불일치합니다. 다시 입력해 주세요.");
+					$("#pass").val("");
+					$("#cpass").val("");
+					$("#pass").focus();
+				}
+			}
+		}
+	});//pass & cpass check
+	
+	$("#id_join").focusout(function(){
+		if($("#id_join").val() != ""){
+			$.ajax({
+				url : "id_check_process.do?mem_id=" + $("#id_join").val(),
+				success : function(result) {
+					$("#id_join").css("margin-bottom","5px");
+					if (result == 0) {
+							$("#msg").text("사용 가능한 번호입니다.").css("color", "blue").css("font-size", "10pt").css("display", "block").css("text-align", "left").css("margin-left", "25px").css("margin-bottom", "10px");
+					} else {
+						$("#msg").text("이미 사용중인 번호입니다.").css("color", "red").css("font-size", "10pt").css("display", "block").css("text-align", "left").css("margin-left", "25px").css("margin-bottom", "10px");
+						$("#id_join").val("").focus();
+					}
+				}
+			});
+		}
+	});
+
+
+/**주소찾기**/
+function sample4_execDaumPostcode() {
+	new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = ''; // 참고 항목 변수
+
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraRoadAddr += data.bname;
+            }
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('sample4_postcode').value = data.zonecode;
+            document.getElementById("sample4_roadAddress").value = roadAddr;
+            document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+            
+            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+            if(roadAddr !== ''){
+                document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+            } else {
+                document.getElementById("sample4_extraAddress").value = '';
+            }
+
+            var guideTextBox = document.getElementById("guide");
+            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+            if(data.autoRoadAddress) {
+                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                guideTextBox.style.display = 'block';
+
+            } else if(data.autoJibunAddress) {
+                var expJibunAddr = data.autoJibunAddress;
+                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                guideTextBox.style.display = 'block';
+            } else {
+                guideTextBox.innerHTML = '';
+                guideTextBox.style.display = 'none';
+            }
+        }
+    }).open();
+}
+});
+
+function enterkey() {
+	if (window.event.keyCode == 13) {
+		if ($("#id").val() == 0) {
+			alert("아이디를 입력해주세요.");
+			$("#id").focus();
+		} else if ($("#pass").val() == 0) {
+			alert("비밀번호를 입력해주세요.");
+			$("#pass").focus();
+		} else {
+			loginform.submit();
+		}
+	}
+}
+
+function enterkey2() {
+	if (window.event.keyCode == 13) {
+		if ($("#id_join").val() == 0) {
+			alert("아이디를 입력해 주세요.");
+			$("#id_join").focus();
+		} else if ($("#pass").val() == 0) {
+			alert("비밀번호를 입력해주세요");
+			$("#pass").focus();
+		} else if ($("#cpass").val() == 0) {
+			alert("비밀번호를 입력해주세요");
+			$("#cpass").focus();
+		}else if ($("#name").val() == 0) {
+			alert("이름을 입력해 주세요.");
+			$("#name").focus();
+		}else if ($("#dogcatname").val() == 0) {
+			alert("애완동물 이름을 입력해 주세요.");
+			$("#dogcatname").focus();
+		} else if ($(':radio[name="mem_dogcat"]:checked').length<1) {
+			alert("강아지/고양이를 선택해주세요");
+			dogcat1.focus();
+		    event.preventDefault();
+		} else if ($("#dogorcat").val() == 0) {
+			alert("견종/묘종을 입력해 주세요.");
+			$("#dogorcat").focus();
+		} else if ($("#email1").val() == 0) {
+			alert("이메일을 입력해주세요.");
+			$("#email1").focus();
+		}  else if ($("#email2").val() == 0) {
+			alert("이메일을 입력해주세요.");
+			$("#email2").focus();
+		}else if ($("#phone").val() == 0) {
+			alert("전화번호를 입력해주세요.");
+			$("#phone").focus();
+		} else if ($("#sample4_postcode").val() == 0) {
+			alert("우편번호 찾기를 해주세요..");
+			$("#sample4_postcode").focus();
+		}else if ($("#sample4_roadAddress").val() == 0) {
+			alert("우편번호 찾기를 해주세요.");
+			$("#sample4_roadAddress").focus();
+		}else if ($("#sample4_detailAddress").val() == 0) {
+			alert("주소를 입력해주세요.");
+			$("#sample4_detailAddress").focus();
+		}else if ($("#memProfileimg").val() == 0) {
+			alert("프로필사진을 등록해 주세요.");
+			$("#memProfileimg").focus();
+		}else {
+			alert("회원가입이 완료되었습니다.");
+			joinform.submit();
+		}
+	}
+}

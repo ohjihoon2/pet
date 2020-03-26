@@ -1,0 +1,209 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index.css">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/vet6_detail.css">
+<link rel="stylesheet" type="text/css"href="http://localhost:9090/pet/css/index_carousel.css">
+<link rel="stylesheet" href="http://localhost:9090/pet/css/navbar_techandall.css"><!-- Navigation CSS -->
+<link href="http://localhost:9090/pet/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script src="http://localhost:9090/pet/js/jquery-3.4.1.min.js"></script>
+<title>전문가 추천</title>
+
+<script>
+	$(document).ready(function(){
+		
+		$('div.pick_img').click(function() {
+			location.href = 'vet6_detail.do';
+		});
+	});
+</script>
+</head>
+<body>
+
+      <!-- header 추가  -->
+      
+ 		
+ 		
+      <!-- 컨텐츠 부분 -->
+       <div id="container">
+      
+       <img src="http://localhost:9090/pet/images/exbanner.png">
+        <div id="contents">
+
+        <div class="sub_content">
+           
+		<div class="content_box">
+			<div class="pick_Page">
+				<!-- 강아지 기획전 -->
+				<div class="main_goods_cont">
+					<div class="plan_tab">
+						<!-- <a class="dog_btn on" href="./pet_doc_list.php?petCategory=d">강아지</a> -->
+						 <li><a class="dog_btn on" href="http://localhost:9090/pet/vet3.do" id="dog" class="ani">강아지</a></li> 
+						 <li><a class="cat_btn" href="http://localhost:9090/pet/vet6.do" id="cat" class="ani">고양이</a></li>
+						<!-- <a class="cat_btn " href="http://www.petsbe.com/pet/pet_doc_list.php?petCategory=c">고양이</a> -->
+					</div>
+					
+					<div class="tab_cont">
+						<div class="main_goods_tab">
+							<ul>
+								<li class="icon1 "><a href="http://localhost:9090/pet/vet4.do" id="step3" class="step"><span>전문가 상담</span></a></li>
+								<li class="icon2"><a href="http://localhost:9090/pet/vet5.do" id="step4" class="step"><span>반려동물 사료 추천</span></a></li>
+								<li class="icon3 on"><a href="http://localhost:9090/pet/vet6.do" id="step5" class="step"><span>전문가 생활 팁</span></a></li>
+							</ul>
+						</div>
+					</div>
+<!------------------------------------------------------------------------------------------------------------------->		
+<!-- 고양이 - 전문가생활 팁 상세페이지 -->
+				<div class="goods_tab_cont">
+					<div class="pick_list">
+						<div class="contents">
+							<div class="a"> 
+							    <div class="b">
+							        <li class="number">NO.1</li>
+							         <h2 style="">고양이와 벤토나이트모래</h2>
+							             <p>[고양이와 벤토나이트모래 Tip!!]</p>
+							    </div>
+							             <p>안녕하세요. 펫츠비 강수 수의사입니다~ 고양이를 반려하다 보면 점점 집안이 고양이 집으로 변해가는 모습을 볼 수도 있습니다. 
+										             그만큼 고양이에게 항상 새로운 뭔가를 주고 싶은 건 보호자의 공통된 마음이 아닐까 싶어요. 
+										             그 중 고양이에게 정말 필수품이라고 할만큼 중요한 것은 바로 사료와 화장실! 화장실은 고양이에게 있어 배변활동을 하는 아주 중요한 공간이지요. 
+										             그런만큼 제대로 관리가 잘 되지 않는다면 고양이가 스트레스를 받거나 비뇨기질환의 유발 가능성까지 높힐 수 있습니다.</p> 	
+							              	<img src="http://localhost:9090/pet/images/vet/cat.jpg">
+							              	  <h2 style="">01 가장 기본적인 모래, 벤토나이트!</h2>
+							              	<p>고양이 모래 종류를 간단하게 분류해보면 벤토나이트, 두부모래, 펠렛, 실리카겔 4종류가 있죠.
+							              	 그 중 고양이는 입자가 가장 작은 벤토나이트를 가장 선호하는 편이에요. 야생에서 사용하던 모래와 비슷하기도 하죠.
+							              	  화산재의 퇴적층이 오랜 시간이 지나면 점토가 된다고 하는데요. 그것을 원료로 해서 만든 것이 벤토나이트입니다.
+							              	   간혹 인공적인 물질이 아닌가 싶어서 걱정을 하시는 분들도 계신데, 벤토나이트는 광물질이라고 하는 것이 더 맞겠죠?</p> 	
+							              	<img src="http://localhost:9090/pet/images/vet/cat.jpg">	
+							              	  <h2 style="">02 벤토나이트의 장점</h2>
+							              	<p>벤토나이트는 기본적으로 다른 모래에 비해 흡수력과 응고력이 높은 편이에요. 
+							              	또한 응고 후에는 딱딱하게 굳어져 청소 시에도 더 편하죠. 
+							              	제조사마다 약간 차이는 있지만 대부분은 같은 응고형 모래인 두부모래와 비교해서 높은 편에 속한답니다. 
+							              	또한 가장 큰 장점은 바로 고양이의 선호도가 높다는 것입니다. 
+							              	고양이마다 차이는 있지만 대부분은 입자가 작은 모래를 더 선호하는데 
+							              	벤토나이트는 시중에 흔히 볼 수 있는 모래 중 가장 입자가 작은 편에 속해요.</p> 	
+							              	<img src="http://localhost:9090/pet/images/vet/cat.jpg">
+							              	  <h2 style="">03 벤토나이트의 단점, 사막화?</h2>
+							              	<p>하지만 벤토나이트는 장점도 있지만 단점도 갖고 있어요. 
+								              	모래 입자가 작기 때문에 집안 곳곳에 모래가 돌아다닐 수 있고 사용 과정에서 먼지가 발생합니다. 
+								              	호흡기가 예민한 아이들은 이 먼지로 인해서 눈물을 흘리거나 기침을 할 수 있어요. 
+								              	이런 문제점에도 불구하고 고양이가 가장 선호하기 때문에 나쁜 모래라고 하긴 어렵습니다. 
+								              	한 가지 팁을 드리자면 제조사마다 먼지의 양이나 입자의 크기는 차이가 있으니, 
+								              	여러 브랜드의 제품을 비교해서 사용해보시는 것도 좋아요.</p> 	
+							              	<img src="http://localhost:9090/pet/images/vet/cat.jpg">               	
+							 </div>
+							
+							
+							<li class="recom_tit">전문가 추천 꿀템</li>
+							
+								<div class="recom_item">	
+									<div>	
+									<a href="#">
+	                       			 <img src="http://localhost:9090/pet/images/vet/feed1.jpg" alt="반려생활 수의사가 만든 건강한 간식 비만도움 80g" title="반려생활 수의사가 만든 건강한 간식 비만도움 80g" class="middle">
+	                  			    </a>
+	                  			    </div>
+	                  			    
+	                  			    <div class="item_info_cont ">
+					                    <div class="item_tit_box">
+					                        <a href="#"><strong class="item_name">반려생활 수의사가 만든 건강한 간식 비만도움 80g</strong></a>
+					                    </div>
+	                   
+						                    <div class="item_money_box">
+						                        
+						                        <strong class="item_price">
+						                            <span><font>9,800</font>원 </span>
+						                        </strong>
+						                    </div>
+											
+	               					</div>
+	 
+								</div>
+							
+								<div class="recom_item">	
+									<div>	
+									<a href="#">
+	                       			 <img src="http://localhost:9090/pet/images/vet/feed1.jpg" alt="반려생활 수의사가 만든 건강한 간식 비만도움 80g" title="반려생활 수의사가 만든 건강한 간식 비만도움 80g" class="middle">
+	                  			    </a>
+	                  			    </div>
+	                  			    
+	                  			    <div class="item_info_cont ">
+					                    <div class="item_tit_box">
+					                        <a href="#"><strong class="item_name">반려생활 수의사가 만든 건강한 간식 비만도움 80g</strong></a>
+					                    </div>
+	                   
+						                    <div class="item_money_box">
+						                        
+						                        <strong class="item_price">
+						                            <span><font>9,800</font>원 </span>
+						                        </strong>
+						                    </div>
+											
+	               					</div>
+	 
+								</div>
+								
+								<div class="recom_item">	
+									<div>	
+									<a href="#">
+	                       			 <img src="http://localhost:9090/pet/images/vet/feed1.jpg" alt="반려생활 수의사가 만든 건강한 간식 비만도움 80g" title="반려생활 수의사가 만든 건강한 간식 비만도움 80g" class="middle">
+	                  			    </a>
+	                  			    </div>
+	                  			    
+	                  			    <div class="item_info_cont ">
+					                    <div class="item_tit_box">
+					                        <a href="#"><strong class="item_name">반려생활 수의사가 만든 건강한 간식 비만도움 80g</strong></a>
+					                    </div>
+	                   
+						                    <div class="item_money_box">
+						                     
+						                        <strong class="item_price">
+						                            <span><font>9,800</font>원 </span>
+						                        </strong>
+						                    </div>
+											
+	               					</div>
+	 
+								</div>
+								
+								<div class="recom_item">	
+									<div>	
+									<a href="#">
+	                       			 <img src="http://localhost:9090/pet/images/vet/feed1.jpg" alt="반려생활 수의사가 만든 건강한 간식 비만도움 80g" title="반려생활 수의사가 만든 건강한 간식 비만도움 80g" class="middle">
+	                  			    </a>
+	                  			    </div>
+	                  			    
+	                  			    <div class="item_info_cont ">
+					                    <div class="item_tit_box">
+					                        <a href="#"><strong class="item_name">반려생활 수의사가 만든 건강한 간식 비만도움 80g</strong></a>
+					                    </div>
+	                   
+						                    <div class="item_money_box">
+						                        
+						                        <strong class="item_price">
+						                            <span><font>9,800</font>원 </span>
+						                        </strong>
+						                    </div>
+											
+	               					</div>
+	 
+								</div>
+							
+							</div>
+						</div>
+					</div>
+							
+				</div>
+			</div>
+			</div>
+			</div>
+     		</div>
+     		</div>
+     	 </div>
+
+   <!-- footer 추가 -->
+ 
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+a{
+	 cursor: pointer;
+	 text-decoration: none;
+}
+aside#amdmin_left{
+	
+	height:1890px;
+}
+
+div#content{
+	width:1611.8px;
+	height:1820px;
+	float: right;
+	border-left: 1px solid #cccccc;
+	background-color: #eeeeee;
+	margin: 0px;
+	
+}
+
+div#vet table {
+	width: 900px;
+	border-spacing: 0;
+	
+	padding: 0px;
+	font-family: "³ª´®°íµñ";
+	font-size: 15px;
+	 margin:120px 0 0 250px;
+	text-align: center;
+	
+}
+div#vet table a{
+	color: black;
+}
+
+
+
+div#vet table tr:first-child td{
+	
+	border-top:solid 1px #c7c7c7;
+	
+}
+div#vet table tr td:first-child{
+	background: #f1f1f1;
+}
+div#vet table tr td:last-child{
+	text-align: left;
+	padding: 0 0 0 30px;
+}
+div#vet table tr td {
+	height: 60px;
+	border-bottom: solid 1px #c7c7c7;
+	border-left: solid 1px #c7c7c7;
+	
+	
+}
+div#vet table tr td:last-child{
+	border-right: solid 1px #c7c7c7;
+}
+
+
+div#vet{
+	width: 1510px;
+	height: 1710px;
+	border: 1px solid #cccccc;
+	border-radius:10px;
+	display: inline-block;
+	background-color: white;
+	margin-top: 50px;
+	margin-left:50px;
+	
+	
+}
+div.vet_btn a:first-child button{
+	 float: right; 
+	background-color: white;
+	padding: 12px;
+	border: 1px solid #cccccc;
+	color: #333333;
+	margin: 15px 360px 0px 0px;
+	padding-left:14px;
+	font-weight: bold;
+	
+}
+div.vet_btn a:nth-child(2) button{
+	 float: right; 
+	background-color: white;
+	padding: 12px;
+	border: 1px solid #cccccc;
+	color: #333333;
+	margin: 15px 20px 0px 0px;
+	padding-left:14px;
+	font-weight: bold;
+	
+}
+div.vet_btn a:nth-child(3) button{
+	 float: right; 
+	background-color: white;
+	padding: 12px;
+	border: 1px solid #cccccc;
+	color: #333333;
+	margin: 15px 20px 0px 0px;
+	padding-left:14px;
+	font-weight: bold;
+	
+}
+.title{
+	float: left;
+	margin: 40px 0px 0 40px;
+}
+.maintt{
+	width: 500px;
+	height: 25px;
+	font-size: 15px;
+}
+.mainct{
+	width: 500px;
+	height: 200px;
+	font-size: 15px;
+	white-space: pre-line;
+	
+}
+.tt2{
+	width: 500px;
+	height: 25px;
+	font-size: 15px;
+}
+.ct2{
+	width: 500px;
+	height: 200px;
+	font-size: 15px;
+	white-space: pre-line;
+	
+}
+
+.tt3{
+	width: 500px;
+	height: 25px;
+	font-size: 15px;
+}
+.ct3{
+	width: 500px;
+	height: 200px;
+	font-size: 15px;
+	white-space: pre-line;
+	
+}
+
+.tt4{
+	width: 500px;
+	height: 25px;
+	font-size: 15px;
+}
+.ct4{
+	width: 500px;
+	height: 200px;
+	font-size: 15px;
+	white-space: pre-line;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
